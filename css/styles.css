@@ -796,6 +796,7 @@ table.editTable td > table > tbody > tr > td > .buttonSmall[value="Выбрат�
 .field-dataset-items .field-dataset-item > td {
     padding-bottom: 8px;
     padding-right: 4px;
+    vertical-align: top;
 }
 .field-dataset-items .field-dataset-item > td .field-dataset-delete {
     padding: 5px;
@@ -810,7 +811,7 @@ table.editTable td > table > tbody > tr > td > .buttonSmall[value="Выбрат�
 }
 .colorpicker-component .input-group-addon {
     width: 40px;
-    line-height: 20px;
+    line-height: 16px;
 }
 .combobox-control > input.form-control {
     width: 225px;
@@ -1658,7 +1659,6 @@ div[id^=fileupload-main_] tbody.files > tr:first-child > td {
 .core-panel.core-panel-default {border-color: #cbcbcb}
 .core-panel.core-panel-default > .core-panel-heading {
     font-weight: normal;
-    overflow: hidden;
 }
 .core-panel.core-panel-default > .core-panel-heading > .core-panel-header {
     font-size: 26px;
@@ -2814,6 +2814,7 @@ table.coreui-table .coreui-table-row-group {
 .coreui-table-wrapper.coreui-table-limit-height .coreui-table-responsive > table > thead {
     position: sticky;
     top: 0;
+    z-index: 1;
 }
 .coreui-table-wrapper.coreui-table-limit-height .coreui-table-responsive > table > tfoot {
     position: sticky;
