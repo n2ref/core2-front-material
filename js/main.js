@@ -295,6 +295,8 @@ var preloader = {
         $("#preloader").show();
 	},
 	hide : function() {
+
+
 		$("#preloader").hide();
 	},
 	callback : function (response, status, xhr) {
@@ -856,10 +858,32 @@ $(document).ready(function() {
         }
     });
 
-	xajax.callback.global.onRequest = function () {
+	xajax.callback.global.onRequest = function (a) {
+
+		if (a.hasOwnProperty('parameters') &&
+			a.parameters.hasOwnProperty('2') &&
+			a.parameters[2].hasOwnProperty('class_id')
+		) {
+			let form_class_id = a.parameters[2].class_id;
+			if (form_class_id.length > 0) {
+				$('#main_' + form_class_id + '_mainform > div.buttons-container > div.buttons-area > input[type="submit"]')
+					.attr('disabled', true);
+			}
+		}
 		preloader.show();
 	};
 	xajax.callback.global.onFailure = function (a) {
+
+		if (a.hasOwnProperty('parameters') &&
+			a.parameters.hasOwnProperty('2') &&
+			a.parameters[2].hasOwnProperty('class_id')
+		) {
+			let form_class_id = a.parameters[2].class_id;
+			if (form_class_id.length > 0) {
+				$('#main_' + form_class_id + '_mainform > div.buttons-container > div.buttons-area > input[type="submit"]')
+					.attr('disabled', false);
+			}
+		}
         preloader.hide();
         if (a.request.status === '0') {
             swal("Превышено время ожидания ответа", 'Проверьте соединение с Интернет', 'error').catch(swal.noop);
@@ -877,7 +901,17 @@ $(document).ready(function() {
 	xajax.callback.global.onExpiration = function () {
 		//alert("Отсутствует соединение с Интернет.");
 	};
-	xajax.callback.global.onComplete = function () {
+	xajax.callback.global.onComplete = function (a) {
+		if (a.hasOwnProperty('parameters') &&
+			a.parameters.hasOwnProperty('2') &&
+			a.parameters[2].hasOwnProperty('class_id')
+		) {
+			let form_class_id = a.parameters[2].class_id;
+			if (form_class_id.length > 0) {
+				$('#main_' + form_class_id + '_mainform > div.buttons-container > div.buttons-area > input[type="submit"]')
+					.attr('disabled', false);
+			}
+		}
 		preloader.hide();
 	};
 	resize();
