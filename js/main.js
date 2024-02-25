@@ -732,19 +732,18 @@ $(function(){
 
 $(window).resize(resize);
 
-$(document).ready(function() {
+document.addEventListener("DOMContentLoaded",
+	(e) => {
 
-    jQuery(document).ready(function() {
-        if ( ! jQuery.support.leadingWhitespace || (document.all && ! document.querySelector)) {
-            $("#mainContainer").prepend(
-                "<h2>" +
-					"<span style=\"color:red\">Внимание!</span> " +
-					"Вы пользуетесь устаревшей версией браузера. " +
-					"Во избежание проблем с работой, рекомендуется обновить текущий или установить другой, более современный браузер." +
-                "</h2>"
-            );
-        }
-    });
+	if ( ! jQuery.support.leadingWhitespace || (document.all && ! document.querySelector)) {
+		$("#mainContainer").prepend(
+			"<h2>" +
+				"<span style=\"color:red\">Внимание!</span> " +
+				"Вы пользуетесь устаревшей версией браузера. " +
+				"Во избежание проблем с работой, рекомендуется обновить текущий или установить другой, более современный браузер." +
+			"</h2>"
+		);
+	}
 
     main_menu.setAngles();
     main_menu.setIconLetter();
@@ -1012,7 +1011,7 @@ $(document).ready(function() {
 });
 
 var currentCategory = "";
-$.ui.autocomplete.prototype._renderItem = function( ul, item){
+$.ui.autocomplete.prototype._renderItem = function( ul, item) {
 	var term = this.term.split(' ').join('|');
 	var t 	 = item.label;
 
@@ -1067,4 +1066,3 @@ if (window.hasOwnProperty('SharedWorker') && typeof window.SharedWorker === 'fun
 	worker.port.postMessage("start");
 	worker.port.postMessage("sse-open");
 }
-
