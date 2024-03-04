@@ -295,6 +295,8 @@ var preloader = {
         $("#preloader").show();
 	},
 	hide : function() {
+
+
 		$("#preloader").hide();
 	},
 	callback : function (response, status, xhr) {
@@ -730,19 +732,18 @@ $(function(){
 
 $(window).resize(resize);
 
-$(document).ready(function() {
+document.addEventListener("DOMContentLoaded",
+	(e) => {
 
-    jQuery(document).ready(function() {
-        if ( ! jQuery.support.leadingWhitespace || (document.all && ! document.querySelector)) {
-            $("#mainContainer").prepend(
-                "<h2>" +
-					"<span style=\"color:red\">Внимание!</span> " +
-					"Вы пользуетесь устаревшей версией браузера. " +
-					"Во избежание проблем с работой, рекомендуется обновить текущий или установить другой, более современный браузер." +
-                "</h2>"
-            );
-        }
-    });
+	if ( ! jQuery.support.leadingWhitespace || (document.all && ! document.querySelector)) {
+		$("#mainContainer").prepend(
+			"<h2>" +
+				"<span style=\"color:red\">Внимание!</span> " +
+				"Вы пользуетесь устаревшей версией браузера. " +
+				"Во избежание проблем с работой, рекомендуется обновить текущий или установить другой, более современный браузер." +
+			"</h2>"
+		);
+	}
 
     main_menu.setAngles();
     main_menu.setIconLetter();
@@ -856,10 +857,32 @@ $(document).ready(function() {
         }
     });
 
-	xajax.callback.global.onRequest = function () {
+	xajax.callback.global.onRequest = function (a) {
+
+		if (a.hasOwnProperty('parameters') &&
+			a.parameters.hasOwnProperty('2') &&
+			a.parameters[2].hasOwnProperty('class_id')
+		) {
+			let form_class_id = a.parameters[2].class_id;
+			if (form_class_id.length > 0) {
+				$('#main_' + form_class_id + '_mainform > div.buttons-container > div.buttons-area > input[type="submit"]')
+					.attr('disabled', true);
+			}
+		}
 		preloader.show();
 	};
 	xajax.callback.global.onFailure = function (a) {
+
+		if (a.hasOwnProperty('parameters') &&
+			a.parameters.hasOwnProperty('2') &&
+			a.parameters[2].hasOwnProperty('class_id')
+		) {
+			let form_class_id = a.parameters[2].class_id;
+			if (form_class_id.length > 0) {
+				$('#main_' + form_class_id + '_mainform > div.buttons-container > div.buttons-area > input[type="submit"]')
+					.attr('disabled', false);
+			}
+		}
         preloader.hide();
         if (a.request.status === '0') {
             swal("Превышено время ожидания ответа", 'Проверьте соединение с Интернет', 'error').catch(swal.noop);
@@ -877,7 +900,17 @@ $(document).ready(function() {
 	xajax.callback.global.onExpiration = function () {
 		//alert("Отсутствует соединение с Интернет.");
 	};
-	xajax.callback.global.onComplete = function () {
+	xajax.callback.global.onComplete = function (a) {
+		if (a.hasOwnProperty('parameters') &&
+			a.parameters.hasOwnProperty('2') &&
+			a.parameters[2].hasOwnProperty('class_id')
+		) {
+			let form_class_id = a.parameters[2].class_id;
+			if (form_class_id.length > 0) {
+				$('#main_' + form_class_id + '_mainform > div.buttons-container > div.buttons-area > input[type="submit"]')
+					.attr('disabled', false);
+			}
+		}
 		preloader.hide();
 	};
 	resize();
@@ -978,7 +1011,7 @@ $(document).ready(function() {
 });
 
 var currentCategory = "";
-$.ui.autocomplete.prototype._renderItem = function( ul, item){
+$.ui.autocomplete.prototype._renderItem = function( ul, item) {
 	var term = this.term.split(' ').join('|');
 	var t 	 = item.label;
 
@@ -1033,4 +1066,3 @@ if (window.hasOwnProperty('SharedWorker') && typeof window.SharedWorker === 'fun
 	worker.port.postMessage("start");
 	worker.port.postMessage("sse-open");
 }
-

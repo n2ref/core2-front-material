@@ -17,7 +17,7 @@ body {
 	background: transparent;
 }
 #mainContainer {
-    padding: 80px 30px 30px;
+    padding: 70px 20px 30px;
 	height: auto;
 }
 #main_body {
@@ -1662,7 +1662,10 @@ div[id^=fileupload-main_] tbody.files > tr:first-child > td {
     /*overflow: hidden;*/
 }
 .core-panel.core-panel-default > .core-panel-heading > .core-panel-header {
-    font-size: 26px;
+    font-size: 24px;
+}
+.core-panel.core-panel-default > .core-panel-heading > .core-panel-header div {
+    font-size: 20px;
 }
 .core-panel > .core-panel-heading {
     padding: 20px 20px 6px 20px;
@@ -2027,7 +2030,7 @@ div[id^=fileupload-main_] tbody.files > tr:first-child > td {
 .core-tabs.core-tabs-default {border-color: #cbcbcb}
 .core-tabs.core-tabs-default > .core-tabs-heading {
     font-weight: normal;
-    font-size: 26px;
+    font-size: 24px;
     overflow: hidden;
 }
 .core-tabs > .core-tabs-heading {
