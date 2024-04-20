@@ -1008,6 +1008,7 @@ document.addEventListener("DOMContentLoaded",
     } catch (e) {
         console.error(e.message)
     }
+
 });
 
 var currentCategory = "";
@@ -1066,3 +1067,4 @@ if (window.hasOwnProperty('SharedWorker') && typeof window.SharedWorker === 'fun
 	worker.port.postMessage("start");
 	worker.port.postMessage("sse-open");
 }
+
