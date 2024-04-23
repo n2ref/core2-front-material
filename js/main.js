@@ -1043,16 +1043,21 @@ if (window.hasOwnProperty('SharedWorker') && typeof window.SharedWorker === 'fun
 	worker.port.addEventListener(
 		"message",
 		function(e) {
-			var evt = e.data.event;
+			const evt = e.data.event;
 			switch (e.data.type) {
 				case 'modules':
 					for (i in evt) {
-						document.dispatchEvent(new CustomEvent(i, {detail: evt[i]}));
+						document.dispatchEvent(new CustomEvent(i, {'detail': evt[i]}));
+					}
+					break;
+				case 'Core2':
+					for (i in evt) {
+						document.dispatchEvent(new CustomEvent("Core2", {'detail': evt[i]}));
 					}
 					break;
 
-				case 'Core2':
-					document.dispatchEvent(new CustomEvent("Core2", {detail: evt}));
+				default:
+					console.log(e.data);
 					break;
 			}
 
@@ -1065,4 +1070,5 @@ if (window.hasOwnProperty('SharedWorker') && typeof window.SharedWorker === 'fun
 	worker.port.start();
 	worker.port.postMessage("start");
 	worker.port.postMessage("sse-open");
+	// worker.port.postMessage("sse-close");
 }
