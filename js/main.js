@@ -537,7 +537,8 @@ var load = function (url, data, id, callback) {
         $('#navbar-top .module-action').text(action_title);
 
 		var siteName = $.trim($('.site-name').text());
-		var title    = siteName + ' - ' + mod_title + (action_title ? (' - ' + action_title) : '');
+		var title    = (action_title ? (action_title + ' - ') : '') + mod_title + ' - ' + siteName;
+
 		$('html > head > title').text(title);
 
         if (xhrs[id]) {
