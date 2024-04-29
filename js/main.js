@@ -403,6 +403,7 @@ $(document).ajaxSuccess(function (event, xhr, settings) {
 
 
 /**
+ * Загрузка контента на страницу
  * @param url
  * @param data
  * @param id
@@ -411,6 +412,13 @@ $(document).ajaxSuccess(function (event, xhr, settings) {
 var load = function (url, data, id, callback) {
 
 	if ( ! id) {
+		if (edit.changeForm.issetChanged()) {
+			edit.changeForm.showConfirm(arguments);
+			return;
+		} else {
+			edit.changeForm.removeListen();
+		}
+
 		id = '#main_body';
 		preloader.show();
 
