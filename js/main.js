@@ -545,7 +545,7 @@ var load = function (url, data, id, callback) {
         $('#navbar-top .module-action').text(action_title);
 
 		var siteName = $.trim($('.site-name').text());
-		var title    = (action_title ? (action_title + ' - ') : '') + mod_title + ' - ' + siteName;
+		var title    = (action_title ? (action_title + ' - ') : '') + (mod_title ? mod_title + ' - ' : '') + siteName;
 
 		$('html > head > title').text(title);
 
