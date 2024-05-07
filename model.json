@@ -19,5 +19,6 @@
     "html-edit-multilist2": "html/edit/multilist2.html",
     "html-edit-multilist3": "html/edit/multilist3.html",
     "html-edit-dataset": "html/edit/dataset.html",
-    "html-edit-files": "html/edit/files.html"
+    "html-edit-files": "html/edit/files.html",
+    "html-edit-tags": "html/edit/tags.html"
 }

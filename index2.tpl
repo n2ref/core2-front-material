@@ -28,7 +28,7 @@
 	<link rel="stylesheet" href="core2/html/material/css/animate.min.css" type="text/css"/>
 	<link rel="stylesheet" href="core2/html/material/css/snarl.min.css" type="text/css"/>
 	<link rel="stylesheet" href="core2/html/material/css/menu.css?_=9" type="text/css"/>
-	<link rel="stylesheet" href="core2/html/material/css/styles.css?_=32" type="text/css"/>
+	<link rel="stylesheet" href="core2/html/material/css/styles.css?_=36" type="text/css"/>
 
 	<link rel="stylesheet" href="core2/html/material/css/select2.bootstrap.css" type="text/css"/>
 	<link rel="stylesheet" href="core2/html/material/css/select2.min.css" type="text/css"/>
@@ -47,8 +47,8 @@
 	<script type="text/javascript" src="core2/html/material/js/es6-promise.auto.min.js"></script>
 	<script type="text/javascript" src="core2/html/material/js/sweetalert2.min.js?_=2"></script>
 	<script type="text/javascript" src="core2/html/material/js/coreui.notice.js?_=1"></script>
-	<script type="text/javascript" src="core2/html/material/js/coreui.table.js?_=14"></script>
-	<script type="text/javascript" src="core2/html/material/js/coreui.panel.js?_=0"></script>
+	<script type="text/javascript" src="core2/html/material/js/coreui.table.js?_=15"></script>
+	<script type="text/javascript" src="core2/html/material/js/coreui.panel.js?_=1"></script>
 	<script type="text/javascript" src="core2/html/material/js/coreui.tabs.js?_=0"></script>
 
 	<script type="text/javascript" src="core2/html/material/js/select2.min.js"></script>
@@ -67,9 +67,9 @@
 	<![endif]-->
 
 	<script type="text/javascript" src="core2/html/material/js/class.list.js?_=3"></script>
-	<script type="text/javascript" src="core2/html/material/js/class.edit.js?_=20"></script>
+	<script type="text/javascript" src="core2/html/material/js/class.edit.js?_=21"></script>
 	<script type="text/javascript" src="core2/js/eTip.js"></script>
-	<script type="text/javascript" src="core2/html/material/js/main.js?_=10"></script>
+	<script type="text/javascript" src="core2/html/material/js/main.js?_=11"></script>
     <!--[if IE]>
     <link rel="shortcut icon" type="image/x-icon" href="favicon.ico"/>
     <![endif]-->

@@ -632,6 +632,9 @@ table.editTable {
     min-width: 190px;
     box-sizing: border-box;
 }
+.eFirstCell .fa.fa-info-circle {
+    cursor: help;
+}
 .newRulesModule {
 	text-decoration:underline;
 	cursor:pointer;
@@ -2056,6 +2059,8 @@ div[id^=fileupload-main_] tbody.files > tr:first-child > td {
 .core-tabs > .core-tabs-body .pill-content > .active {display: block}
 
 .core-tabs > .core-tabs-body > .core-tabs-tabs {
+    display: inline-block;
+    width: 100%;
     padding-left: 0;
     margin-bottom: 20px;
     list-style: none;
@@ -2689,9 +2694,34 @@ table.coreui-table .search-container .control-type-text_strict input,
 table.coreui-table .search-container .control-type-select select,
 table.coreui-table .search-container .control-type-select2 select,
 table.coreui-table .search-container .control-type-multiselect2 select,
-table.coreui-table .search-container .control-type-multiselect select {
+table.coreui-table .search-container .control-type-multiselect select,
+table.coreui-table .search-container .control-type-autocomplete input,
+table.coreui-table .search-container .control-type-autocomplete_table input {
     width: 180px;
 }
+table.coreui-table .search-container .control-type-autocomplete_table input {
+    display: inline-block;
+    padding-right: 25px;
+}
+table.coreui-table .search-container .control-type-autocomplete input.ui-autocomplete-loading,
+table.coreui-table .search-container .control-type-autocomplete_table input.ui-autocomplete-loading {
+    background-image: url("../img/load.gif");
+    background-position-y: center;
+    background-position-x: 97%;
+    background-repeat: no-repeat;
+}
+table.coreui-table .search-container .control-type-autocomplete_table .search-icon {
+    display: inline-block;
+    position: relative;
+    right: 25px;
+    color: #666;
+    top: 1px;
+}
+table.coreui-table .search-container .control-type-autocomplete_table input.ui-autocomplete-loading + .search-icon {
+    display: none;
+}
+
+
 table.coreui-table .column-switcher-container form  {
      margin-bottom: 10px;
 }
