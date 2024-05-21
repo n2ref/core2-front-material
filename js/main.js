@@ -1096,5 +1096,6 @@ if (window.hasOwnProperty('SharedWorker') && typeof window.SharedWorker === 'fun
 		},
 		false,
 	);
+    
 }
 
