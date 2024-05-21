@@ -1064,6 +1064,7 @@ if (window.hasOwnProperty('SharedWorker') && typeof window.SharedWorker === 'fun
 					for (i in evt) {
 						document.dispatchEvent(new CustomEvent("Core2", {'detail': evt[i]}));
 					}
+					//console.log(evt)
 					break;
 
 				default:
@@ -1081,5 +1082,19 @@ if (window.hasOwnProperty('SharedWorker') && typeof window.SharedWorker === 'fun
 	worker.port.postMessage("start");
 	worker.port.postMessage("sse-open");
 	// worker.port.postMessage("sse-close");
+
+	document.addEventListener(
+		"Core2-Fact",
+		(e) => {
+			e.detail.forEach(function (data){
+				const e = JSON.parse(data);
+				console.log(e)
+				if (e.element) {
+					$(e.element.selector).html(e.element.text);
+				}
+			})
+		},
+		false,
+	);
 }
 
