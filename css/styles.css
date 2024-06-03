@@ -1697,6 +1697,7 @@ div[id^=fileupload-main_] tbody.files > tr:first-child > td {
     font-weight: normal;
     overflow: hidden;
     padding: 5px 0 0;
+    width: 100%;
 }
 
 .core-panel > .core-panel-heading > .core-panel-controls {
