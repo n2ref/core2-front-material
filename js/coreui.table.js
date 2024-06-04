@@ -99,7 +99,9 @@ CoreUI.table = {
                     });
 
                 } else {
-                    load(CoreUI.table.loc[resource] + '&_page_' + resource + '=1', post, container, function () {
+                    var path = CoreUI.table._resetPathPage(resource);
+
+                    load(path, post, container, function () {
                         preloader.callback();
                         CoreUI.table._callEventReload(resource);
                     });
@@ -134,7 +136,11 @@ CoreUI.table = {
                     });
 
                 } else {
-                    load(CoreUI.table.loc[resource] + '&_page_' + resource + '=1', post, container, function () {
+                    var path = CoreUI.table._resetPathPage(resource);
+
+                    console.log(path)
+
+                    load(path, post, container, function () {
                         preloader.callback();
                         CoreUI.table._callEventReload(resource);
                     });
@@ -170,7 +176,9 @@ CoreUI.table = {
                     });
 
                 } else {
-                    load(CoreUI.table.loc[resource] + '&_page_' + resource + '=1', post, container, function () {
+                    var path = CoreUI.table._resetPathPage(resource);
+
+                    load(path, post, container, function () {
                         preloader.callback();
                         CoreUI.table._callEventReload(resource);
                     });
@@ -237,7 +245,8 @@ CoreUI.table = {
                     });
 
                 } else {
-                    load(CoreUI.table.loc[resource] + '&_page_' + resource + '=1', post, container, function () {
+                    var path = CoreUI.table._resetPathPage(resource);
+                    load(path, post, container, function () {
                         preloader.callback();
                         CoreUI.table._callEventReload(resource);
                     });
@@ -812,7 +821,9 @@ CoreUI.table = {
                             });
 
                         } else {
-                            load(CoreUI.table.loc[resource] + '&_page_' + resource + '=1', searchControls, '', function () {
+                            var path = CoreUI.table._resetPathPage(resource);
+
+                            load(path, searchControls, '', function () {
                                 preloader.hide();
                                 CoreUI.table._callEventReload(resource);
                             });
@@ -900,7 +911,9 @@ CoreUI.table = {
                     });
 
                 } else {
-                    load(CoreUI.table.loc[resource] + '&_page_' + resource + '=1', post, '', function () {
+                    var path = CoreUI.table._resetPathPage(resource);
+
+                    load(path, post, '', function () {
                         preloader.hide();
                         CoreUI.table._callEventReload(resource);
                     });
@@ -1010,7 +1023,9 @@ CoreUI.table = {
             preloader.hide();
 
         } else {
-            load(CoreUI.table.loc[resource] + '&_page_' + resource + '=1', post, container, function () {
+            var path = this._resetPathPage(resource);
+
+            load(path, post, container, function () {
                 preloader.callback();
                 CoreUI.table._callEventReload(resource);
             });
@@ -1507,7 +1522,10 @@ CoreUI.table = {
 
         var post = {};
         post['count_' + resource] = select.value;
-        load(CoreUI.table.loc[resource] + '&_page_' + resource + '=1', post, container, function () {
+
+        var path = this._resetPathPage(resource);
+
+        load(path, post, container, function () {
             CoreUI.table.preloader.hide(resource);
             preloader.callback();
             CoreUI.table._callEventReload(resource);
@@ -1524,6 +1542,28 @@ CoreUI.table = {
     _isObject: function (variable) {
 
         return typeof variable === 'object' && variable !== null && ! Array.isArray(variable);
+    },
+
+
+    /**
+     * Очистка номера страницы в адресе
+     * @param resource
+     * @return path
+     * @private
+     */
+    _resetPathPage: function(resource) {
+
+        var path      = 'index.php#' + CoreUI.table.loc[resource];
+        var pageParam = '_page_' + resource;
+
+        if (path.indexOf(pageParam) >= 0) {
+            var regexp = new RegExp('&' + pageParam + '=\\d+', 'g');
+            path = path.replace(regexp, '');
+
+            window.history.pushState({ path: path }, '', path);
+        }
+
+        return path;
     }
 };
 
