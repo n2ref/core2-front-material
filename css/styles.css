@@ -1647,19 +1647,21 @@ div[id^=fileupload-main_] tbody.files > tr:first-child > td {
 }
 .core-panel {
     margin-bottom: 20px;
+}
+.core-panel.core-panel-default {
+    border-color: #cbcbcb;
     background-color: #fff;
     border: none;
     -webkit-box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
-       -moz-box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
-         -o-box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
-            box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
+    -moz-box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
+    -o-box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
     -webkit-border-radius: 4px;
-       -moz-border-radius: 4px;
-        -ms-border-radius: 4px;
-         -o-border-radius: 4px;
-            border-radius: 4px;
+    -moz-border-radius: 4px;
+    -ms-border-radius: 4px;
+    -o-border-radius: 4px;
+    border-radius: 4px;
 }
-.core-panel.core-panel-default {border-color: #cbcbcb}
 .core-panel.core-panel-default > .core-panel-heading {
     font-weight: normal;
     /*overflow: hidden;*/
@@ -1721,19 +1723,14 @@ div[id^=fileupload-main_] tbody.files > tr:first-child > td {
     margin-bottom: 20px;
     list-style: none;
     border-bottom: 1px solid #ddd;
-}
-.core-panel > .core-panel-body > .core-panel-tabs:after,
-.core-panel > .core-panel-body > .core-panel-tabs:before {
-    display: table;
-    content: " ";
-    clear: both;
+    font-size: 0;
 }
 .core-panel > .core-panel-body > .core-panel-tabs > li {
     position: relative;
-    display: block;
-    float: left;
+    display: inline-block;
     margin-top: -1px;
     margin-bottom: -1px;
+    font-size: 1rem;
 }
 .core-panel > .core-panel-body > .core-panel-tabs > li > a {
     margin-right: 2px;
