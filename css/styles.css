@@ -1648,7 +1648,6 @@ div[id^=fileupload-main_] tbody.files > tr:first-child > td {
 .core-panel {
     display: flex;
     flex-direction: column;
-    margin-bottom: 20px;
 }
 .core-panel.core-panel-default {
     border-color: #cbcbcb;
@@ -1663,6 +1662,7 @@ div[id^=fileupload-main_] tbody.files > tr:first-child > td {
     -ms-border-radius: 4px;
     -o-border-radius: 4px;
     border-radius: 4px;
+    margin-bottom: 20px;
 }
 .core-panel > .core-panel-heading {
     font-weight: normal;
@@ -1719,7 +1719,6 @@ div[id^=fileupload-main_] tbody.files > tr:first-child > td {
 .core-panel > .core-panel-body {
     display: flex;
     flex-direction: column;
-    padding-top: 25px;
 }
 .core-panel.core-panel-default > .core-panel-body {
     padding: 25px 20px;
