@@ -1646,6 +1646,8 @@ div[id^=fileupload-main_] tbody.files > tr:first-child > td {
     cursor: pointer;
 }
 .core-panel {
+    display: flex;
+    flex-direction: column;
     margin-bottom: 20px;
 }
 .core-panel.core-panel-default {
