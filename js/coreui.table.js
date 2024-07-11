@@ -99,7 +99,9 @@ CoreUI.table = {
                     });
 
                 } else {
-                    load(CoreUI.table.loc[resource] + '&_page_' + resource + '=1', post, container, function () {
+                    var path = CoreUI.table._resetPathPage(resource);
+
+                    load(path, post, container, function () {
                         preloader.callback();
                         CoreUI.table._callEventReload(resource);
                     });
@@ -134,7 +136,11 @@ CoreUI.table = {
                     });
 
                 } else {
-                    load(CoreUI.table.loc[resource] + '&_page_' + resource + '=1', post, container, function () {
+                    var path = CoreUI.table._resetPathPage(resource);
+
+                    console.log(path)
+
+                    load(path, post, container, function () {
                         preloader.callback();
                         CoreUI.table._callEventReload(resource);
                     });
@@ -170,7 +176,9 @@ CoreUI.table = {
                     });
 
                 } else {
-                    load(CoreUI.table.loc[resource] + '&_page_' + resource + '=1', post, container, function () {
+                    var path = CoreUI.table._resetPathPage(resource);
+
+                    load(path, post, container, function () {
                         preloader.callback();
                         CoreUI.table._callEventReload(resource);
                     });
@@ -237,7 +245,8 @@ CoreUI.table = {
                     });
 
                 } else {
-                    load(CoreUI.table.loc[resource] + '&_page_' + resource + '=1', post, container, function () {
+                    var path = CoreUI.table._resetPathPage(resource);
+                    load(path, post, container, function () {
                         preloader.callback();
                         CoreUI.table._callEventReload(resource);
                     });
@@ -303,34 +312,62 @@ CoreUI.table = {
                         container.find('.period-value-end')
                             .after('<input type="hidden" name="filter[' + resource + '][' + key + '][all]" value="1" class="period-input-all">');
 
-                    } else if (typeof periodCount === 'number' && periodCount >= 0) {
-                        let start = null;
+                    } else if (typeof periodCount === 'number') {
+                        let start = moment();
                         let end   = moment();
 
-                        switch (periodType) {
-                            case 'days':
-                                start = moment().subtract(periodCount, "days");
-                                break;
+                        if (periodCount <= 0) {
+                            switch (periodType) {
+                                case 'days':
+                                    start = moment().add(periodCount, "days");
+                                    break;
 
-                            case 'week':
-                                start = moment().subtract(periodCount, "weeks");
-                                start.weekday(0);
-                                break;
+                                case 'week':
+                                    start = moment().add(periodCount, "weeks");
+                                    start.weekday(0);
+                                    break;
 
-                            case 'month':
-                                start = moment().subtract(periodCount, "months");
-                                start.date(1);
-                                break;
+                                case 'month':
+                                    start = moment().add(periodCount, "months");
+                                    start.date(1);
+                                    break;
 
-                            case 'year':
-                                start = moment().subtract(periodCount, "years");
-                                start.set('month', 1);
-                                start.set('date', 1);
-                                break;
+                                case 'year':
+                                    start = moment().add(periodCount, "years");
+                                    start.set('month', 1);
+                                    start.set('date', 1);
+                                    break;
 
-                            default:
-                                throw new Error('Указан некорректный тип периода');
-                                break;
+                                default:
+                                    throw new Error('Указан некорректный тип периода');
+                                    break;
+                            }
+
+                        } else {
+                            switch (periodType) {
+                                case 'days':
+                                    end = moment().add(periodCount, "days");
+                                    break;
+
+                                case 'week':
+                                    end = moment().add(periodCount, "weeks");
+                                    end.weekday(7);
+                                    break;
+
+                                case 'month':
+                                    end = moment().add(periodCount, "months");
+                                    end.endOf('month');
+                                    break;
+
+                                case 'year':
+                                    end = moment().add(periodCount, "years");
+                                    end.endOf('year');
+                                    break;
+
+                                default:
+                                    throw new Error('Указан некорректный тип периода');
+                                    break;
+                            }
                         }
 
                         dateStartFormat = start.format('DD.MM.YYYY');
@@ -812,7 +849,9 @@ CoreUI.table = {
                             });
 
                         } else {
-                            load(CoreUI.table.loc[resource] + '&_page_' + resource + '=1', searchControls, '', function () {
+                            var path = CoreUI.table._resetPathPage(resource);
+
+                            load(path, searchControls, '', function () {
                                 preloader.hide();
                                 CoreUI.table._callEventReload(resource);
                             });
@@ -900,7 +939,9 @@ CoreUI.table = {
                     });
 
                 } else {
-                    load(CoreUI.table.loc[resource] + '&_page_' + resource + '=1', post, '', function () {
+                    var path = CoreUI.table._resetPathPage(resource);
+
+                    load(path, post, '', function () {
                         preloader.hide();
                         CoreUI.table._callEventReload(resource);
                     });
@@ -1010,7 +1051,9 @@ CoreUI.table = {
             preloader.hide();
 
         } else {
-            load(CoreUI.table.loc[resource] + '&_page_' + resource + '=1', post, container, function () {
+            var path = this._resetPathPage(resource);
+
+            load(path, post, container, function () {
                 preloader.callback();
                 CoreUI.table._callEventReload(resource);
             });
@@ -1507,7 +1550,10 @@ CoreUI.table = {
 
         var post = {};
         post['count_' + resource] = select.value;
-        load(CoreUI.table.loc[resource] + '&_page_' + resource + '=1', post, container, function () {
+
+        var path = this._resetPathPage(resource);
+
+        load(path, post, container, function () {
             CoreUI.table.preloader.hide(resource);
             preloader.callback();
             CoreUI.table._callEventReload(resource);
@@ -1524,6 +1570,28 @@ CoreUI.table = {
     _isObject: function (variable) {
 
         return typeof variable === 'object' && variable !== null && ! Array.isArray(variable);
+    },
+
+
+    /**
+     * Очистка номера страницы в адресе
+     * @param resource
+     * @return path
+     * @private
+     */
+    _resetPathPage: function(resource) {
+
+        var path      = 'index.php#' + CoreUI.table.loc[resource];
+        var pageParam = '_page_' + resource;
+
+        if (path.indexOf(pageParam) >= 0) {
+            var regexp = new RegExp('&' + pageParam + '=\\d+', 'g');
+            path = path.replace(regexp, '');
+
+            window.history.pushState({ path: path }, '', path);
+        }
+
+        return path;
     }
 };
 
