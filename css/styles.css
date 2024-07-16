@@ -665,6 +665,14 @@ table.editTable td > table > tbody > tr > td > .buttonSmall[value="Выбрат�
     border-top-left-radius: 0;
     margin-left: -1px;
 }
+table.editTable td > .map-coordinates input {
+    margin-bottom: 5px;
+}
+table.editTable td > .map-coordinates .map-container {
+    margin-bottom: 15px;
+    border-radius: 4px;
+    overflow: hidden;
+}
 .requiredStar {
 	color:red !important;
 	padding:3px;
