@@ -1488,6 +1488,70 @@ var edit = {
 	},
 
 
+	fieldImport: {
+
+
+		/**
+		 * Инициализация визуального редактора для импорта
+		 * @param {string} field
+		 */
+		init: function (field) {
+
+			let container = $('.field-import-' + field);
+
+			$('thead select', container).change(function (event) {
+				let selectChanged = this;
+
+				$('thead select', container).each(function (i, select) {
+					if (selectChanged !== select &&
+						$(selectChanged).val() === $(select).val()
+					) {
+						$(select).val('');
+					}
+				});
+
+				fillInputImport();
+			});
+
+
+			$('.row-number input', container).change(function () {
+				let numberChanged = this;
+
+				$('.row-number input', container).each(function (i, input) {
+					if (numberChanged !== input && $(input).prop('checked')) {
+						$(input).prop('checked', false);
+					}
+				});
+
+				fillInputImport();
+			});
+
+
+			/**
+			 * Заполнение поля для импорта
+			 */
+			function fillInputImport() {
+
+				let importData = {};
+
+				importData.first_row = $(".row-number input:checked", container).val();
+				importData.fields    = {};
+
+				$("thead select", container).each(function (i, select) {
+					let fieldName   = $(select).val();
+					let fieldNumber = $(select).data('field-number');
+
+					if (fieldName) {
+						importData['fields'][fieldName] = fieldNumber;
+					}
+				});
+
+				$(".input-import", container).val(JSON.stringify(importData));
+			}
+		}
+	},
+
+
 	/**
 	 * @param container
 	 */
