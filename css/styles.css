@@ -1984,7 +1984,7 @@ div[id^=fileupload-main_] tbody.files > tr:first-child > td {
     color: #757575;
     background: #fff;
     border: 1px solid #ddd;
-    margin-left: -3px;
+    margin-left: -1px;
     border-radius: 0;
 }
 .core-panel.core-panel-steps-top > .core-panel-body > .core-panel-tabs > li:not(:first-child) > a {
