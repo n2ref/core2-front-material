@@ -1488,6 +1488,70 @@ var edit = {
 	},
 
 
+	fieldImport: {
+
+
+		/**
+		 * Инициализация визуального редактора для импорта
+		 * @param {string} field
+		 */
+		init: function (field) {
+
+			let container = $('.field-import-' + field);
+
+			$('thead select', container).change(function (event) {
+				let selectChanged = this;
+
+				$('thead select', container).each(function (i, select) {
+					if (selectChanged !== select &&
+						$(selectChanged).val() === $(select).val()
+					) {
+						$(select).val('');
+					}
+				});
+
+				fillInputImport();
+			});
+
+
+			$('.row-number input', container).change(function () {
+				let numberChanged = this;
+
+				$('.row-number input', container).each(function (i, input) {
+					if (numberChanged !== input && $(input).prop('checked')) {
+						$(input).prop('checked', false);
+					}
+				});
+
+				fillInputImport();
+			});
+
+
+			/**
+			 * Заполнение поля для импорта
+			 */
+			function fillInputImport() {
+
+				let importData = {};
+
+				importData.first_row = $(".row-number input:checked", container).val();
+				importData.fields    = {};
+
+				$("thead select", container).each(function (i, select) {
+					let fieldName   = $(select).val();
+					let fieldNumber = $(select).data('field-number');
+
+					if (fieldName) {
+						importData['fields'][fieldName] = fieldNumber;
+					}
+				});
+
+				$(".input-import", container).val(JSON.stringify(importData));
+			}
+		}
+	},
+
+
 	/**
 	 * @param container
 	 */
@@ -1537,6 +1601,179 @@ var edit = {
 			options[k] = opt[k];
 		}
 		tinymce.init(options);
+	},
+	
+
+	coordinates: {
+
+		/**
+		 * Создание экземпляра карты
+		 * @param {Object} options
+		 */
+		create: function (options) {
+
+			if (typeof options.mapContainer != 'object') {
+				console.warn("При инициализации карты не указан или некорректно указан параметр mapContainer");
+				return;
+			}
+
+			if (typeof options.inputCoordinates != 'object') {
+				console.warn("При инициализации карты не указан или некорректно указан параметр inputCoordinates");
+				return;
+			}
+
+			if (typeof options.apikey != 'string') {
+				console.warn("При инициализации карты не указан или некорректно указан APIKEY Яндекс карт");
+				return;
+			}
+
+			let promise  = this.loadYMap(options.apikey);
+			let instance = $.extend(true, {}, this.instance);
+
+			promise.then(function () {
+				instance.init({
+					mapContainer: options.mapContainer,
+					inputCoordinates: options.inputCoordinates,
+					center: options.hasOwnProperty('center') ? options.center : null,
+					zoom: options.hasOwnProperty('zoom') ? options.zoom : 10,
+					apikey: options.apikey,
+				});
+			});
+		},
+
+
+		/**
+		 * Загрузка скриптов для яндекс карт
+		 * @param apikey
+		 * @returns {Promise<unknown>}
+		 */
+		loadYMap: function (apikey) {
+
+			return new Promise(function (resolve) {
+				if (window.hasOwnProperty('ymaps')) {
+					resolve();
+
+				} else {
+					$.getScript("https://api-maps.yandex.ru/2.1/?lang=ru_RU&apikey=" + apikey, function (data, textStatus, jqxhr) {
+						ymaps.ready(resolve);
+					});
+				}
+			});
+		},
+
+
+		instance: {
+			_map: null,
+			_mapContainer: null,
+			_mapCenter: null,
+			_mapZoom: null,
+			_mapPlacemark: null,
+			_inputCoordinates: null,
+			_apikey: null,
+
+
+			/**
+			 * Инициализация
+			 * @param {object} options
+			 */
+			init: function (options) {
+
+				this._mapContainer     = options.mapContainer
+				this._inputCoordinates = options.inputCoordinates;
+				this._mapCenter        = options.center;
+				this._mapZoom          = options.zoom;
+				this._apikey           = options.apikey;
+
+
+
+				let lat = this._mapCenter[0];
+				let lng = this._mapCenter[1];
+
+				if ($(this._inputCoordinates).val()) {
+					let coordinates = $(this._inputCoordinates).val().split(',');
+					lat = coordinates[0].trim();
+					lng = coordinates[1].trim();
+				}
+
+				this._map = new ymaps.Map(this._mapContainer, {
+					center: [lat, lng],
+					zoom: this._mapZoom,
+					controls: [],
+					dragCursor: 'arrow'
+				}, {
+					yandexMapDisablePoiInteractivity: true,
+					suppressMapOpenBlock: true,
+					avoidFractionalZoom: false,
+					autoFitToViewport: 'always'
+				});
+
+
+
+				this._mapPlacemark = new ymaps.Placemark([lat, lng], {}, {
+					iconLayout: 'default#image',
+					draggable: true
+				});
+
+				let that = this;
+
+				this._mapPlacemark.events.add("dragend", function (e) {
+					let coords = this.geometry.getCoordinates();
+
+					that.setCoordinatesInput(coords[0], coords[1])
+				}, this._mapPlacemark);
+
+
+				$(this._inputCoordinates).change(function () {
+					let coords = $(this).val().split(',');
+					let lat    = coords.hasOwnProperty('0') && coords[0] ? $.trim(coords[0]) : '';
+					let lng    = coords.hasOwnProperty('1') && coords[1] ? $.trim(coords[1]) : '';
+
+					if (lat !== '' && lng !== '') {
+						that.setCoordinatesMarker(lat, lng, true);
+					}
+				});
+
+
+				let geoObjects = new ymaps.GeoObjectCollection({}, {
+					strokeWidth: 4,
+					geodesic: true
+				});
+				geoObjects.add(this._mapPlacemark);
+
+
+				this._map.geoObjects.add(geoObjects);
+			},
+
+
+			/**
+			 * Установка координат для поля
+			 * @param {string}  lat
+			 * @param {string}  lng
+			 */
+			setCoordinatesInput: function (lat, lng) {
+
+				$(this._inputCoordinates).val(lat + ', ' + lng);
+			},
+
+
+			/**
+			 * Установка координат для маркера
+			 * @param {string}  lat
+			 * @param {string}  lng
+			 * @param {boolean} setZoom
+			 */
+			setCoordinatesMarker: function (lat, lng, setZoom) {
+
+				this._mapPlacemark.geometry.setCoordinates([lat, lng]);
+
+				if (setZoom) {
+					this._map.setBounds(this._map.geoObjects.getBounds(), {
+						checkZoomRange: false,
+					});
+					this._map.setZoom(10);
+				}
+			}
+		}
 	}
 };
 

@@ -1,0 +1,36 @@
+<div class="field-import field-import-[FIELD]" style="overflow-x: auto;[STYLES]">
+    <table class="table table-bordered table-striped table-condensed table-hover bg-white">
+        <thead>
+        <tr>
+            <td>
+            </td>
+            <!-- BEGIN column -->
+            <td>
+                <select id="select_fields-[COL_NUMBER]" data-field-number="[COL_NUMBER]" style="max-width: 210px"></select>
+            </td>
+            <!-- END column -->
+        </tr>
+        </thead>
+        <tbody >
+        <!-- BEGIN row -->
+        <tr>
+            <td class="row-number">
+                <label>
+                    <input type="radio" value="[ROW_NUMBER]">
+                </label>
+            </td>
+            <!-- BEGIN cell -->
+            <td>[VALUE]</td>
+            <!-- END cell -->
+        </tr>
+        <!-- END row -->
+        </tbody>
+    </table>
+    <input class="input-import" name="control[[FIELD]]" type="hidden">
+</div>
+<br>
+Всего строк: [TOTAL_ROWS]
+
+<script>
+    edit.fieldImport.init('[FIELD]');
+</script>
