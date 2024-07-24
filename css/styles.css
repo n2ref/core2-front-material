@@ -312,8 +312,6 @@ PRELOADERS
         background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAYAAAAGCAYAAADgzO9IAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH4gULDDIP/Gyo3AAAABl0RVh0Q29tbWVudABDcmVhdGVkIHdpdGggR0lNUFeBDhcAAACHSURBVAjXTcqxDUIhEIDhOxQq4iU3AQMwgnEKQ8sGbsIkavHKV0BD5ybvOiSvoMJGE//yy48xxltr7QR/EdH7KCJnEbkCAH59jjGeiogexpjtdxtjNiK6K+99tdZWAJgAMK211XtfDznnvZQCvfeL1np3zqWU0ksh4gwhrMy8MPMSQlgRcX4A1VAuZnreqDUAAAAASUVORK5CYII=") !important;
         background-repeat: no-repeat;
         background-position: calc(100% - 7px) 50%;
-        -moz-appearance: none;
-        appearance: none;
     }
 }
 
@@ -664,6 +662,14 @@ table.editTable td > table > tbody > tr > td > .buttonSmall[value="Выбрат�
     border-bottom-left-radius: 0;
     border-top-left-radius: 0;
     margin-left: -1px;
+}
+table.editTable td > .map-coordinates input {
+    margin-bottom: 5px;
+}
+table.editTable td > .map-coordinates .map-container {
+    margin-bottom: 15px;
+    border-radius: 4px;
+    overflow: hidden;
 }
 .requiredStar {
 	color:red !important;
@@ -1738,6 +1744,7 @@ div[id^=fileupload-main_] tbody.files > tr:first-child > td {
     list-style: none;
     border-bottom: 1px solid #ddd;
     font-size: 0;
+    display: flex;
 }
 .core-panel > .core-panel-body > .core-panel-tabs > li {
     position: relative;
@@ -1746,8 +1753,13 @@ div[id^=fileupload-main_] tbody.files > tr:first-child > td {
     margin-bottom: -1px;
     font-size: 1rem;
 }
-.core-panel > .core-panel-body > .core-panel-tabs > li > a {
+.core-panel.core-panel-tabs-top > .core-panel-body > .core-panel-tabs > li {
     margin-right: 2px;
+}
+.core-panel.core-panel-tabs-top > .core-panel-body > .core-panel-tabs > li.panel-tab-side-right {
+    margin-left: auto!important;
+}
+.core-panel > .core-panel-body > .core-panel-tabs > li > a {
     line-height: 1.42857143;
     border: 1px solid transparent;
     position: relative;
@@ -1757,6 +1769,9 @@ div[id^=fileupload-main_] tbody.files > tr:first-child > td {
     -webkit-border-radius: 4px 4px 0 0;
        -moz-border-radius: 4px 4px 0 0;
             border-radius: 4px 4px 0 0;
+}
+.core-panel > .core-panel-body > .core-panel-tabs > li:last-child {
+    margin-right: 0;
 }
 .core-panel > .core-panel-body > .core-panel-tabs > li > a:hover,
 .core-panel > .core-panel-body > .core-panel-tabs > li > a:focus {
@@ -1815,6 +1830,10 @@ div[id^=fileupload-main_] tbody.files > tr:first-child > td {
 .core-panel.core-panel-tabs-right > .core-panel-body {
     flex-direction: row;
 }
+.core-panel.core-panel-tabs-left > .core-panel-body > .core-panel-tabs > li,
+.core-panel.core-panel-tabs-right > .core-panel-body > .core-panel-tabs > li {
+    margin-bottom: 3px;
+}
 .core-panel.core-panel-tabs-bottom > .core-panel-body > .core-panel-tabs > li.active > a,
 .core-panel.core-panel-tabs-bottom > .core-panel-body > .core-panel-tabs > li.active > a:hover,
 .core-panel.core-panel-tabs-bottom > .core-panel-body > .core-panel-tabs > li.active > a:focus {border-color: #fff #ddd #ddd #ddd}
@@ -1831,7 +1850,6 @@ div[id^=fileupload-main_] tbody.files > tr:first-child > td {
 .core-panel.core-panel-tabs-right > .core-panel-body > .core-panel-tabs > li > a {
     min-width: 74px;
     margin-right: 0;
-    margin-bottom: 3px;
 }
 .core-panel.core-panel-tabs-left > .core-panel-body > .core-panel-tabs {
     display: flex;
@@ -1966,7 +1984,7 @@ div[id^=fileupload-main_] tbody.files > tr:first-child > td {
     color: #757575;
     background: #fff;
     border: 1px solid #ddd;
-    margin-left: -3px;
+    margin-left: -1px;
     border-radius: 0;
 }
 .core-panel.core-panel-steps-top > .core-panel-body > .core-panel-tabs > li:not(:first-child) > a {
@@ -2405,7 +2423,7 @@ div[id^=fileupload-main_] tbody.files > tr:first-child > td {
     position: fixed;
     z-index: 10;
     right: 0;
-    margin-top: -30px;
+    margin-top: -20px;
     left: 240px;
     -webkit-transition: left 0.3s ease-in-out;
        -moz-transition: left 0.3s ease-in-out;

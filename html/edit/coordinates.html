@@ -1,0 +1,16 @@
+<div id="map-coordinates-[FIELD_ID]" class="map-coordinates">
+    <input type="text" class="form-control input-sm"
+           name="control[[FIELD]]" value="[VALUE]" [ATTRIBUTES]>
+    <div class="map-container" style="width: [WIDTH]px;height: [HEIGHT]px;"></div>
+</div>
+
+
+<script>
+    edit.coordinates.create({
+        inputCoordinates: $('#map-coordinates-[FIELD_ID] input')[0],
+        mapContainer: $('#map-coordinates-[FIELD_ID] .map-container')[0],
+        center: ['[CENTER_LAT]', '[CENTER_LNG]'],
+        zoom: '[ZOOM]',
+        apikey: '[APIKEY]',
+    });
+</script>
