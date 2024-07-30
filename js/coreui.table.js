@@ -1090,6 +1090,64 @@ CoreUI.table = {
 
 
     /**
+     *
+     * @param resource
+     */
+    initSort : function(resource) {
+
+        let container = $("#table-" + resource + " > tbody");
+
+        container.sortable({
+            opacity: 0.6,
+            distance: 2,
+            cursor: "n-resize",
+            items: "tr.row-table",
+            containment: "parent",
+            handle: ".table-row-sortable",
+            start: function (event, ui) {
+                ui.helper.click(function (event) {
+                    event.stopImmediatePropagation();
+                    event.stopPropagation();
+                    return false;
+                });
+            },
+            update : function (event, ui) {
+
+                let rowsId = [];
+
+                $('tr.row-table', container).each(function (i, tr) {
+                    let id = $(tr).find('td .table-row-sortable').data('id');
+
+                    if (id) {
+                        rowsId.push(id);
+                    }
+                });
+
+                $.post("index.php?module=admin&action=seq",
+                    {
+                        data : rowsId,
+                        id : resource
+                    },
+                    function (data, textStatus) {
+                        if (textStatus !== 'success') {
+                            $(ui.item[0].parentNode).sortable( "cancel" );
+                            return false;
+                        } else {
+                            if (data && data.error) {
+                                swal(data.error, '', 'error').catch(swal.noop);
+                                $(ui.item[0].parentNode).sortable( "cancel" );
+                                return false;
+                            }
+                        }
+                    },
+                    "json"
+                );
+            }
+        });
+    },
+
+
+    /**
      * @param resource
      * @param field
      * @param id
@@ -1506,6 +1564,7 @@ CoreUI.table = {
      * @param str
      * @param isNumber
      * @returns {number}
+     * @private
      */
     crc32: function(str, isNumber) {
 

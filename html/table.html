@@ -607,5 +607,8 @@
     alert('CoreUI.table не найден!')
   } else {
     CoreUI.table.loc['[RESOURCE]'] = '[LOCATION]';
+    <!-- BEGIN sort_rows -->
+    CoreUI.table.initSort('[RESOURCE]');
+    <!-- END sort_rows -->
   }
 </script>
