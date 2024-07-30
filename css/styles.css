@@ -1976,7 +1976,7 @@ div[id^=fileupload-main_] tbody.files > tr:first-child > td {
     border-width: 0;
 }
 
-.core-panel.core-panel-steps-top .core-panel-tabs {
+.core-panel.core-panel-steps-top > .core-panel-body > .core-panel-tabs {
     border-width: 0;
     margin-left: 3px;
 }
