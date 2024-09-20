@@ -1745,6 +1745,7 @@ div[id^=fileupload-main_] tbody.files > tr:first-child > td {
     border-bottom: 1px solid #ddd;
     font-size: 0;
     display: flex;
+    flex-wrap: wrap;
 }
 .core-panel > .core-panel-body > .core-panel-tabs > li {
     position: relative;
