@@ -955,6 +955,69 @@ CoreUI.table = {
 
 
     /**
+     * Установка прижатия шапки таблицы к верху страницы
+     * @param resource
+     */
+    setHeadTop: function (resource) {
+
+        setTimeout(function () {
+            let table = $('#table-' + resource);
+
+            $('.search-container form', table)
+                .css('max-height', '400px')
+                .css('overflow', 'auto');
+
+            $('.column-switcher-container form', table)
+                .css('max-height', '400px')
+                .css('overflow', 'auto');
+
+            table.floatThead({top: 50, zIndex: 1, headerCellSelector: 'tr.table-header>th:visible'});
+
+            $('> thead > tr:first > th', table).css('border-bottom', '1px solid transparent');
+            $('> tbody > tr:first > td', table).css('border-top', 'none');
+
+            let body_height          = $('body').height();
+            let body_width           = $('body').width();
+            let menu_wrapper_width   = $('#menu-wrapper').width();
+            let search_height        = $('.search-container', resource).height();
+            let search_column_height = $('.column-switcher-container', resource).height();
+            const top                = table.position();
+            let list_top             = top ? top.top : 0;
+
+            //Отлавливаем изменение размера браузера, сворачивание/разворачивание меню, открытие/закрытие поиска и делаем 'reflow'
+            setInterval(function () {
+                const current_body_height        = $('body').height();
+                const current_body_width         = $('body').width();
+                const current_menu_wrapper_width = $('#menu-wrapper').width();
+                const current_search_height      = $('.search-container', resource).height();
+                const current_column_height      = $('.column-switcher-container', resource).height();
+                const top                        = table.position();
+                const current_list_top           = top ? top.top : 0;
+
+                table.css('table-layout', 'auto');
+
+                if (current_body_height        !== body_height ||
+                    current_body_width         !== body_width ||
+                    current_menu_wrapper_width !== menu_wrapper_width ||
+                    current_search_height      !== search_height ||
+                    current_column_height      !== search_column_height ||
+                    current_list_top           !== list_top
+                ){
+                    table.floatThead('reflow');
+
+                    body_height          = current_body_height;
+                    body_width           = current_body_width;
+                    menu_wrapper_width   = current_menu_wrapper_width;
+                    search_height        = current_search_height;
+                    search_column_height = current_column_height;
+                    list_top             = current_list_top;
+                }
+            }, 500);
+        }, 500);
+    },
+
+
+    /**
      * @param obj
      * @param resource
      * @param isAjax
