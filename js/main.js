@@ -173,6 +173,40 @@ function checkInt(evt) {
 	return false;
 }
 
+/**
+ * @param event
+ */
+function commaReplace(event) {
+	// Получаем вставляемые данные из буфера обмена
+	let pasteData = event.clipboardData.getData('text');
+
+	pasteData = pasteData.replace(/[^0-9.,]/g, '');
+	// Заменяем все запятые на точки
+	pasteData = pasteData.replace(/,/g, '.');
+
+	// Если в строке больше одной точки, удаляем все, кроме первой
+	const parts = pasteData.split('.');
+	if (parts.length > 1) {
+		// Собираем строку обратно, оставляя только первую точку
+		pasteData = parts.shift() + '.' + parts.join('');
+	}
+	// Удаляем точку, если она первый или последний символ
+	pasteData = pasteData.replace(/^\./, '').replace(/\.$/, '');
+
+	// Прекращаем стандартную вставку
+	event.preventDefault();
+
+	// Получаем текущее значение поля ввода и текущую позицию курсора
+	let input = event.target;
+	let start = input.selectionStart;
+	let end = input.selectionEnd;
+
+	// Формируем новое значение с учетом вставленных данных
+	input.value = input.value.substring(0, start) + pasteData + input.value.substring(end);
+	// Восстанавливаем позицию курсора после вставки
+	input.setSelectionRange(start + pasteData.length, start + pasteData.length);
+}
+
 
 /**
  *
