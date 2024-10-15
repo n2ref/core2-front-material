@@ -287,7 +287,7 @@ CoreUI.table = {
                 }, function(start, end, label) {
                     container.find('.period-value-start').val(start.format('YYYY-MM-DD'));
                     container.find('.period-value-end').val(end.format('YYYY-MM-DD'));
-                    container.find('.period-input-all').remove();
+                    container.find('.period-buttons input[type=radio]').prop('checked', false);
 
                     CoreUI.table.filter.submit(resource, isAjax)
                 });
@@ -296,7 +296,7 @@ CoreUI.table = {
                     input.trigger("click");
                 });
 
-                container.find('.period-buttons input[name=period]').change(function () {
+                container.find('.period-buttons input[type=radio]').change(function () {
                     let periodType  = $(this).data('type');
                     let periodCount = $(this).data('count');
 
@@ -305,14 +305,7 @@ CoreUI.table = {
                     let dateEndFormat   = '';
                     let dateEnd         = '';
 
-
-                    container.find('.period-input-all').remove();
-
-                    if (periodType === 'all') {
-                        container.find('.period-value-end')
-                            .after('<input type="hidden" name="filter[' + resource + '][' + key + '][all]" value="1" class="period-input-all">');
-
-                    } else if (typeof periodCount === 'number') {
+                    if (typeof periodCount === 'number') {
                         let start = moment();
                         let end   = moment();
 
