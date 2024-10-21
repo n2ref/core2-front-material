@@ -720,7 +720,9 @@ $(document).ajaxError(function (event, jqxhr, settings, exception) {
     } else if (jqxhr.status === 403) {
         swal("Время жизни вашей сессии истекло", 'Чтобы войти в систему заново, обновите страницу (F5)', 'error').catch(swal.noop);
     } else {
-		main_menu.errors._onErrorAjax(settings.url, jqxhr);
+		if (jqxhr.status >= 500) {
+			main_menu.errors._onErrorAjax(settings.url, jqxhr);
+		}
 		swal("Ой, извините!", "Во время обработки вашего запроса произошла ошибка.", 'error').catch(swal.noop);
 	}
 });
@@ -925,7 +927,9 @@ var load = function (url, data, id, callback) {
 						}
                     }
 					else {
-						main_menu.errors._onErrorAjax('index.php' + url, jqXHR);
+						if (jqXHR.status >= 500) {
+							main_menu.errors._onErrorAjax('index.php' + url, jqXHR);
+						}
 						swal("Во время обработки вашего запроса произошла ошибка", 'Обновите страницу и попробуйте снова', 'error').catch(swal.noop);
 					}
 				}
@@ -1232,7 +1236,9 @@ document.addEventListener("DOMContentLoaded", function (e) {
         } else if (a.request.status === 403) {
             swal("Время жизни вашей сессии истекло", 'Чтобы войти в систему заново, обновите страницу (F5)', 'error').catch(swal.noop);
         } else {
-			main_menu.errors._onErrorXajax(a);
+			if (a.request.status >= 500) {
+				main_menu.errors._onErrorXajax(a);
+			}
 			swal("Ой, извините!", 'Во время обработки вашего запроса произошла ошибка.', 'error').catch(swal.noop);
         }
 	};
