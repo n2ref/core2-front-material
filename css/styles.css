@@ -1745,6 +1745,7 @@ div[id^=fileupload-main_] tbody.files > tr:first-child > td {
     border-bottom: 1px solid #ddd;
     font-size: 0;
     display: flex;
+    flex-wrap: wrap;
 }
 .core-panel > .core-panel-body > .core-panel-tabs > li {
     position: relative;
@@ -1827,7 +1828,9 @@ div[id^=fileupload-main_] tbody.files > tr:first-child > td {
     border-bottom-color: #fff;
 }
 .core-panel.core-panel-tabs-left > .core-panel-body,
-.core-panel.core-panel-tabs-right > .core-panel-body {
+.core-panel.core-panel-tabs-right > .core-panel-body,
+.core-panel.core-panel-pills-left > .core-panel-body,
+.core-panel.core-panel-pills-right > .core-panel-body {
     flex-direction: row;
 }
 .core-panel.core-panel-tabs-left > .core-panel-body > .core-panel-tabs > li,
@@ -1918,12 +1921,13 @@ div[id^=fileupload-main_] tbody.files > tr:first-child > td {
     margin-bottom: 3px;
 }
 .core-panel.core-panel-pills-left > .core-panel-body > .core-panel-tabs {
-    float: left;
-    margin-right: 19px;
+    display: flex;
+    flex-direction: column;
+    margin-right: -1px;
     width: 210px;
+    min-width: 210px;
 }
 .core-panel.core-panel-pills-left > .core-panel-body > .core-panel-content {
-    margin-left: 209px;
     padding-left: 20px;
 }
 .core-panel.core-panel-pills-top > .core-panel-body > .core-panel-tabs > li,
@@ -1976,7 +1980,7 @@ div[id^=fileupload-main_] tbody.files > tr:first-child > td {
     border-width: 0;
 }
 
-.core-panel.core-panel-steps-top .core-panel-tabs {
+.core-panel.core-panel-steps-top > .core-panel-body > .core-panel-tabs {
     border-width: 0;
     margin-left: 3px;
 }

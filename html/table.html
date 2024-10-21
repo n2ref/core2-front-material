@@ -70,7 +70,7 @@
         <div class="btn-group period-buttons" data-toggle="buttons">
           <!-- BEGIN period -->
           <label class="btn btn-sm btn-default [ACTIVE]">
-            <input type="radio" name="period" value="period_[PERIOD]"
+            <input type="radio" name="filter[[RESOURCE]][[KEY]][period]" value="[TYPE]|[COUNT]"
                    data-type="[TYPE]" data-count="[COUNT]" autocomplete="off" [CHECKED]> [TITLE]
           </label>
           <!-- END period -->
@@ -602,10 +602,21 @@
   </div>
 </div>
 
+
+<!-- BEGIN script_head_top -->
+<script src="core2/vendor/belhard/floatthead/dist/jquery.floatThead.min.js"></script>
+<script>
+  $(function(){ CoreUI.table.setHeadTop('[RESOURCE]'); });
+</script>
+<!-- END script_head_top -->
+
 <script>
   if ( ! CoreUI || ! CoreUI.table) {
     alert('CoreUI.table не найден!')
   } else {
     CoreUI.table.loc['[RESOURCE]'] = '[LOCATION]';
+    <!-- BEGIN sort_rows -->
+    CoreUI.table.initSort('[RESOURCE]');
+    <!-- END sort_rows -->
   }
 </script>

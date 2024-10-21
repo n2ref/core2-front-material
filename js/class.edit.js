@@ -165,9 +165,9 @@ var edit = {
 	},
 	docSize : function (){
 		return [
-		document.body.scrollWidth > document.body.offsetWidth ? 
+		document.body.scrollWidth > document.body.offsetWidth ?
 			document.body.scrollWidth : document.body.offsetWidth,
-		document.body.scrollHeight > document.body.offsetHeight ? 
+		document.body.scrollHeight > document.body.offsetHeight ?
 			document.body.scrollHeight : document.body.offsetHeight
 		];
 	},
@@ -179,9 +179,9 @@ var edit = {
 	},
 	getDocumentScroll : function(){
 		return [
-		self.pageXOffset || (document.documentElement && document.documentElement.scrollLeft) 
+		self.pageXOffset || (document.documentElement && document.documentElement.scrollLeft)
 			|| (document.body && document.body.scrollLeft),
-		self.pageYOffset || (document.documentElement && document.documentElement.scrollTop) 
+		self.pageYOffset || (document.documentElement && document.documentElement.scrollTop)
 			|| (document.body && document.body.scrollTop)
 		];
 	},
@@ -190,7 +190,7 @@ var edit = {
 		var scrl  = this.getDocumentScroll();
 		return [parseInt(sizes[0]/2)+scrl[0], parseInt(sizes[1]/2)+scrl[1]];
 	},
-	
+
 	changePass : function(id) {
 		var obj = document.getElementById(id);
 		var obj2 = document.getElementById(id + '2');
@@ -208,7 +208,7 @@ var edit = {
 			obj2.nextSibling.value = 'изменить';
 		}
 	},
-	
+
 	displayError: function(id, text) {
 		var obj = document.getElementById('main_' + id + '_error');
 		if (obj) {
@@ -370,18 +370,7 @@ var edit = {
 		document.getElementById(id + '_text').value = '';
 	},
 	maskMe: function(id, options) {
-        //options = $.extend({
-        //    allowZero: true,
-        //    thousands: ' ',
-        //    defaultZero: false,
-        //    allowNegative: true,
-        //    precision: 2
-        //}, options);
-
-        //$('#' + id).maskMoney(options);
-        //$('#' + id).maskMoney('mask');
-
-        var options = $.extend({
+        options = $.extend({
             numeral: true,
             numeralDecimalMark: '.',
             delimiter: ' ',
@@ -389,8 +378,22 @@ var edit = {
         }, options);
 
 		new Cleave('#' + id, options);
-    },
-    modal2: {
+
+		if (options.numeralDecimalMark === '.') {
+			$('#' + id).bind('paste', function (e) {
+				if (!e) {
+					return;
+				}
+
+				let pasteText = String(e.originalEvent.clipboardData.getData('text'));
+
+				if (pasteText) {
+					this.value = pasteText.replace(",", '.');
+				}
+			});
+		}
+	},
+	modal2: {
         key: '',
 		options: [],
 
@@ -526,7 +529,7 @@ var edit = {
 			var size  = edit.modal2.options[key].size || '' ;
 
 			$('#main_body').append(
-				'<div class="modal fade" tabindex="-1" id="' + key + '-modal">' +
+				'<div class="modal fade"  id="' + key + '-modal">' +
 					'<div class="modal-dialog ' + size + '">' +
 						'<div class="modal-content">' +
 							'<div class="modal-header">' +
@@ -1606,7 +1609,7 @@ var edit = {
 		}
 		tinymce.init(options);
 	},
-	
+
 
 	coordinates: {
 

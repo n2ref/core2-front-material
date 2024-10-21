@@ -40,7 +40,307 @@ var main_menu = {
                 $('a', this).append('<span class="module-icon-letter">' + letter + '</span>');
             }
         });
-    }
+    },
+
+
+	/**
+	 * Получение данных о браузере
+	 */
+	getBrowserInfo: function () {
+
+		// screen
+		var screenSize = '';
+		if (screen.width) {
+			width = (screen.width) ? screen.width : '';
+			height = (screen.height) ? screen.height : '';
+			screenSize += '' + width + "x" + height;
+		}
+
+		// browser
+		var nVer       = navigator.appVersion;
+		var user_agent = navigator.userAgent;
+		var browser    = navigator.appName;
+		var version    = '' + parseFloat(nVer);
+		var nameOffset, verOffset, ix;
+
+		if ((verOffset = user_agent.indexOf('YaBrowser')) !== -1) {
+			browser = 'Yandex';
+			version = user_agent.substring(verOffset + 10);
+
+		} else if ((verOffset = user_agent.indexOf('SamsungBrowser')) !== -1) {
+			browser = 'Samsung';
+			version = user_agent.substring(verOffset + 15);
+
+		} else if ((verOffset = user_agent.indexOf('UCBrowser')) !== -1) {
+			browser = 'UC Browser';
+			version = user_agent.substring(verOffset + 10);
+
+		} else if ((verOffset = user_agent.indexOf('OPR')) !== -1) {
+			browser = 'Opera';
+			version = user_agent.substring(verOffset + 4);
+
+		} else if ((verOffset = user_agent.indexOf('Opera')) !== -1) {
+			browser = 'Opera';
+			version = user_agent.substring(verOffset + 6);
+			if ((verOffset = user_agent.indexOf('Version')) !== -1) {
+				version = user_agent.substring(verOffset + 8);
+			}
+
+		} else if ((verOffset = user_agent.indexOf('Edge')) !== -1) {
+			browser = 'Microsoft Legacy Edge';
+			version = user_agent.substring(verOffset + 5);
+
+		} else if ((verOffset = user_agent.indexOf('Edg')) !== -1) {
+			browser = 'Microsoft Edge';
+			version = user_agent.substring(verOffset + 4);
+
+		} else if ((verOffset = user_agent.indexOf('MSIE')) !== -1) {
+			browser = 'Microsoft Internet Explorer';
+			version = user_agent.substring(verOffset + 5);
+
+		} else if ((verOffset = user_agent.indexOf('Chrome')) !== -1) {
+			browser = 'Chrome';
+			version = user_agent.substring(verOffset + 7);
+
+		} else if ((verOffset = user_agent.indexOf('Safari')) !== -1) {
+			browser = 'Safari';
+			version = user_agent.substring(verOffset + 7);
+			if ((verOffset = user_agent.indexOf('Version')) !== -1) {
+				version = user_agent.substring(verOffset + 8);
+			}
+
+		} else if ((verOffset = user_agent.indexOf('Firefox')) !== -1) {
+			browser = 'Firefox';
+			version = user_agent.substring(verOffset + 8);
+
+		} else if (user_agent.indexOf('Trident/') !== -1) {
+			browser = 'Microsoft Internet Explorer';
+			version = user_agent.substring(user_agent.indexOf('rv:') + 3);
+
+		} else if ((nameOffset = user_agent.lastIndexOf(' ') + 1) < (verOffset = user_agent.lastIndexOf('/'))) {
+			browser = user_agent.substring(nameOffset, verOffset);
+			version = user_agent.substring(verOffset + 1);
+			if (browser.toLowerCase() === browser.toUpperCase()) {
+				browser = navigator.appName;
+			}
+		}
+
+		// trim the version string
+		if ((ix = version.indexOf(';')) !== -1) version = version.substring(0, ix);
+		if ((ix = version.indexOf(' ')) !== -1) version = version.substring(0, ix);
+		if ((ix = version.indexOf(')')) !== -1) version = version.substring(0, ix);
+
+		// mobile version
+		var mobile = /Mobile|mini|Fennec|Android|iP(ad|od|hone)/.test(nVer);
+
+
+		// system
+		var os = '';
+		var clientStrings = [
+			{s:'Windows 10', r:/(Windows 10.0|Windows NT 10.0)/},
+			{s:'Windows 8.1', r:/(Windows 8.1|Windows NT 6.3)/},
+			{s:'Windows 8', r:/(Windows 8|Windows NT 6.2)/},
+			{s:'Windows 7', r:/(Windows 7|Windows NT 6.1)/},
+			{s:'Windows Vista', r:/Windows NT 6.0/},
+			{s:'Windows Server 2003', r:/Windows NT 5.2/},
+			{s:'Windows XP', r:/(Windows NT 5.1|Windows XP)/},
+			{s:'Windows 2000', r:/(Windows NT 5.0|Windows 2000)/},
+			{s:'Windows ME', r:/(Win 9x 4.90|Windows ME)/},
+			{s:'Windows 98', r:/(Windows 98|Win98)/},
+			{s:'Windows 95', r:/(Windows 95|Win95|Windows_95)/},
+			{s:'Windows NT 4.0', r:/(Windows NT 4.0|WinNT4.0|WinNT|Windows NT)/},
+			{s:'Windows CE', r:/Windows CE/},
+			{s:'Windows 3.11', r:/Win16/},
+			{s:'Android', r:/Android/},
+			{s:'Open BSD', r:/OpenBSD/},
+			{s:'Sun OS', r:/SunOS/},
+			{s:'Chrome OS', r:/CrOS/},
+			{s:'Linux', r:/(Linux|X11(?!.*CrOS))/},
+			{s:'iOS', r:/(iPhone|iPad|iPod)/},
+			{s:'Mac OS X', r:/Mac OS X/},
+			{s:'Mac OS', r:/(Mac OS|MacPPC|MacIntel|Mac_PowerPC|Macintosh)/},
+			{s:'QNX', r:/QNX/},
+			{s:'UNIX', r:/UNIX/},
+			{s:'BeOS', r:/BeOS/},
+			{s:'OS/2', r:/OS\/2/},
+			{s:'Search Bot', r:/(nuhk|Googlebot|Yammybot|Openbot|Slurp|MSNBot|Ask Jeeves\/Teoma|ia_archiver)/}
+		];
+		for (var id in clientStrings) {
+			var cs = clientStrings[id];
+			if (cs.r.test(user_agent)) {
+				os = cs.s;
+				break;
+			}
+		}
+
+		var osVersion = '';
+
+		if (/Windows/.test(os)) {
+			osVersion = /Windows (.*)/.exec(os)[1];
+			os = 'Windows';
+		}
+
+		switch (os) {
+			case 'Mac OS':
+			case 'Mac OS X':
+			case 'Android':
+				osVersion = /(?:Android|Mac OS|Mac OS X|MacPPC|MacIntel|Mac_PowerPC|Macintosh) ([\.\_\d]+)/.exec(user_agent)[1];
+				break;
+
+			case 'iOS':
+				osVersion = /OS (\d+)_(\d+)_?(\d+)?/.exec(nVer);
+				osVersion = osVersion[1] + '.' + osVersion[2] + '.' + (osVersion[3] | 0);
+				break;
+		}
+
+		return {
+			userAgent: user_agent,
+			screen: screenSize,
+			browser: browser,
+			browserVersion: version,
+			mobile: mobile,
+			os: os,
+			osVersion: osVersion,
+			language: navigator.language
+		};
+	},
+
+	errors: {
+		_errors: [],
+		_errorSend: false,
+		_url: 'index.php?module=admin&action=welcome&error_front=1',
+
+		/**
+		 * Событие обработки js ошибок на странице
+		 * @param {ErrorEvent} event
+		 * @private
+		 */
+		_onErrorEvent: function (event) {
+
+			if ( ! event.hasOwnProperty('error')) {
+				return;
+			}
+
+			main_menu.errors.addError('js error', 'error', {
+				message: event.message,
+				file: event.filename,
+				line: event.lineno,
+				col: event.colno,
+				stack : event.error.stack.split('\n').map(string => string.trim())
+			})
+		},
+
+
+		/**
+		 * Событие обработки ajax ошибок на странице
+		 * @param {string} url
+		 * @param {Object} jqXHR
+		 * @private
+		 */
+		_onErrorAjax: function (url, jqXHR) {
+
+			if (main_menu.errors._url === url) {
+				return;
+			}
+
+			main_menu.errors.addError('ajax', 'error', {
+				message: jqXHR.status + ' ' + jqXHR.statusText,
+				url: url,
+				response: jqXHR.responseText.substring(0, 255),
+				stack : (new Error()).stack.split('\n').map(string => string.trim()).slice(2)
+			})
+		},
+
+
+		/**
+		 * Событие обработки xajax ошибок на странице
+		 * @param {Object} response
+		 * @private
+		 */
+		_onErrorXajax: function (response) {
+
+			let request = response.hasOwnProperty('request')
+				? response.request
+				: null;
+
+			main_menu.errors.addError('xajax', 'error', {
+				message: request ? (request.status + ' ' + request.statusText) : 'no_request_data',
+				response: request ? request.responseText.substring(0, 255) : '',
+				params : response.parameters
+			})
+		},
+
+
+		/**
+		 * Отправка полученных ошибок
+		 */
+		_sendError: function() {
+
+			let sendErrors = main_menu.errors._errors.splice(0, 100);
+
+			main_menu.errors._errorSend = true;
+
+			$.ajax({
+				url: main_menu.errors._url,
+				method: "POST",
+				contentType: "application/json; charset=utf-8",
+				data: JSON.stringify(sendErrors),
+				error: function (response) {
+					console.warn(response)
+				}
+			})
+				.always(function() {
+					main_menu.errors._errorSend = false;
+
+					if (main_menu.errors._errors.length > 0) {
+						setTimeout(main_menu.errors._sendError, 3000);
+					}
+				});
+		},
+
+
+		/**
+		 * Добавление ошибки в список
+		 * @param {string} type
+		 * @param {string} level
+		 * @param {Object} error
+		 */
+		addError: function (type, level, error) {
+
+			// чтобы не плодить одинаковые ошибки
+			if (main_menu.errors._errors.length > 0) {
+				let lastError = main_menu.errors._errors.hasOwnProperty(main_menu.errors._errors.length)
+					? main_menu.errors._errors[main_menu.errors._errors.length]
+					: null;
+
+				if (lastError &&
+					lastError.error &&
+					lastError.error.hasOwnProperty('message') &&
+					lastError.error.message === error.message
+				) {
+					lastError.error.count++;
+					return;
+				}
+			}
+
+			error.count = 1;
+
+			let date   = new Date();
+			let client = main_menu.getBrowserInfo();
+			main_menu.errors._errors.push({
+				level: level,
+				type: type,
+				url: location.href,
+				time: date.getHours() + ":" + ("00" + date.getMinutes()).slice(-2) + ":" + ("00" + date.getSeconds()).slice(-2),
+				client: client,
+				error: error
+			});
+
+			if (main_menu.errors._errorSend === false) {
+				setTimeout(main_menu.errors._sendError, 500);
+			}
+		}
+	}
 };
 
 
@@ -423,11 +723,12 @@ $(document).ajaxError(function (event, jqxhr, settings, exception) {
         swal("Отсутствует соединение с Интернет.", '', 'error').catch(swal.noop);
     } else if (jqxhr.status === 403) {
         swal("Время жизни вашей сессии истекло", 'Чтобы войти в систему заново, обновите страницу (F5)', 'error').catch(swal.noop);
-    } else if (jqxhr.status === 500) {
-        swal("Ой, извините!", "Во время обработки вашего запроса произошла ошибка.", 'error').catch(swal.noop);
-    } else if (exception !== 'abort') {
-        swal("Произошла ошибка", jqxhr.status + ' ' + exception, 'error').catch(swal.noop);
-    }
+    } else {
+		if (jqxhr.status >= 500) {
+			main_menu.errors._onErrorAjax(settings.url, jqxhr);
+		}
+		swal("Ой, извините!", "Во время обработки вашего запроса произошла ошибка.", 'error').catch(swal.noop);
+	}
 });
 $(document).ajaxSuccess(function (event, xhr, settings) {
 	if (xhr.status === 203) {
@@ -616,20 +917,25 @@ var load = function (url, data, id, callback) {
 				}
 				callback();
 
-			}).fail(function (a,b,t){
+			}).fail(function (jqXHR, textStatus, errorThrown) {
 				preloader.hide();
-				if (a.statusText !== 'abort') {
-					if (!a.status) swal("Превышено время ожидания ответа. Проверьте соединение с Интернет.", '', 'error').catch(swal.noop);
-					else if (a.status === 500) swal("Во время обработки вашего запроса произошла ошибка.", '', 'error').catch(swal.noop);
-					else if (a.status === 404) swal("Запрашиваемый ресурс не найден.", '', 'error').catch(swal.noop);
-					else if (a.status === 403) {
+				if (jqXHR.statusText !== 'abort') {
+
+					if ( ! jqXHR.status) swal("Превышено время ожидания ответа. Проверьте соединение с Интернет.", '', 'error').catch(swal.noop);
+					else if (jqXHR.status === 404) swal("Запрашиваемый ресурс не найден.", '', 'error').catch(swal.noop);
+					else if (jqXHR.status === 403) {
                         if (current_module !== load_module || current_action !== load_action) {
 							location.reload();
 						} else {
                             swal("Время жизни вашей сессии истекло", 'Чтобы войти в систему заново, обновите страницу (F5)', 'error').catch(swal.noop);
 						}
                     }
-					else swal("Произошла ошибка: " + a.statusText, '', 'error').catch(swal.noop);
+					else {
+						if (jqXHR.status >= 500) {
+							main_menu.errors._onErrorAjax('index.php' + url, jqXHR);
+						}
+						swal("Во время обработки вашего запроса произошла ошибка", 'Обновите страницу и попробуйте снова', 'error').catch(swal.noop);
+					}
 				}
 			});
         }
@@ -775,8 +1081,7 @@ $(function(){
 
 $(window).resize(resize);
 
-document.addEventListener("DOMContentLoaded",
-	(e) => {
+document.addEventListener("DOMContentLoaded", function (e) {
 
 	if ( ! jQuery.support.leadingWhitespace || (document.all && ! document.querySelector)) {
 		$("#mainContainer").prepend(
@@ -789,7 +1094,10 @@ document.addEventListener("DOMContentLoaded",
 	}
 
     main_menu.setAngles();
-    main_menu.setIconLetter();
+	main_menu.setIconLetter();
+
+
+	window.addEventListener('error', main_menu.errors._onErrorEvent, true);
 
     $("#menu-modules > .menu-module, #menu-modules > .menu-module-selected").mouseenter(function() {
         if ($(window).width() >= 768 && ($(this).hasClass('menu-module') || $('.s-toggle')[0])) {
@@ -929,12 +1237,13 @@ document.addEventListener("DOMContentLoaded",
         preloader.hide();
         if (a.request.status === '0') {
             swal("Превышено время ожидания ответа", 'Проверьте соединение с Интернет', 'error').catch(swal.noop);
-        } else if (a.request.status === 500) {
-            swal("Ой, извините!", 'Во время обработки вашего запроса произошла ошибка.', 'error').catch(swal.noop);
         } else if (a.request.status === 403) {
             swal("Время жизни вашей сессии истекло", 'Чтобы войти в систему заново, обновите страницу (F5)', 'error').catch(swal.noop);
         } else {
-            swal("Произошла ошибка", a.request.status + ' ' + a.request.statusText, 'error').catch(swal.noop);
+			if (a.request.status >= 500) {
+				main_menu.errors._onErrorXajax(a);
+			}
+			swal("Ой, извините!", 'Во время обработки вашего запроса произошла ошибка.', 'error').catch(swal.noop);
         }
 	};
 	xajax.callback.global.onResponseDelay = function () {
