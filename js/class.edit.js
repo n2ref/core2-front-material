@@ -547,7 +547,11 @@ var edit = {
 			var modal = $('#' + key + '-modal');
 
 			$('.modal-dialog > .modal-content > .modal-body', modal)
-				.load(url);
+				.load(url, function( response, status, xhr ) {
+					if ( status == "error" ) {
+						$(".modal-dialog > .modal-content > .modal-body").html( msg + xhr.status + " " + xhr.statusText );
+					}
+				});
 
 			modal.modal('show');
 			modal.on('hidden.bs.modal', function (e) {
