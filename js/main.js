@@ -217,6 +217,10 @@ var main_menu = {
 		 */
 		_onErrorEvent: function (event) {
 
+			if ( ! event.hasOwnProperty('error')) {
+				return;
+			}
+
 			main_menu.errors.addError('js error', 'error', {
 				message: event.message,
 				file: event.filename,
