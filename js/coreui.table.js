@@ -287,7 +287,7 @@ CoreUI.table = {
                 }, function(start, end, label) {
                     container.find('.period-value-start').val(start.format('YYYY-MM-DD'));
                     container.find('.period-value-end').val(end.format('YYYY-MM-DD'));
-                    container.find('.period-input-all').remove();
+                    container.find('.period-buttons input[type=radio]').prop('checked', false);
 
                     CoreUI.table.filter.submit(resource, isAjax)
                 });
@@ -296,7 +296,7 @@ CoreUI.table = {
                     input.trigger("click");
                 });
 
-                container.find('.period-buttons input[name=period]').change(function () {
+                container.find('.period-buttons input[type=radio]').change(function () {
                     let periodType  = $(this).data('type');
                     let periodCount = $(this).data('count');
 
@@ -305,14 +305,7 @@ CoreUI.table = {
                     let dateEndFormat   = '';
                     let dateEnd         = '';
 
-
-                    container.find('.period-input-all').remove();
-
-                    if (periodType === 'all') {
-                        container.find('.period-value-end')
-                            .after('<input type="hidden" name="filter[' + resource + '][' + key + '][all]" value="1" class="period-input-all">');
-
-                    } else if (typeof periodCount === 'number') {
+                    if (typeof periodCount === 'number') {
                         let start = moment();
                         let end   = moment();
 
@@ -955,6 +948,69 @@ CoreUI.table = {
 
 
     /**
+     * Установка прижатия шапки таблицы к верху страницы
+     * @param resource
+     */
+    setHeadTop: function (resource) {
+
+        setTimeout(function () {
+            let table = $('#table-' + resource);
+
+            $('.search-container form', table)
+                .css('max-height', '400px')
+                .css('overflow', 'auto');
+
+            $('.column-switcher-container form', table)
+                .css('max-height', '400px')
+                .css('overflow', 'auto');
+
+            table.floatThead({top: 50, zIndex: 1, headerCellSelector: 'tr.table-header>th:visible'});
+
+            $('> thead > tr:first > th', table).css('border-bottom', '1px solid transparent');
+            $('> tbody > tr:first > td', table).css('border-top', 'none');
+
+            let body_height          = $('body').height();
+            let body_width           = $('body').width();
+            let menu_wrapper_width   = $('#menu-wrapper').width();
+            let search_height        = $('.search-container', resource).height();
+            let search_column_height = $('.column-switcher-container', resource).height();
+            const top                = table.position();
+            let list_top             = top ? top.top : 0;
+
+            //Отлавливаем изменение размера браузера, сворачивание/разворачивание меню, открытие/закрытие поиска и делаем 'reflow'
+            setInterval(function () {
+                const current_body_height        = $('body').height();
+                const current_body_width         = $('body').width();
+                const current_menu_wrapper_width = $('#menu-wrapper').width();
+                const current_search_height      = $('.search-container', resource).height();
+                const current_column_height      = $('.column-switcher-container', resource).height();
+                const top                        = table.position();
+                const current_list_top           = top ? top.top : 0;
+
+                table.css('table-layout', 'auto');
+
+                if (current_body_height        !== body_height ||
+                    current_body_width         !== body_width ||
+                    current_menu_wrapper_width !== menu_wrapper_width ||
+                    current_search_height      !== search_height ||
+                    current_column_height      !== search_column_height ||
+                    current_list_top           !== list_top
+                ){
+                    table.floatThead('reflow');
+
+                    body_height          = current_body_height;
+                    body_width           = current_body_width;
+                    menu_wrapper_width   = current_menu_wrapper_width;
+                    search_height        = current_search_height;
+                    search_column_height = current_column_height;
+                    list_top             = current_list_top;
+                }
+            }, 500);
+        }, 500);
+    },
+
+
+    /**
      * @param obj
      * @param resource
      * @param isAjax
@@ -1086,6 +1142,64 @@ CoreUI.table = {
                 CoreUI.table._callEventReload(resource);
             });
         }
+    },
+
+
+    /**
+     *
+     * @param resource
+     */
+    initSort : function(resource) {
+
+        let container = $("#table-" + resource + " > tbody");
+
+        container.sortable({
+            opacity: 0.6,
+            distance: 2,
+            cursor: "n-resize",
+            items: "tr.row-table",
+            containment: "parent",
+            handle: ".table-row-sortable",
+            start: function (event, ui) {
+                ui.helper.click(function (event) {
+                    event.stopImmediatePropagation();
+                    event.stopPropagation();
+                    return false;
+                });
+            },
+            update : function (event, ui) {
+
+                let rowsId = [];
+
+                $('tr.row-table', container).each(function (i, tr) {
+                    let id = $(tr).find('td .table-row-sortable').data('id');
+
+                    if (id) {
+                        rowsId.push(id);
+                    }
+                });
+
+                $.post("index.php?module=admin&action=seq",
+                    {
+                        data : rowsId,
+                        id : resource
+                    },
+                    function (data, textStatus) {
+                        if (textStatus !== 'success') {
+                            $(ui.item[0].parentNode).sortable( "cancel" );
+                            return false;
+                        } else {
+                            if (data && data.error) {
+                                swal(data.error, '', 'error').catch(swal.noop);
+                                $(ui.item[0].parentNode).sortable( "cancel" );
+                                return false;
+                            }
+                        }
+                    },
+                    "json"
+                );
+            }
+        });
     },
 
 
@@ -1501,6 +1615,7 @@ CoreUI.table = {
      * @param str
      * @param isNumber
      * @returns {number}
+     * @private
      */
     crc32: function(str, isNumber) {
 
