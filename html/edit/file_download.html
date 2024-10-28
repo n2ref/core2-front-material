@@ -19,8 +19,10 @@
 	</td>
 	<td class="size"><span>{%=o.formatFileSize(file.size)%}</span></td>
 	{% } %}
+	{% if (file.delete_id) { %}
 	<td data-service="{%=file.delete_service%}" data-id="{%=file.delete_id%}">
 		<button class="btn delete buttonSmall">Удалить</button>
 		<input class="toggle" type="checkbox" name="delete" value="1">
 	</td>
+	{% } %}
 </tr>
