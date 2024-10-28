@@ -1328,23 +1328,23 @@ CoreUI.table = {
                             url: "admin/index/delete/" + resource
                         }).success(function (data) {
                             if (data && data.error) {
-                                var msg = data.error ? data.error : "Не удалось выполнить удаление";
-                                errorContainer.html(msg);
-                                errorContainer.show();
+                                        var msg = data.error ? data.error : "Не удалось выполнить удаление";
+                                        errorContainer.html(msg);
+                                        errorContainer.show();
 
-                            } else {
+                                    } else {
                                 var loc = CoreUI.table.loc[resource];
                                 if (data) {
-                                    if (data.alert) {
-                                        alert(data.alert);
-                                    }
+                                        if (data.alert) {
+                                            alert(data.alert);
+                                        }
                                     if (data.loc) loc = data.loc;
                                 }
                                 load(loc, '', container, function () {
-                                    preloader.callback();
-                                    CoreUI.table._callEventReload(resource);
-                                });
-                            }
+                                                preloader.callback();
+                                                CoreUI.table._callEventReload(resource);
+                                            });
+                                        }
 
                         }).fail(function () {
                             swal("Не удалось выполнить удаление", '', 'error').catch(swal.noop);

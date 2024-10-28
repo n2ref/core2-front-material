@@ -217,7 +217,7 @@ var main_menu = {
 		 */
 		_onErrorEvent: function (event) {
 
-			if ( ! event.hasOwnProperty('error')) {
+			if (typeof event.error === 'undefined') {
 				return;
 			}
 
@@ -781,7 +781,8 @@ var load = function (url, data, id, callback) {
             locData.callback = callback;
         }
 		document.location.hash = url;
-	} else {
+	}
+	else {
 		if (url) {
 			url = '?' + url;
 			var qs = preloader.qs(url);
