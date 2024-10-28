@@ -781,7 +781,8 @@ var load = function (url, data, id, callback) {
             locData.callback = callback;
         }
 		document.location.hash = url;
-	} else {
+	}
+	else {
 		if (url) {
 			url = '?' + url;
 			var qs = preloader.qs(url);

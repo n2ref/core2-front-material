@@ -1292,8 +1292,9 @@ CoreUI.table = {
      * @param noSelectMsg
      * @param isAjax
      */
-    deleteRows: function (resource, confirmMsg, noSelectMsg, isAjax) {
-
+    deleteRows: function (res, confirmMsg, noSelectMsg, isAjax) {
+        res = res.split('.');
+        var resource = res[0];
         var val = this.getChecked(resource, true);
 
         if (val) {
@@ -1323,33 +1324,27 @@ CoreUI.table = {
                         $.ajax({
                             method: "DELETE",
                             dataType: "json",
-                            url: "index.php?res=" + resource + "&id=" + val,
-                            success: function (data) {
-                                if (data === true) {
-                                    load(CoreUI.table.loc[resource], '', container, function () {
-                                        preloader.callback();
-                                        CoreUI.table._callEventReload(resource);
-                                    });
-
-                                } else {
-                                    if ( ! data || data.error) {
+                            data: {key: res[1] + "." + res[2], id: val},
+                            url: "admin/index/delete/" + resource
+                        }).success(function (data) {
+                            if (data && data.error) {
                                         var msg = data.error ? data.error : "Не удалось выполнить удаление";
                                         errorContainer.html(msg);
                                         errorContainer.show();
 
                                     } else {
+                                var loc = CoreUI.table.loc[resource];
+                                if (data) {
                                         if (data.alert) {
                                             alert(data.alert);
                                         }
-                                        if (data.loc) {
-                                            load(data.loc, '', container, function () {
+                                    if (data.loc) loc = data.loc;
+                                }
+                                load(loc, '', container, function () {
                                                 preloader.callback();
                                                 CoreUI.table._callEventReload(resource);
                                             });
                                         }
-                                    }
-                                }
-                            }
 
                         }).fail(function () {
                             swal("Не удалось выполнить удаление", '', 'error').catch(swal.noop);
