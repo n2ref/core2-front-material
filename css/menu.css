@@ -323,6 +323,8 @@ a {color: #337AB7}
 #user-section .avatar-container img {
     margin-top: -2px;
     margin-left: -1px;
+    width: 28px;
+    height: auto;
 }
 .nav-second-level-toggle {
     padding-top: 4px;

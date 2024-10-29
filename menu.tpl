@@ -46,7 +46,7 @@
                 <li class="nav navbar-nav nav-profile dropdown">
                     <div class="dropdown-toggle" data-toggle="dropdown">
                         <div class="avatar-container">
-                            <img src="[GRAVATAR_URL]?&s=28&d=mm" alt=""/>
+                            <img src="[GRAVATAR_URL]" alt=""/>
                         </div>
                         <i class="fa fa-caret-down"></i>
                     </div>
