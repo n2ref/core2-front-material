@@ -1655,6 +1655,9 @@ div[id^=fileupload-main_] tbody.files > tr:first-child > td {
     display: flex;
     flex-direction: column;
 }
+.core-panel.core-panel-none .core-panel-heading + .core-panel-body {
+    margin-top: 25px;
+}
 .core-panel.core-panel-default {
     border-color: #cbcbcb;
     background-color: #fff;
