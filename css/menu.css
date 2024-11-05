@@ -12,7 +12,7 @@ a {color: #337AB7}
             transition: width 0.3s ease-in-out;
     height: 100%;
     width: 100%;
-    overflow: auto;
+    /*overflow: auto;*/
     -webkit-box-sizing: border-box;
        -moz-box-sizing: border-box;
         -ms-box-sizing: border-box;
