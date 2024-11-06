@@ -325,13 +325,11 @@ var main_menu = {
 
 			error.count = 1;
 
-			let date   = new Date();
 			let client = main_menu.getBrowserInfo();
 			main_menu.errors._errors.push({
 				level: level,
 				type: type,
 				url: location.href,
-				time: date.getHours() + ":" + ("00" + date.getMinutes()).slice(-2) + ":" + ("00" + date.getSeconds()).slice(-2),
 				client: client,
 				error: error
 			});
