@@ -275,7 +275,8 @@ var listx = {
      */
     switch_active: function($this, e) {
         e.cancelBubble = true;
-        var data = String($($this).attr('t_name'));
+        var data = String($($this).data('resource')).split('.');
+        const resource = data[0];
         var src = String($($this).attr('src'));
         var alt = $($this).attr('alt');
         var val = $($this).attr('val');
@@ -300,8 +301,8 @@ var listx = {
             cancelButtonText: "Нет"
         }).then(
             function(result) {
-                $.post('index.php?module=admin&action=switch&loc=core', {
-                    data:      data,
+                $.post('admin/index/switch/' + resource, {
+                    data:      data[1] + '.' + data[2],
                     is_active: is_active,
                     value:     val
                 }, function(data, textStatus) {

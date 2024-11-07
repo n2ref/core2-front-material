@@ -47,7 +47,7 @@
 	<script type="text/javascript" src="core2/html/material/js/es6-promise.auto.min.js"></script>
 	<script type="text/javascript" src="core2/html/material/js/sweetalert2.min.js?_=2"></script>
 	<script type="text/javascript" src="core2/html/material/js/coreui.notice.js?_=1"></script>
-	<script type="text/javascript" src="core2/html/material/js/coreui.table.js?_=19"></script>
+	<script type="text/javascript" src="core2/html/material/js/coreui.table.js?_=20"></script>
 	<script type="text/javascript" src="core2/html/material/js/coreui.panel.js?_=1"></script>
 	<script type="text/javascript" src="core2/html/material/js/coreui.tabs.js?_=0"></script>
 
@@ -66,10 +66,10 @@
 	<script src="core2/vendor/blueimp/jquery-file-upload/js/cors/jquery.xdr-transport.js"></script>
 	<![endif]-->
 
-	<script type="text/javascript" src="core2/html/material/js/class.list.js?_=3"></script>
+	<script type="text/javascript" src="core2/html/material/js/class.list.js?_=5"></script>
 	<script type="text/javascript" src="core2/html/material/js/class.edit.js?_=24"></script>
 	<script type="text/javascript" src="core2/js/eTip.js"></script>
-	<script type="text/javascript" src="core2/html/material/js/main.js?_=12"></script>
+	<script type="text/javascript" src="core2/html/material/js/main.js?_=14"></script>
     <!--[if IE]>
     <link rel="shortcut icon" type="image/x-icon" href="favicon.ico"/>
     <![endif]-->
