@@ -1225,8 +1225,7 @@ CoreUI.table = {
                 var value = isActiveControl
                     ? $(container).find('.coreui-table-switch-inactive').val()
                     : $(container).find('.coreui-table-switch-active').val();
-
-                $.post('index.php?module=admin&action=switch&loc=core&resource=' + resource, {
+                $.post('admin/index/switch/' + resource, {
                         data:      field,
                         is_active: value,
                         value:     id
