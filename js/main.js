@@ -221,52 +221,12 @@ var main_menu = {
 				return;
 			}
 
-			main_menu.errors.addError('js error', 'error', {
+			main_menu.errors.addError('error', {
 				message: event.message,
 				file: event.filename,
 				line: event.lineno,
 				col: event.colno,
 				stack : event.error.stack.split('\n').map(string => string.trim())
-			})
-		},
-
-
-		/**
-		 * Событие обработки ajax ошибок на странице
-		 * @param {string} url
-		 * @param {Object} jqXHR
-		 * @private
-		 */
-		_onErrorAjax: function (url, jqXHR) {
-
-			if (main_menu.errors._url === url) {
-				return;
-			}
-
-			main_menu.errors.addError('ajax', 'error', {
-				message: jqXHR.status + ' ' + jqXHR.statusText,
-				url: url,
-				response: jqXHR.responseText.substring(0, 255),
-				stack : (new Error()).stack.split('\n').map(string => string.trim()).slice(2)
-			})
-		},
-
-
-		/**
-		 * Событие обработки xajax ошибок на странице
-		 * @param {Object} response
-		 * @private
-		 */
-		_onErrorXajax: function (response) {
-
-			let request = response.hasOwnProperty('request')
-				? response.request
-				: null;
-
-			main_menu.errors.addError('xajax', 'error', {
-				message: request ? (request.status + ' ' + request.statusText) : 'no_request_data',
-				response: request ? request.responseText.substring(0, 255) : '',
-				params : response.parameters
 			})
 		},
 
@@ -301,11 +261,10 @@ var main_menu = {
 
 		/**
 		 * Добавление ошибки в список
-		 * @param {string} type
 		 * @param {string} level
 		 * @param {Object} error
 		 */
-		addError: function (type, level, error) {
+		addError: function (level, error) {
 
 			// чтобы не плодить одинаковые ошибки
 			if (main_menu.errors._errors.length > 0) {
@@ -328,7 +287,6 @@ var main_menu = {
 			let client = main_menu.getBrowserInfo();
 			main_menu.errors._errors.push({
 				level: level,
-				type: type,
 				url: location.href,
 				client: client,
 				error: error
@@ -722,9 +680,6 @@ $(document).ajaxError(function (event, jqxhr, settings, exception) {
     } else if (jqxhr.status === 403) {
         swal("Время жизни вашей сессии истекло", 'Чтобы войти в систему заново, обновите страницу (F5)', 'error').catch(swal.noop);
     } else {
-		if (jqxhr.status >= 500) {
-			main_menu.errors._onErrorAjax(settings.url, jqxhr);
-		}
 		swal("Ой, извините!", "Во время обработки вашего запроса произошла ошибка.", 'error').catch(swal.noop);
 	}
 });
@@ -930,9 +885,6 @@ var load = function (url, data, id, callback) {
 						}
                     }
 					else {
-						if (jqXHR.status >= 500) {
-							main_menu.errors._onErrorAjax('index.php' + url, jqXHR);
-						}
 						swal("Во время обработки вашего запроса произошла ошибка", 'Обновите страницу и попробуйте снова', 'error').catch(swal.noop);
 					}
 				}
@@ -1239,9 +1191,6 @@ document.addEventListener("DOMContentLoaded", function (e) {
         } else if (a.request.status === 403) {
             swal("Время жизни вашей сессии истекло", 'Чтобы войти в систему заново, обновите страницу (F5)', 'error').catch(swal.noop);
         } else {
-			if (a.request.status >= 500) {
-				main_menu.errors._onErrorXajax(a);
-			}
 			swal("Ой, извините!", 'Во время обработки вашего запроса произошла ошибка.', 'error').catch(swal.noop);
         }
 	};
