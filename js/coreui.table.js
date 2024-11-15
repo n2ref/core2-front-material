@@ -548,18 +548,6 @@ CoreUI.table = {
                     });
                 },
                 minLength: options.minLength,
-                focus: function( event, ui ) {
-                    event.preventDefault();
-
-                    if (fieldSelect && ui.item) {
-                        if (ui.item._tr) {
-                            ui.item._tr.parent().find('tr').removeClass('active');
-                            ui.item._tr.addClass('active');
-                        }
-
-                        $(input).val(ui.item.hasOwnProperty(fieldSelect) ? ui.item[fieldSelect] : '');
-                    }
-                },
                 select: function( event, ui ) {
                     event.preventDefault();
 
