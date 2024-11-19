@@ -221,7 +221,7 @@ var main_menu = {
 				return;
 			}
 
-			main_menu.errors.addError('error', {
+			main_menu.errors.addError('js error', 'error', {
 				message: event.message,
 				file: event.filename,
 				line: event.lineno,
@@ -261,10 +261,11 @@ var main_menu = {
 
 		/**
 		 * Добавление ошибки в список
+		 * @param {string} type
 		 * @param {string} level
 		 * @param {Object} error
 		 */
-		addError: function (level, error) {
+		addError: function (type, level, error) {
 
 			// чтобы не плодить одинаковые ошибки
 			if (main_menu.errors._errors.length > 0) {
@@ -286,6 +287,7 @@ var main_menu = {
 
 			let client = main_menu.getBrowserInfo();
 			main_menu.errors._errors.push({
+				type: type,
 				level: level,
 				url: location.href,
 				client: client,
