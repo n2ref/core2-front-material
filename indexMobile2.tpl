@@ -15,7 +15,7 @@
 	<link rel="stylesheet" href="core2/html/material/css/jquery.ui.theme.css" type="text/css"/>
 	<link rel="stylesheet" href="core2/html/material/css/jquery.ui.theme.font-awesome.css" type="text/css"/>
     <link rel="stylesheet" href="core2/html/material/css/sweetalert2.min.css?_=2" type="text/css"/>
-    <link rel="stylesheet" href="core2/html/material/css/coreui.notice.css?_=1" type="text/css"/>
+    <link rel="stylesheet" href="core2/html/material/css/coreui.notice.css?_=2" type="text/css"/>
 
     <!--[if lte IE 10]>
     <link rel="stylesheet" href="core2/html/material/css/sweetalert2-ie.min.css" type="text/css"/>
@@ -63,7 +63,7 @@
 	<script type="text/javascript" src="core2/html/material/js/class.list.js?_=3"></script>
     <script type="text/javascript" src="core2/html/material/js/class.edit.js?_=24"></script>
 	<script type="text/javascript" src="core2/js/eTip.js"></script>
-	<script type="text/javascript" src="core2/html/material/js/main.js?_=12"></script>
+	<script type="text/javascript" src="core2/html/material/js/main.js?_=15"></script>
     <link rel="icon" type="image/png" href="favicon.png"/>
 	<!--[if lte IE 7]>
 	<style type="text/css">.iefix {display: inline-block;width: 0;overflow: hidden;}</style>
