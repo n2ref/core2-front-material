@@ -1192,17 +1192,28 @@ CoreUI.table = {
 
 
     /**
-     * @param resource
-     * @param field
-     * @param id
-     * @param container
+     * @param {string}             resource
+     * @param {string}             field
+     * @param {string}             id
+     * @param {jQuery|HTMLElement} container
+     * @param {string}             messageActive
+     * @param {string}             messageInactive
      */
-    switchToggle: function (resource, field, id, container) {
+    switchToggle: function (resource, field, id, container, messageActive, messageInactive) {
 
-        var isActiveControl = $(container).find(':checked').hasClass('coreui-table-switch-active');
+        let isActiveControl = $(container).find(':checked').hasClass('coreui-table-switch-active');
+
+        messageActive = typeof messageActive === 'string' && messageActive
+            ? messageActive
+            : "Активировать?";
+
+        messageInactive = typeof messageInactive === 'string' && messageInactive
+            ? messageInactive
+            : "Деактивировать?";
+
 
         swal({
-            title: isActiveControl ? "Деактивировать?" : "Активировать?",
+            title: isActiveControl ? messageInactive : messageActive,
             type: isActiveControl ? "warning" : "info",
             showCancelButton: true,
             confirmButtonColor: isActiveControl ? '#f0ad4e' : '#5bc0de',
