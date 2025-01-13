@@ -15,7 +15,9 @@
     z-index: 1000;
     z-index: var(--z-coreui-notice);
     top: 50px;
-    right: 0;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, 0);
     width: auto;
     height: auto;
 }

@@ -19,7 +19,7 @@
 	<link rel="stylesheet" href="core2/html/material/css/jquery.ui.theme.css" type="text/css"/>
 	<link rel="stylesheet" href="core2/html/material/css/jquery.ui.theme.font-awesome.css" type="text/css"/>
 	<link rel="stylesheet" href="core2/html/material/css/sweetalert2.min.css?_=2" type="text/css"/>
-	<link rel="stylesheet" href="core2/html/material/css/coreui.notice.css?_=2" type="text/css"/>
+	<link rel="stylesheet" href="core2/html/material/css/coreui.notice.css?_=3" type="text/css"/>
 
 	<!--[if lte IE 10]>
 	<link rel="stylesheet" href="core2/html/material/css/sweetalert2-ie.min.css" type="text/css"/>
