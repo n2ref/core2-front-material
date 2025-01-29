@@ -552,7 +552,7 @@ var edit = {
 			$('.modal-dialog > .modal-content > .modal-body', modal)
 				.load(url, function( response, status, xhr ) {
 					if ( status == "error" ) {
-						$(".modal-dialog > .modal-content > .modal-body").html( msg + xhr.status + " " + xhr.statusText );
+						$(".modal-dialog > .modal-content > .modal-body").html(xhr.status + " " + xhr.statusText );
 					}
 				});
 
