@@ -1408,7 +1408,7 @@ if (window.hasOwnProperty('SharedWorker') && typeof window.SharedWorker === 'fun
 					break;
 
 				default:
-					console.log(e.data);
+					// console.log(e.data);
 					break;
 			}
 
@@ -1428,7 +1428,7 @@ if (window.hasOwnProperty('SharedWorker') && typeof window.SharedWorker === 'fun
 		(e) => {
 			e.detail.forEach(function (data){
 				const e = JSON.parse(data);
-				console.log(e)
+				// console.log(e)
 				if (e.element) {
 					$(e.element.selector).html(e.element.text);
 				}

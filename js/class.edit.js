@@ -1641,6 +1641,7 @@ var edit = {
 				instance.init({
 					mapContainer: options.mapContainer,
 					inputCoordinates: options.inputCoordinates,
+					inputAddressId: options.inputAddressId,
 					center: options.hasOwnProperty('center') ? options.center : null,
 					zoom: options.hasOwnProperty('zoom') ? options.zoom : 10,
 					apikey: options.apikey,
@@ -1676,6 +1677,7 @@ var edit = {
 			_mapZoom: null,
 			_mapPlacemark: null,
 			_inputCoordinates: null,
+			_inputAddressId: null,
 			_apikey: null,
 
 
@@ -1687,19 +1689,33 @@ var edit = {
 
 				this._mapContainer     = options.mapContainer
 				this._inputCoordinates = options.inputCoordinates;
+				this._inputAddressId   = options.inputAddressId;
 				this._mapCenter        = options.center;
 				this._mapZoom          = options.zoom;
 				this._apikey           = options.apikey;
 
 
 
-				let lat = this._mapCenter[0];
-				let lng = this._mapCenter[1];
+				let instance = this;
+				let lat      = this._mapCenter[0];
+				let lng      = this._mapCenter[1];
 
 				if ($(this._inputCoordinates).val()) {
 					let coordinates = $(this._inputCoordinates).val().split(',');
 					lat = coordinates[0].trim();
 					lng = coordinates[1].trim();
+				}
+
+				if (this._inputAddressId && $('#' + this._inputAddressId)[0]) {
+					$('#' + this._inputAddressId).keyup(function (event) {
+
+						if (event.keyCode !== 32 &&
+							event.keyCode !== 37 &&
+							event.keyCode !== 39
+						) {
+							instance.findAddress($(this).val())
+						}
+					});
 				}
 
 				this._map = new ymaps.Map(this._mapContainer, {
@@ -1778,6 +1794,82 @@ var edit = {
 						checkZoomRange: false,
 					});
 					this._map.setZoom(10);
+				}
+			},
+
+
+			/**
+			 * @param address
+			 */
+			findAddress: function (address) {
+
+				let priority = 'Беларусь';
+				let instance = this;
+
+				address = address.trim();
+
+				if (address) {
+					$.get("https://geocode-maps.yandex.ru/1.x/?apikey=" + this._apikey + "&format=json&geocode=" + address,
+						function (data) {
+
+							let addresses = [];
+
+							if (data &&
+								data.response &&
+								data.response.GeoObjectCollection &&
+								data.response.GeoObjectCollection.featureMember.length > 0
+							) {
+								let geoObject = null;
+
+								$.each(data.response.GeoObjectCollection.featureMember, function (key, object) {
+
+									if (object &&
+										object.GeoObject &&
+										object.GeoObject.metaDataProperty &&
+										object.GeoObject.metaDataProperty.GeocoderMetaData &&
+										object.GeoObject.metaDataProperty.GeocoderMetaData.text
+									) {
+										addresses.push(object.GeoObject.metaDataProperty.GeocoderMetaData.text);
+									}
+
+
+									if ( ! geoObject &&
+										object &&
+										object.GeoObject &&
+										object.GeoObject.description &&
+										object.GeoObject.description.indexOf(priority) >= 0
+									) {
+										geoObject = object.GeoObject;
+									}
+								})
+
+
+								if ( ! geoObject &&
+									data.response.GeoObjectCollection.featureMember[0] &&
+									data.response.GeoObjectCollection.featureMember[0].GeoObject &&
+									data.response.GeoObjectCollection.featureMember[0].GeoObject.Point &&
+									data.response.GeoObjectCollection.featureMember[0].GeoObject.Point.pos
+								) {
+									geoObject = data.response.GeoObjectCollection.featureMember[0].GeoObject;
+								}
+
+								if (geoObject &&
+									geoObject.Point &&
+									geoObject.Point.pos
+								) {
+									let coords = geoObject.Point.pos.split(' ');
+
+									instance.setCoordinatesMarker(coords[1], coords[0], true);
+								}
+							}
+
+							$('#' + instance._inputAddressId).autocomplete({
+								source: addresses,
+								minLength: 0
+							});
+						},
+						'json'
+					)
 				}
 			}
 		}
