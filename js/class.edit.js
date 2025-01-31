@@ -1344,6 +1344,8 @@ var edit = {
 				    '<input type="text" class="form-control input-sm" name="control[[FIELD]][[NUM]][[CODE]]" value="[VALUE]" [ATTRIBUTES]>' +
 			    '</td>';
 
+			var tplFieldTextReadonly = '<td><div [ATTRIBUTES]>[VALUE]</div></td>';
+
 			var tplFieldTextarea =
 				'<td>' +
 				    '<textarea class="form-control input-sm" name="control[[FIELD]][[NUM]][[CODE]]" value="[VALUE]" [ATTRIBUTES]></textarea>' +
@@ -1356,7 +1358,7 @@ var edit = {
 
 			var tplFieldDatetime =
 				'<td>' +
-				    '<input type="datetime" class="form-control input-sm" name="control[[FIELD]][[NUM]][[CODE]]" value="[VALUE]" [ATTRIBUTES]>' +
+				    '<input type="datetime-local" class="form-control input-sm" name="control[[FIELD]][[NUM]][[CODE]]" value="[VALUE]" [ATTRIBUTES]>' +
 			    '</td>';
 
 			var tplFieldNumber =
@@ -1369,8 +1371,7 @@ var edit = {
 
 			var tplFieldSwitch =
 				'<td>' +
-					'<div class="core-switch color-primary" ' +
-						'onclick="edit.switchToggle(this)">' +
+					'<div class="core-switch color-primary" onclick="edit.switchToggle(this)" [ATTRIBUTES]>' +
 						'<input type="radio" class="core-switch-active" ' +
 							'name="control[[FIELD]][[NUM]][[CODE]]" value="Y" [CHECKED_Y]>' +
 						'<input type="radio" class="core-switch-inactive" ' +
@@ -1397,11 +1398,12 @@ var edit = {
 					var tplFieldCustom = tplFieldText;
 
 					switch (field['type'] || 'text') {
-						case 'date':     tplFieldCustom = tplFieldDate; break;
-						case 'datetime': tplFieldCustom = tplFieldDatetime; break;
-						case 'number':   tplFieldCustom = tplFieldNumber; break;
-						case 'hidden':   tplFieldCustom = tplFieldHidden; break;
-						case 'textarea': tplFieldCustom = tplFieldTextarea; break;
+						case 'text_readonly': tplFieldCustom = tplFieldTextReadonly; break;
+						case 'date':          tplFieldCustom = tplFieldDate; break;
+						case 'datetime':      tplFieldCustom = tplFieldDatetime; break;
+						case 'number':        tplFieldCustom = tplFieldNumber; break;
+						case 'hidden':        tplFieldCustom = tplFieldHidden; break;
+						case 'textarea':      tplFieldCustom = tplFieldTextarea; break;
 						case 'select':
 							var selectOptions = '';
 
