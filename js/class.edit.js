@@ -1860,6 +1860,7 @@ var edit = {
 									let coords = geoObject.Point.pos.split(' ');
 
 									instance.setCoordinatesMarker(coords[1], coords[0], true);
+									instance.setCoordinatesInput(coords[1], coords[0]);
 								}
 							}
 
