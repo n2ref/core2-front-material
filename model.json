@@ -1,5 +1,5 @@
 {
-    "logo": "img/logo.gif",
+    "logo": "login/logo.html",
     "login": "login/login.html",
     "login-registration": "login/registration.html",
     "login-registration-complete": "login/registration-complete.html",
