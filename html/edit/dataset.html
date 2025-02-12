@@ -21,6 +21,11 @@
                 <input type="text" class="form-control input-sm" name="control[[FIELD]][[NUM]][[CODE]]" value="[VALUE]" [ATTRIBUTES]>
             </td>
             <!-- END field_text -->
+            <!-- BEGIN field_text_readonly -->
+            <td>
+                <div [ATTRIBUTES]>[VALUE]</div>
+            </td>
+            <!-- END field_text_readonly -->
             <!-- BEGIN field_textarea -->
             <td>
                 <textarea  [ATTRIBUTES] class="form-control input-sm" name="control[[FIELD]][[NUM]][[CODE]]">[VALUE]</textarea>
@@ -69,8 +74,7 @@
             <!-- END field_date -->
             <!-- BEGIN field_switch -->
             <td>
-                <div class="core-switch color-primary"
-                     onclick="edit.switchToggle(this)">
+                <div class="core-switch color-primary" onclick="edit.switchToggle(this)" [ATTRIBUTES]>
 
                     <input type="radio" class="core-switch-active"
                            name="control[[FIELD]][[NUM]][[CODE]]" value="Y" [CHECKED_Y]>

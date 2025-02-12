@@ -15,7 +15,7 @@
 	<link rel="stylesheet" href="core2/html/material/css/jquery.ui.theme.css" type="text/css"/>
 	<link rel="stylesheet" href="core2/html/material/css/jquery.ui.theme.font-awesome.css" type="text/css"/>
     <link rel="stylesheet" href="core2/html/material/css/sweetalert2.min.css?_=2" type="text/css"/>
-    <link rel="stylesheet" href="core2/html/material/css/coreui.notice.css?_=2" type="text/css"/>
+    <link rel="stylesheet" href="core2/html/material/css/coreui.notice.css?_=4" type="text/css"/>
 
     <!--[if lte IE 10]>
     <link rel="stylesheet" href="core2/html/material/css/sweetalert2-ie.min.css" type="text/css"/>
@@ -41,7 +41,7 @@
     <script type="text/javascript" src="core2/html/material/js/es6-promise.auto.min.js"></script>
     <script type="text/javascript" src="core2/html/material/js/sweetalert2.min.js?_=2"></script>
     <script type="text/javascript" src="core2/html/material/js/coreui.notice.js?_=1"></script>
-    <script type="text/javascript" src="core2/html/material/js/coreui.table.js?_=21"></script>
+    <script type="text/javascript" src="core2/html/material/js/coreui.table.js?_=22"></script>
     <script type="text/javascript" src="core2/html/material/js/coreui.panel.js?_=1"></script>
     <script type="text/javascript" src="core2/html/material/js/coreui.tabs.js?_=0"></script>
 
@@ -60,7 +60,7 @@
     <script src="core2/vendor/belhard/jquery-file-upload/js/cors/jquery.xdr-transport.js"></script>
     <![endif]-->
 
-	<script type="text/javascript" src="core2/html/material/js/class.list.js?_=3"></script>
+	<script type="text/javascript" src="core2/html/material/js/class.list.js?_=6"></script>
     <script type="text/javascript" src="core2/html/material/js/class.edit.js?_=24"></script>
 	<script type="text/javascript" src="core2/js/eTip.js"></script>
 	<script type="text/javascript" src="core2/html/material/js/main.js?_=15"></script>
