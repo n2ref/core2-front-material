@@ -330,7 +330,7 @@
                     <!-- BEGIN select2 -->
                     <div>
                       <select [IN_TEXT] class="form-control input-sm" id="search-[RESOURCE]-[KEY]" name="search[[RESOURCE]][[KEY]]"></select>
-                      <script> $('#search-[RESOURCE]-[KEY]').select2({language: 'ru', theme: 'bootstrap', }); </script>
+                      <script> $('#search-[RESOURCE]-[KEY]').select2({language: 'ru', theme: 'bootstrap', dropdownParent: $('#search-[RESOURCE]-[KEY]').parent() }); </script>
                     </div>
                     <!-- END select2 -->
 
@@ -345,7 +345,7 @@
                     <div>
                       <select [IN_TEXT] class="form-control input-sm multiselect" id="search-[RESOURCE]-[KEY]"
                               multiple="multiple" name="search[[RESOURCE]][[KEY]][]"></select>
-                      <script>$('#search-[RESOURCE]-[KEY]').select2({language: 'ru',theme: 'bootstrap',  allowClear: true, placeholder: ''});</script>
+                      <script>$('#search-[RESOURCE]-[KEY]').select2({language: 'ru',theme: 'bootstrap',  allowClear: true, placeholder: '', dropdownParent: $('#search-[RESOURCE]-[KEY]').parent()});</script>
                     </div>
                     <!-- END multiselect2 -->
 
