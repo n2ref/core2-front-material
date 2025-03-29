@@ -1318,12 +1318,14 @@ CoreUI.table = {
                             var wrapper = document.getElementById("table-" + resource + "-wrapper");
                             container   = wrapper ? wrapper.parentNode : null;
                         }
-
+                        const searchParams = new URLSearchParams(CoreUI.table.loc[resource]);
+                        const module = searchParams.get("module");
+                        let action = searchParams.get("action");
+                        if (!action) action = 'index';
                         $.ajax({
                             method: "DELETE",
                             dataType: "json",
-                            data: {key: res[1] + "." + res[2], id: val},
-                            url: "admin/index/delete/" + resource
+                            url: module + "/" + action + "/" + resource + "?" + res[1] + "." + res[2] + "=" + val
                         }).success(function (data) {
                             if (data && data.error) {
                                 var msg = data.error ? data.error : "Не удалось выполнить удаление";
