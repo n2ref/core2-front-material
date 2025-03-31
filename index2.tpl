@@ -40,7 +40,6 @@
 	<script type="text/javascript" src="core2/js/jquery/jquery-ui-1.10.3.custom.min.js"></script>
 	<script type="text/javascript" src="core2/js/jquery/i18n/jquery.ui.datepicker-ru.js"></script>
 	<script type="text/javascript" src="core2/js/jquery/jquery-ui-timepicker-addon.js"></script>
-	<script type="text/javascript" src="core2/js/QueryString.js"></script>
 	<script type="text/javascript" src="core2/js/jquery/plugins/jquery.maskedinput.min.js"></script>
 	<script type="text/javascript" src="core2/js/jquery/plugins/jquery.maskMoney.js"></script>
 	<script type="text/javascript" src="core2/html/material/js/cleave.min.js"></script>
