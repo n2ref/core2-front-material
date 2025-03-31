@@ -1319,11 +1319,20 @@ CoreUI.table = {
                             container   = wrapper ? wrapper.parentNode : null;
                         }
 
+                        var loc            = CoreUI.table.loc[resource];
+                        const searchParams = new URLSearchParams(loc);
+                        const module       = searchParams.get("module");
+                        let action         = searchParams.get("action");
+
+                        if ( ! action) {
+                            action = 'index';
+                        }
+
+
                         $.ajax({
                             method: "DELETE",
                             dataType: "json",
-                            data: {key: res[1] + "." + res[2], id: val},
-                            url: "admin/index/delete/" + resource
+                            url: module + "/" + action + "/" + resource + "?" + res[1] + "." + res[2] + "=" + val
                         }).success(function (data) {
                             if (data && data.error) {
                                 var msg = data.error ? data.error : "Не удалось выполнить удаление";
@@ -1331,7 +1340,6 @@ CoreUI.table = {
                                 errorContainer.show();
 
                             } else {
-                                var loc = CoreUI.table.loc[resource];
                                 if (data) {
                                     if (data.notice) {
                                         CoreUI.notice.create(data.notice);
