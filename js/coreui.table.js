@@ -1319,7 +1319,6 @@ CoreUI.table = {
                             container   = wrapper ? wrapper.parentNode : null;
                         }
 
-                        var loc            = CoreUI.table.loc[resource];
                         const searchParams = new URLSearchParams(loc);
                         const module       = searchParams.get("module");
                         let action         = searchParams.get("action");
@@ -1340,6 +1339,7 @@ CoreUI.table = {
                                 errorContainer.show();
 
                             } else {
+                                var loc = CoreUI.table.loc[resource];
                                 if (data) {
                                     if (data.notice) {
                                         CoreUI.notice.create(data.notice);
