@@ -674,8 +674,8 @@ $(document).ajaxError(function (event, jqxhr, settings, exception) {
     preloader.hide();
     if (jqxhr.status === '0') {
         //alert("Соединение прервано.");
-    } else if (jqxhr.responseText === 'Доступ закрыт! Если вы уверены, что вам сюда можно, обратитесь к администратору.' ){
-		swal(jqxhr.responseText, '', 'error').catch(swal.noop);
+    } else if (jqxhr.responseText.indexOf('Доступ закрыт! Если вы уверены, что вам сюда можно, обратитесь к администратору.') === 0){
+		swal('Доступ закрыт! Если вы уверены, что вам сюда можно, обратитесь к администратору.', '', 'error').catch(swal.noop);
 	} else if (jqxhr.statusText === 'error') {
         swal("Отсутствует соединение с Интернет.", '', 'error').catch(swal.noop);
     } else if (jqxhr.status === 403) {
