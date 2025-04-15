@@ -86,7 +86,7 @@ CoreUI.table = {
             var pageParam = '_page_' + resource;
             var url       = CoreUI.table.loc[resource];
 
-            url  = url.replace(new RegExp('&' + pageParam + '=\d*', 'i'), '');
+            url  = url.replace(new RegExp('&' + pageParam + '=\\d*', 'i'), '');
             url  = url.replace(/\&__clear=\d*/, '');
             url += "&" + pageParam + '=1';
             url += "&__clear=1";
@@ -128,7 +128,7 @@ CoreUI.table = {
             var pageParam = '_page_' + resource;
             var url       = CoreUI.table.loc[resource];
 
-            url  = url.replace(new RegExp('&' + pageParam + '=\d*', 'i'), '');
+            url  = url.replace(new RegExp('&' + pageParam + '=\\d*', 'i'), '');
             url  = url.replace(/\&__search=\d*/, '');
             url += "&" + pageParam + '=1';
             url += "&__search=1";
@@ -174,7 +174,7 @@ CoreUI.table = {
             var pageParam = '_page_' + resource;
             var url       = CoreUI.table.loc[resource];
 
-            url  = url.replace(new RegExp('&' + pageParam + '=\d*', 'i'), '');
+            url  = url.replace(new RegExp('&' + pageParam + '=\\d*', 'i'), '');
             url  = url.replace(/\&__filter_clear=\d*/, '');
             url += "&" + pageParam + '=1';
             url += "&__filter_clear=1";
@@ -217,7 +217,7 @@ CoreUI.table = {
             var pageParam = '_page_' + resource;
             var url       = CoreUI.table.loc[resource];
 
-            url  = url.replace(new RegExp('&' + pageParam + '=\d*', 'i'), '');
+            url  = url.replace(new RegExp('&' + pageParam + '=\\d*', 'i'), '');
             url  = url.replace(/\&__filter=\d*/, '');
             url += "&" + pageParam + '=1';
             url += "&__filter=1";
@@ -734,7 +734,7 @@ CoreUI.table = {
             var pageParam = '_page_' + resource;
             var url       = CoreUI.table.loc[resource];
 
-            url  = url.replace(new RegExp('&' + pageParam + '=\d*', 'i'), '');
+            url  = url.replace(new RegExp('&' + pageParam + '=\\d*', 'i'), '');
             url  = url.replace(/\&__filter=\d*/, '');
             url += "&" + pageParam + '=1';
             url += "&__filter=1";
@@ -853,7 +853,7 @@ CoreUI.table = {
                     var pageParam = '_page_' + resource;
                     var url       = CoreUI.table.loc[resource];
 
-                    url  = url.replace(new RegExp('&' + pageParam + '=\d*', 'i'), '');
+                    url  = url.replace(new RegExp('&' + pageParam + '=\\d*', 'i'), '');
                     url += "&" + pageParam + '=1';
 
                     if (isAjax) {
@@ -905,7 +905,7 @@ CoreUI.table = {
                     var pageParam = '_page_' + resource;
                     var url       = CoreUI.table.loc[resource];
 
-                    url  = url.replace(new RegExp('&' + pageParam + '=\d*', 'i'), '');
+                    url  = url.replace(new RegExp('&' + pageParam + '=\\d*', 'i'), '');
                     url += "&" + pageParam + '=1';
 
                     if (isAjax) {
@@ -945,7 +945,7 @@ CoreUI.table = {
             var pageParam = '_page_' + resource;
             var url       = CoreUI.table.loc[resource];
 
-            url  = url.replace(new RegExp('&' + pageParam + '=\d*', 'i'), '');
+            url  = url.replace(new RegExp('&' + pageParam + '=\\d*', 'i'), '');
             url += "&" + pageParam + '=1';
 
             if (isAjax) {
@@ -1042,7 +1042,7 @@ CoreUI.table = {
         var page      = obj.getAttribute('title');
         var url       = CoreUI.table.loc[resource];
 
-        url = url.replace(new RegExp('&' + pageParam + '=\d*', 'i'), '');
+        url = url.replace(new RegExp('&' + pageParam + '=\\d*', 'i'), '');
         url = url + "&" + pageParam + '=' + page;
 
         if (isAjax) {
@@ -1084,7 +1084,7 @@ CoreUI.table = {
         var page      = $('#table-' + resource + '-gotopage').val();
         var url       = CoreUI.table.loc[resource];
 
-        url = url.replace(new RegExp('&' + pageParam + '=\d*', 'i'), '');
+        url = url.replace(new RegExp('&' + pageParam + '=\\d*', 'i'), '');
         url = url + "&" + pageParam + '=' + page;
 
         if (isAjax) {
@@ -1124,7 +1124,7 @@ CoreUI.table = {
         var page      = 1;
         var url       = CoreUI.table.loc[resource];
 
-        url  = url.replace(new RegExp('&' + pageParam + '=\d*', 'i'), '');
+        url  = url.replace(new RegExp('&' + pageParam + '=\\d*', 'i'), '');
         url  = url.replace(/\$__order=\d*/, '');
         url += "&" + pageParam + '=' + page;
         url += "&__order=1";
