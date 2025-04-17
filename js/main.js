@@ -217,7 +217,7 @@ var main_menu = {
 		 */
 		_onErrorEvent: function (event) {
 
-			if (typeof event.error === 'undefined') {
+			if (typeof event.error === 'undefined' || ! event.error) {
 				return;
 			}
 
