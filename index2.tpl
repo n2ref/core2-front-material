@@ -68,7 +68,7 @@
 	<script type="text/javascript" src="core2/html/material/js/class.list.js?_=6"></script>
 	<script type="text/javascript" src="core2/html/material/js/class.edit.js?_=24"></script>
 	<script type="text/javascript" src="core2/js/eTip.js"></script>
-	<script type="text/javascript" src="core2/html/material/js/main.js?_=15"></script>
+	<script type="text/javascript" src="core2/html/material/js/main.js?_=16"></script>
     <!--[if IE]>
     <link rel="shortcut icon" type="image/x-icon" href="favicon.ico"/>
     <![endif]-->
