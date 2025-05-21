@@ -681,7 +681,7 @@ $(document).ajaxError(function (event, jqxhr, settings, exception) {
     } else if (jqxhr.status === 403) {
         swal("Время жизни вашей сессии истекло", 'Чтобы войти в систему заново, обновите страницу (F5)', 'error').catch(swal.noop);
     } else {
-		swal("Ой, извините!", "Во время обработки вашего запроса произошла ошибка.", 'error').catch(swal.noop);
+		//swal("Ой, извините!", "Во время обработки вашего запроса произошла ошибка.", 'error').catch(swal.noop);
 	}
 });
 $(document).ajaxSuccess(function (event, xhr, settings) {

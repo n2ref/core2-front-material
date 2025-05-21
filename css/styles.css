@@ -804,7 +804,7 @@ table.editTable td > .map-coordinates .map-container {
 }
 .field-dataset-items .field-dataset-item > td {
     padding-bottom: 8px;
-    padding-right: 4px;
+    padding-right: 6px;
     vertical-align: top;
 }
 .field-dataset-items .field-dataset-item > td .field-dataset-delete {

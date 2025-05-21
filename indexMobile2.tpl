@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="core2/html/material/css/font-awesome.min.css?_=2" type="text/css"/>
     <link rel="stylesheet" href="core2/html/material/css/material-design-iconic-font.min.css" type="text/css"/>
     <link rel="stylesheet" href="core2/html/material/css/menu.css?_=16" type="text/css"/>
-    <link rel="stylesheet" href="core2/html/material/css/styles.css?_=42" type="text/css"/>
+    <link rel="stylesheet" href="core2/html/material/css/styles.css?_=43" type="text/css"/>
 	<link rel="stylesheet" href="core2/html/material/css/jquery/ui-lightness/jquery-ui-1.10.3.custom.min.css" type="text/css"/>
 
 	<link rel="stylesheet" href="core2/html/material/css/jquery.ui.theme.css" type="text/css"/>
@@ -40,7 +40,7 @@
     <script type="text/javascript" src="core2/html/material/js/es6-promise.auto.min.js"></script>
     <script type="text/javascript" src="core2/html/material/js/sweetalert2.min.js?_=2"></script>
     <script type="text/javascript" src="core2/html/material/js/coreui.notice.js?_=1"></script>
-    <script type="text/javascript" src="core2/html/material/js/coreui.table.js?_=22"></script>
+    <script type="text/javascript" src="core2/html/material/js/coreui.table.js?_=23"></script>
     <script type="text/javascript" src="core2/html/material/js/coreui.panel.js?_=1"></script>
     <script type="text/javascript" src="core2/html/material/js/coreui.tabs.js?_=0"></script>
 
@@ -59,8 +59,8 @@
     <script src="core2/vendor/belhard/jquery-file-upload/js/cors/jquery.xdr-transport.js"></script>
     <![endif]-->
 
-	<script type="text/javascript" src="core2/html/material/js/class.list.js?_=6"></script>
-    <script type="text/javascript" src="core2/html/material/js/class.edit.js?_=24"></script>
+	<script type="text/javascript" src="core2/html/material/js/class.list.js?_=7"></script>
+    <script type="text/javascript" src="core2/html/material/js/class.edit.js?_=25"></script>
 	<script type="text/javascript" src="core2/js/eTip.js"></script>
 	<script type="text/javascript" src="core2/html/material/js/main.js?_=16"></script>
     <link rel="icon" type="image/png" href="favicon.png"/>
