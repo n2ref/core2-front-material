@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="core2/html/material/css/bootstrap.min.css?_=2" type="text/css"/>
     <link rel="stylesheet" href="core2/html/material/css/font-awesome.min.css?_=2" type="text/css"/>
     <link rel="stylesheet" href="core2/html/material/css/material-design-iconic-font.min.css" type="text/css"/>
-	<link rel="stylesheet" href="core2/html/material/css/jquery/ui-lightness/jquery-ui-1.10.3.custom.min.css" type="text/css"/>
+	<link rel="stylesheet" href="core2/html/material/css/jquery/ui-base/jquery-ui.min.css" type="text/css"/>
 
 	<link rel="stylesheet" href="core2/html/material/css/jquery.ui.theme.css" type="text/css"/>
 	<link rel="stylesheet" href="core2/html/material/css/jquery.ui.theme.font-awesome.css" type="text/css"/>
@@ -35,9 +35,11 @@
 	<!--system_css-->
 
 	<script type="text/javascript" src="core2/js/md5.js"></script>
-	<script type="text/javascript" src="core2/js/jquery/lib/jquery-1.12.4.min.js"></script>
+	<script src="core2/js/ua-parser.min.js"></script>
+	<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+	<script src="https://code.jquery.com/jquery-migrate-3.4.1.js"></script>
 	<script type="text/javascript" src="core2/js/jquery/lib/jquery.cookie.js"></script>
-	<script type="text/javascript" src="core2/js/jquery/jquery-ui-1.10.3.custom.min.js"></script>
+	<script type="text/javascript" src="core2/js/jquery/jquery-ui.min.js"></script>
 	<script type="text/javascript" src="core2/js/jquery/i18n/jquery.ui.datepicker-ru.js"></script>
 	<script type="text/javascript" src="core2/js/jquery/jquery-ui-timepicker-addon.js"></script>
 	<script type="text/javascript" src="core2/js/jquery/plugins/jquery.maskedinput.min.js"></script>
