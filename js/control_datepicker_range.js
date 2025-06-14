@@ -476,7 +476,7 @@ $(document).ready(function(){
     /**
      * Скрытие календаря
      */
-    $(document).click(function(e) {
+    $(document).on('click', function(e) {
         var target = $(e.target);
         if ($(target).parents('.ctrl-dpr-container, .ui-datepicker-group, .ui-datepicker-next, .ui-datepicker-prev').length ||
             $(target).hasClass('ctrl-dpr-from-day') ||
