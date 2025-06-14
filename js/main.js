@@ -824,8 +824,8 @@ var load = function (url, data, id, callback) {
         $('#navbar-top .module-title').css(css_mod_title).text(mod_title);
         $('#navbar-top .module-action').text(action_title);
 
-		var siteName = $('.site-name').text().trim();
-		var title    = (action_title ? (action_title + ' - ') : '') + (mod_title ? mod_title + ' - ' : '') + siteName;
+		const siteName = $('.site-name').text().trim();
+		const title    = (action_title ? (action_title + ' - ') : '') + (mod_title ? mod_title + ' - ' : '') + siteName;
 
 		$('html > head > title').text(title);
 
@@ -861,9 +861,11 @@ var load = function (url, data, id, callback) {
 					locData.callback = null;
 				}
 				callback();
+				$(id)[0].dispatchEvent(new CustomEvent("loaded", {bubbles: true, detail: {"url":url} }));
 
 			}).fail(function (jqXHR, textStatus, errorThrown) {
 				preloader.hide();
+				$(id)[0].dispatchEvent(new CustomEvent("failed", {bubbles: true, detail: {"url":url} }));
 				if (jqXHR.statusText !== 'abort') {
 
 					if ( ! jqXHR.status) swal("Превышено время ожидания ответа. Проверьте соединение с Интернет.", '', 'error').catch(swal.noop);
