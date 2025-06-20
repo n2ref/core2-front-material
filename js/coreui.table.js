@@ -1773,7 +1773,7 @@ $(document).ready(function(){
     /**
      * Очистка даты в календаре
      */
-    $('.table-datepicker-clear, .table-datetimepicker-clear').click(function() {
+    $('.table-datepicker-clear, .table-datetimepicker-clear').on('click', function() {
         var container = $(this).parent();
         var $from_input = $('.table-datepicker-from-value, .table-datetimepicker-from-value', container);
         var $to_input   = $('.table-datepicker-to-value, .table-datetimepicker-to-value', container);
@@ -1790,7 +1790,7 @@ $(document).ready(function(){
     /**
      * Сткрытие открытых календарей
      */
-    $(document).click(function(e) {
+    $(document).on('click', function(e) {
         var target = $(e.target);
         if ($(target).parents('.datepicker-container, .datetimepicker-container, .ui-datepicker-group').length) {
             return false;
