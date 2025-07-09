@@ -682,6 +682,61 @@ $(document).ajaxSuccess(function (event, xhr, settings) {
 
 
 /**
+ * Добавление дополнительных параметров в строке адреса
+ * Изменение без события hashchange
+ * @param {Object} params
+ */
+function setExtUrl(params) {
+
+	if (typeof params !== 'object' ||
+		params === null ||
+		Array.isArray(params)
+	) {
+		return;
+	}
+
+	let searchParams = new URLSearchParams(location.hash.substring(1));
+	let extParams    = [];
+
+	for (let [name, value] of searchParams) {
+		if (name && name.substring(0, 4) === 'ext_') {
+			extParams.push(name);
+		}
+	}
+
+	for (let name of extParams) {
+		searchParams.delete(name);
+	}
+
+	for (let [name, value] of Object.entries(params)) {
+		searchParams.append('ext_' + name, value)
+	}
+
+	let path = '#' + searchParams.toString();
+	window.history.pushState({ path: path }, '', path);
+}
+
+
+/**
+ * Получение дополнительных параметров из строки браузера
+ * @returns {Object}
+ */
+function getExtUrl() {
+
+	let searchParams = new URLSearchParams(location.hash.substring(1));
+	let extParams    = {};
+
+	for (let [name, value] of searchParams) {
+		if (name && name.substring(0, 4) === 'ext_') {
+			extParams[name.substring(0, 4)] = value;
+		}
+	}
+
+	return extParams;
+}
+
+
+/**
  * Загрузка контента на страницу
  * @param url
  * @param data
