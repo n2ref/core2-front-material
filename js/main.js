@@ -1370,7 +1370,7 @@ $.ui.autocomplete.prototype._renderItem = function( ul, item) {
 
 //------------Core2 worker-------------
 if (window.hasOwnProperty('SharedWorker') && typeof window.SharedWorker === 'function') {
-	var worker = new SharedWorker("core2/js/worker.js?v=1");
+	var worker = new SharedWorker("core2/js/worker.js");
 	worker.port.addEventListener(
 		"message",
 		function(e) {
@@ -1396,8 +1396,9 @@ if (window.hasOwnProperty('SharedWorker') && typeof window.SharedWorker === 'fun
 		},
 		false,
 	);
-	worker.onerror = function(event) {
+	worker.onerror = (event) => {
 		console.error("There is an error with your worker!");
+		console.error(event);
 	};
 	worker.port.start();
 	worker.port.postMessage("start");
