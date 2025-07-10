@@ -728,7 +728,7 @@ function getExtUrl() {
 
 	for (let [name, value] of searchParams) {
 		if (name && name.substring(0, 4) === 'ext_') {
-			extParams[name.substring(0, 4)] = value;
+			extParams[name.substring(4)] = value;
 		}
 	}
 
