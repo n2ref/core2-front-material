@@ -1077,20 +1077,20 @@ window.dispatchEvent(new HashChangeEvent('resize'));
 window.addEventListener('error', main_menu.errors._onErrorEvent, true);
 
 document.addEventListener("DOMContentLoaded", function (e) {
-	const uap = new UAParser();
-	if (uap) {
-		const br = uap.getResult();
-		console.log(br.browser)
-		if (br.browser.name == '???') { //TODO сделать проверку на актуальность браузера
-			$("#mainContainer").prepend(
-				"<h2>" +
-				"<span style=\"color:red\">Внимание!</span> " +
-				"Вы пользуетесь устаревшей версией браузера. " +
-				"Во избежание проблем с работой, рекомендуется обновить текущий или установить другой, более современный браузер." +
-				"</h2>"
-			);
-		}
-	}
+	// const uap = new UAParser();
+	// if (uap) {
+	// 	const br = uap.getResult();
+	// 	console.log(br.browser)
+	// 	if (br.browser.name == '???') { //TODO сделать проверку на актуальность браузера
+	// 		$("#mainContainer").prepend(
+	// 			"<h2>" +
+	// 			"<span style=\"color:red\">Внимание!</span> " +
+	// 			"Вы пользуетесь устаревшей версией браузера. " +
+	// 			"Во избежание проблем с работой, рекомендуется обновить текущий или установить другой, более современный браузер." +
+	// 			"</h2>"
+	// 		);
+	// 	}
+	// }
 
     main_menu.setAngles();
 	main_menu.setIconLetter();
