@@ -421,10 +421,15 @@ CoreUI.table = {
 
             options = $.extend(true, { url: '', minLength: 3 }, options);
 
+            let lastRequest = null;
             $(input).autocomplete({
                 source: function (request, response) {
+                    // Прерываем предыдущий запрос, если он еще выполняется
+                    if (lastRequest && lastRequest.readyState !== 4) {
+                        lastRequest.abort();
+                    }
 
-                    $.ajax({
+                    lastRequest = $.ajax({
                         method: 'GET',
                         data: {
                             query: $.trim(request.term)
@@ -448,7 +453,8 @@ CoreUI.table = {
 
                     }).fail(function (error) {
                         response([]);
-                    });
+                        if (xhr.statusText === 'abort') return;
+                    })
                 },
                 minLength: options.minLength,
                 focus: function( event, ui ) {
