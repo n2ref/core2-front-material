@@ -661,6 +661,7 @@ var preloader = {
 };
 
 $(document).ajaxError(function (event, jqxhr, settings, exception) {
+	if (jqxhr.statusText === 'abort') return;
     preloader.hide();
     if (jqxhr.status === '0') {
         //alert("Соединение прервано.");
