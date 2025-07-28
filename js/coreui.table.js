@@ -217,6 +217,7 @@ CoreUI.table = {
             var pageParam = '_page_' + resource;
             var url       = CoreUI.table.loc[resource];
 
+
             url  = url.replace(new RegExp('&' + pageParam + '=\\d*', 'i'), '');
             url  = url.replace(/\&__filter=\d*/, '');
             url += "&" + pageParam + '=1';
@@ -421,15 +422,10 @@ CoreUI.table = {
 
             options = $.extend(true, { url: '', minLength: 3 }, options);
 
-            let lastRequest = null;
             $(input).autocomplete({
                 source: function (request, response) {
-                    // Прерываем предыдущий запрос, если он еще выполняется
-                    if (lastRequest && lastRequest.readyState !== 4) {
-                        lastRequest.abort();
-                    }
 
-                    lastRequest = $.ajax({
+                    $.ajax({
                         method: 'GET',
                         data: {
                             query: $.trim(request.term)
@@ -453,8 +449,7 @@ CoreUI.table = {
 
                     }).fail(function (error) {
                         response([]);
-                        if (xhr.statusText === 'abort') return;
-                    })
+                    });
                 },
                 minLength: options.minLength,
                 focus: function( event, ui ) {
@@ -1779,7 +1774,7 @@ $(document).ready(function(){
     /**
      * Очистка даты в календаре
      */
-    $('.table-datepicker-clear, .table-datetimepicker-clear').click(function() {
+    $('.table-datepicker-clear, .table-datetimepicker-clear').on('click', ()=> {
         var container = $(this).parent();
         var $from_input = $('.table-datepicker-from-value, .table-datetimepicker-from-value', container);
         var $to_input   = $('.table-datepicker-to-value, .table-datetimepicker-to-value', container);
@@ -1796,7 +1791,7 @@ $(document).ready(function(){
     /**
      * Сткрытие открытых календарей
      */
-    $(document).click(function(e) {
+    $(document).on('click', function(e) {
         var target = $(e.target);
         if ($(target).parents('.datepicker-container, .datetimepicker-container, .ui-datepicker-group').length) {
             return false;

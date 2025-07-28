@@ -1,12 +1,3 @@
-/*
- * jQuery hashchange event - v1.3 - 7/21/2010
- * http://benalman.com/projects/jquery-hashchange-plugin/
- *
- * Copyright (c) 2010 "Cowboy" Ben Alman
- * Dual licensed under the MIT and GPL licenses.
- * http://benalman.com/about/license/
- */
-(function($,e,b){var c="hashchange",h=document,f,g=$.event.special,i=h.documentMode,d="on"+c in e&&(i===b||i>7);function a(j){j=j||location.href;return"#"+j.replace(/^[^#]*#?(.*)$/,"$1")}$.fn[c]=function(j){return j?this.bind(c,j):this.trigger(c)};$.fn[c].delay=50;g[c]=$.extend(g[c],{setup:function(){if(d){return false}$(f.start)},teardown:function(){if(d){return false}$(f.stop)}});f=(function(){var j={},p,m=a(),k=function(q){return q},l=k,o=k;j.start=function(){p||n()};j.stop=function(){p&&clearTimeout(p);p=b};function n(){var r=a(),q=o(m);if(r!==m){l(m=r,q);$(e).trigger(c)}else{if(q!==m){location.href=location.href.replace(/#.*/,"")+q}}p=setTimeout(n,$.fn[c].delay)}$.browser.msie&&!d&&(function(){var q,r;j.start=function(){if(!q){r=$.fn[c].src;r=r&&r+a();q=$('<iframe tabindex="-1" title="empty"/>').hide().one("load",function(){r||l(a());n()}).attr("src",r||"javascript:0").insertAfter("body")[0].contentWindow;h.onpropertychange=function(){try{if(event.propertyName==="title"){q.document.title=h.title}}catch(s){}}}};j.stop=k;o=function(){return a(q.location.href)};l=function(v,s){var u=q.document,t=$.fn[c].domain;if(v!==s){u.title=h.title;u.open();t&&u.write('<script>document.domain="'+t+'"<\/script>');u.close();q.location.hash=v}}})();return j})()})(jQuery,this);
 
 var main_menu = {
 
@@ -217,7 +208,7 @@ var main_menu = {
 		 */
 		_onErrorEvent: function (event) {
 
-			if (typeof event.error === 'undefined') {
+			if (typeof event.error === 'undefined' || ! event.error) {
 				return;
 			}
 
@@ -249,13 +240,13 @@ var main_menu = {
 					console.warn(response)
 				}
 			})
-				.always(function() {
-					main_menu.errors._errorSend = false;
+			.always(function() {
+				main_menu.errors._errorSend = false;
 
-					if (main_menu.errors._errors.length > 0) {
-						setTimeout(main_menu.errors._sendError, 3000);
-					}
-				});
+				if (main_menu.errors._errors.length > 0) {
+					setTimeout(main_menu.errors._sendError, 3000);
+				}
+			});
 		},
 
 
@@ -625,7 +616,6 @@ var preloader = {
 			}
 		}
 		preloader.hide();
-		//resize();
 	},
 	qs : function(url) {
 		//PARSE query string
@@ -675,14 +665,14 @@ $(document).ajaxError(function (event, jqxhr, settings, exception) {
     preloader.hide();
     if (jqxhr.status === '0') {
         //alert("Соединение прервано.");
-    } else if (jqxhr.responseText.indexOf('Доступ закрыт! Если вы уверены, что вам сюда можно, обратитесь к администратору.') === 0){
+    } else if (jqxhr.responseText && jqxhr.responseText.indexOf('Доступ закрыт! Если вы уверены, что вам сюда можно, обратитесь к администратору.') === 0){
 		swal('Доступ закрыт! Если вы уверены, что вам сюда можно, обратитесь к администратору.', '', 'error').catch(swal.noop);
 	} else if (jqxhr.statusText === 'error') {
         swal("Отсутствует соединение с Интернет.", '', 'error').catch(swal.noop);
     } else if (jqxhr.status === 403) {
         swal("Время жизни вашей сессии истекло", 'Чтобы войти в систему заново, обновите страницу (F5)', 'error').catch(swal.noop);
     } else {
-		swal("Ой, извините!", "Во время обработки вашего запроса произошла ошибка.", 'error').catch(swal.noop);
+		//swal("Ой, извините!", "Во время обработки вашего запроса произошла ошибка.", 'error').catch(swal.noop);
 	}
 });
 $(document).ajaxSuccess(function (event, xhr, settings) {
@@ -720,7 +710,7 @@ var load = function (url, data, id, callback) {
 		url = url.substr(10);
 	}
 
-	var h = preloader.prepare(location.hash.substr(1));
+	const h = preloader.prepare(location.hash.substr(1));
 	url = preloader.prepare(url);
 
     $("body").removeClass("pdf-open")
@@ -835,8 +825,8 @@ var load = function (url, data, id, callback) {
         $('#navbar-top .module-title').css(css_mod_title).text(mod_title);
         $('#navbar-top .module-action').text(action_title);
 
-		var siteName = $.trim($('.site-name').text());
-		var title    = (action_title ? (action_title + ' - ') : '') + (mod_title ? mod_title + ' - ' : '') + siteName;
+		const siteName = $('.site-name').text().trim();
+		const title    = (action_title ? (action_title + ' - ') : '') + (mod_title ? mod_title + ' - ' : '') + siteName;
 
 		$('html > head > title').text(title);
 
@@ -872,9 +862,11 @@ var load = function (url, data, id, callback) {
 					locData.callback = null;
 				}
 				callback();
+				$(id)[0].dispatchEvent(new CustomEvent("loaded", {bubbles: true, detail: {"url":url} }));
 
 			}).fail(function (jqXHR, textStatus, errorThrown) {
 				preloader.hide();
+				$(id)[0].dispatchEvent(new CustomEvent("failed", {bubbles: true, detail: {"url":url} }));
 				if (jqXHR.statusText !== 'abort') {
 
 					if ( ! jqXHR.status) swal("Превышено время ожидания ответа. Проверьте соединение с Интернет.", '', 'error').catch(swal.noop);
@@ -918,20 +910,8 @@ var loadPDF = function (url) {
 
 		preloader.hide();
 		$('.pdf-panel').removeClass('hidden');
-        $(window).hashchange( function() {
-            $("body").removeClass("pdf-open");
-        });
 	});
 };
-
-
-/**
- *
- */
-function removePDF() {
-	$('.pdf-panel').remove();
-	$('body').removeClass('pdf-open');
-}
 
 
 /**
@@ -959,9 +939,6 @@ var loadScreen = function (url) {
 
 		preloader.hide();
 		$('.screen-panel').removeClass('hidden');
-		$(window).hashchange( function() {
-			$("body").removeClass("screen-open");
-		});
 	});
 };
 
@@ -973,7 +950,10 @@ function removeScreen() {
 	$('#main_body > .screen-panel').remove();
 	$('body').removeClass('screen-open');
 }
-
+function removePDF() {
+	$('.pdf-panel').remove();
+	$('body').removeClass('pdf-open');
+}
 
 
 /**
@@ -997,62 +977,67 @@ var loadExt = function (url) {
 
 		preloader.hide();
 		$('.ext-panel').removeClass('hidden');
-        $(window).hashchange( function() {
-            $("body").removeClass("ext-open");
-        });
 	});
 };
 
 
-/**
- *
- */
-function resize() {
-    $("#main_body .pdf-main-panel").css({
-        'height': ($("body").height() - ($("#navbar-top").height()) - 40)
-    });
-    $("#main_body .ext-main-panel").css({
-        'height': $("body").height() - $("#navbar-top").height()
-    });
-}
 
-$(function(){
-	$(window).hashchange( function() {
-		var hash = location.hash;
-		var url = preloader.prepare(hash.substr(1));
+window.addEventListener(
+	"hashchange",
+	() => {
+		const hash = location.hash;
+		const url = preloader.prepare(hash.substr(1));
 		load(url);
 
 		$('body > .modal-backdrop').fadeOut(function () {
 			$('body').removeClass('modal-open');
 			$(this).remove();
 		});
-	});
-	// Since the event is only triggered when the hash changes, we need to trigger
-	// the event now, to handle the hash the page may have loaded with.
-	$(window).hashchange();
-});
+		$("body").removeClass("ext-open");
+		removePDF();
+		removeScreen();
+	},
+	false,
+);
+window.addEventListener(
+	"resize",
+	(e) => {
+		$("#main_body .pdf-main-panel").css({
+			'height': ($("body").height() - ($("#navbar-top").height()) - 40)
+		});
+		$("#main_body .ext-main-panel").css({
+			'height': $("body").height() - $("#navbar-top").height()
+		});
+	},
+	false,
+);
 
-$(window).resize(resize);
+window.dispatchEvent(new HashChangeEvent('resize'));
+
+window.addEventListener('error', main_menu.errors._onErrorEvent, true);
 
 document.addEventListener("DOMContentLoaded", function (e) {
-
-	if ( ! jQuery.support.leadingWhitespace || (document.all && ! document.querySelector)) {
-		$("#mainContainer").prepend(
-			"<h2>" +
+	const uap = new UAParser();
+	if (uap) {
+		const br = uap.getResult();
+		console.log(br.browser)
+		if (br.browser.name == '???') { //TODO сделать проверку на актуальность браузера
+			$("#mainContainer").prepend(
+				"<h2>" +
 				"<span style=\"color:red\">Внимание!</span> " +
 				"Вы пользуетесь устаревшей версией браузера. " +
 				"Во избежание проблем с работой, рекомендуется обновить текущий или установить другой, более современный браузер." +
-			"</h2>"
-		);
+				"</h2>"
+			);
+		}
 	}
 
     main_menu.setAngles();
 	main_menu.setIconLetter();
 
+	window.dispatchEvent(new HashChangeEvent('hashchange'));
 
-	window.addEventListener('error', main_menu.errors._onErrorEvent, true);
-
-    $("#menu-modules > .menu-module, #menu-modules > .menu-module-selected").mouseenter(function() {
+    $("#menu-modules > .menu-module, #menu-modules > .menu-module-selected").on('mouseenter', ()=> {
         if ($(window).width() >= 768 && ($(this).hasClass('menu-module') || $('.s-toggle')[0])) {
 			$('.menu-submodule, .menu-submodule-selected').hide();
 
@@ -1090,7 +1075,7 @@ document.addEventListener("DOMContentLoaded", function (e) {
 			}
         }
     });
-    $("#menu-modules > .menu-module, #menu-modules > .menu-module-selected").mouseleave(function(e) {
+    $("#menu-modules > .menu-module, #menu-modules > .menu-module-selected").on('mouseleave', ()=> {
         if ($(window).width() >= 768 && ($(this).hasClass('menu-module') || $('.s-toggle')[0])) {
 			var target = e.toElement || e.relatedTarget || e.target;
 
@@ -1106,7 +1091,7 @@ document.addEventListener("DOMContentLoaded", function (e) {
 			}
         }
     });
-    $("#menu-submodules").mouseleave(function() {
+    $("#menu-submodules").on('mouseleave', ()=> {
         $(this).hide();
         $("#menu-modules > .menu-module, #menu-modules > .menu-module-selected").removeClass('module-hover');
     });
@@ -1119,7 +1104,7 @@ document.addEventListener("DOMContentLoaded", function (e) {
 		}
     }
 
-    $("#sidebar-toggle").click(function() {
+    $("#sidebar-toggle").on('click', ()=> {
         $('#main-content, #menu-container, #menu-wrapper, #navbar-top').css('transition', "");
         $('#main').toggleClass('s-toggle');
 
@@ -1139,26 +1124,24 @@ document.addEventListener("DOMContentLoaded", function (e) {
 		}
     });
 
-    $(".swipe-area").swipe({
-        swipeStatus: function(event, phase, direction, distance, duration, fingers) {
-            var width = $(window).width();
-            if (phase === "move" && ((width < 768 && direction === "right") || (width >= 768 && direction === "left"))) {
-                $("#main").addClass("s-toggle");
-                if (width >= 768) {
-                    $('#menu-wrapper .module-submodules').hide();
-                }
-				localStorage.setItem('sidebar_collapse', 1);
-                return false;
-            }
-            if (phase === "move" && ((width < 768 && direction === "left") || (width >= 768 && direction === "right"))) {
-                $("#main").removeClass("s-toggle");
-                if (width >= 768) {
-                    $('#menu-wrapper .module-submodules').show();
-                }
-				localStorage.setItem('sidebar_collapse', '');
-                return false;
-            }
-        }
+    $(".swipe-area").on('swipe', function(event, phase, direction, distance, duration, fingers) {
+		var width = $(window).width();
+		if (phase === "move" && ((width < 768 && direction === "right") || (width >= 768 && direction === "left"))) {
+			$("#main").addClass("s-toggle");
+			if (width >= 768) {
+				$('#menu-wrapper .module-submodules').hide();
+			}
+			localStorage.setItem('sidebar_collapse', 1);
+			return false;
+		}
+		if (phase === "move" && ((width < 768 && direction === "left") || (width >= 768 && direction === "right"))) {
+			$("#main").removeClass("s-toggle");
+			if (width >= 768) {
+				$('#menu-wrapper .module-submodules').show();
+			}
+			localStorage.setItem('sidebar_collapse', '');
+			return false;
+		}
     });
 
 	xajax.callback.global.onRequest = function (a) {
@@ -1215,7 +1198,6 @@ document.addEventListener("DOMContentLoaded", function (e) {
 		}
 		preloader.hide();
 	};
-	resize();
 
     $.datepicker.setDefaults($.datepicker.regional[ "ru" ]);
 	$.timepicker.regional['ru'] = {
@@ -1344,7 +1326,7 @@ document.addEventListener("DOMContentLoaded", function (e) {
 		if (keymaps[key]) {
 			if (document.body.contains(keymaps[key])) {
 				if ($(keymaps[key])[0].nodeName == 'A') document.location = $(keymaps[key]).attr('href');
-				if ($(keymaps[key])[0].nodeName == 'BUTTON') $(keymaps[key]).click();
+				if ($(keymaps[key])[0].nodeName == 'BUTTON') $(keymaps[key]).trigger("click");
 			}
 		}
 	};
@@ -1389,7 +1371,7 @@ $.ui.autocomplete.prototype._renderItem = function( ul, item) {
 
 //------------Core2 worker-------------
 if (window.hasOwnProperty('SharedWorker') && typeof window.SharedWorker === 'function') {
-	var worker = new SharedWorker("core2/js/worker.js");
+	var worker = new SharedWorker("core2/js/worker.js?v=1");
 	worker.port.addEventListener(
 		"message",
 		function(e) {
@@ -1404,11 +1386,11 @@ if (window.hasOwnProperty('SharedWorker') && typeof window.SharedWorker === 'fun
 					for (i in evt) {
 						document.dispatchEvent(new CustomEvent("Core2", {'detail': evt[i]}));
 					}
-					//console.log(evt)
+					console.log(evt)
 					break;
 
 				default:
-					// console.log(e.data);
+					console.log(e.data);
 					break;
 			}
 
@@ -1436,6 +1418,6 @@ if (window.hasOwnProperty('SharedWorker') && typeof window.SharedWorker === 'fun
 		},
 		false,
 	);
-    
+
 }
 
