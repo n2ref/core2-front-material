@@ -41,7 +41,7 @@
     <script src="core2/html/material/js/es6-promise.auto.min.js"></script>
     <script src="core2/html/material/js/sweetalert2.min.js?_=2"></script>
     <script src="core2/html/material/js/coreui.notice.js?_=1"></script>
-    <script src="core2/html/material/js/coreui.table.js?_=23"></script>
+    <script src="core2/html/material/js/coreui.table.js?_=24"></script>
     <script src="core2/html/material/js/coreui.panel.js?_=1"></script>
     <script src="core2/html/material/js/coreui.tabs.js?_=0"></script>
 
@@ -61,9 +61,9 @@
     <![endif]-->
 
 	<script src="core2/html/material/js/class.list.js?_=7"></script>
-    <script src="core2/html/material/js/class.edit.js?_=25"></script>
+    <script src="core2/html/material/js/class.edit.js?_=26"></script>
 	<script src="core2/js/eTip.js"></script>
-	<script src="core2/html/material/js/main.js?_=16"></script>
+	<script src="core2/html/material/js/main.js?_=18"></script>
     <link rel="icon" type="image/png" href="favicon.png"/>
 	<!--[if lte IE 7]>
 	<style type="text/css">.iefix {display: inline-block;width: 0;overflow: hidden;}</style>
