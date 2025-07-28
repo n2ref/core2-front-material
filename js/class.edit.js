@@ -439,12 +439,27 @@ var edit = {
 					inputTitle.removeAttr('disabled');
 				}
 
+				let lastRequest = null;
 				inputTitle.autocomplete({
 					source: function (request, response) {
-						$.getJSON( modalOptions.autocompleteUrl, {
-							term: $.trim(request.term)
-						}, function(data) {
-							response(data.items || []);
+						// Прерываем предыдущий запрос
+						if (lastRequest && lastRequest.readyState !== 4) {
+							lastRequest.abort();
+						}
+						lastRequest = $.ajax({
+							method: 'GET',
+							url: modalOptions.autocompleteUrl,
+							dataType: 'json',
+							data: {
+								term: $.trim(request.term)
+							},
+							success: function(data) {
+								response(data.items || []);
+							},
+							error: function(xhr) {
+								response([]);
+								if (xhr.statusText === 'abort') return; // Игнорируем отменённые
+							}
 						});
 					},
 					minLength: modalOptions.autocompleteMinLength,

@@ -43,7 +43,7 @@
 
             <!-- BEGIN field_select2 -->
             <td>
-                <select [ATTRIBUTES] class="form-control input-sm" id = "[FIELD][NUM][CODE]" name="control[[FIELD]][[NUM]][[CODE]]">
+                <select [ATTRIBUTES] class="form-control input-sm" id="[FIELD][NUM][CODE]" name="control[[FIELD]][[NUM]][[CODE]]">
                     <!-- BEGIN option -->
                     <option [SELECTED] value="[VALUE]">[TITLE]</option>
                     <!-- END option -->
@@ -52,6 +52,7 @@
                     $('#[FIELD][NUM][CODE]').select2({
                         language: 'ru',
                         theme: 'bootstrap',
+                        dropdownParent: $('#[FIELD][NUM][CODE]').parent()
                     });
                 </script>
             </td>

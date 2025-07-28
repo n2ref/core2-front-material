@@ -446,14 +446,16 @@ var listx = {
                         }
                         if (listx.loc[id]) {
                             const searchParams = new URLSearchParams(listx.loc[id]);
-                            const module = searchParams.get("module");
-                            let action = searchParams.get("action");
-                            if (!action) action = 'index';
+                            const module       = searchParams.get("module");
+                            let action         = searchParams.get("action");
+
+                            if ( ! action) {
+                                action = 'index';
+                            }
 
                             $.ajax({
                                 method: "DELETE",
                                 dataType: "json",
-                                // data: {key: res[1] + "." + res[2], id: val},
                                 url: module + "/" + action + "/" + id + "?" + res[1] + "." + res[2] + "=" + val
 
                             }).success(function (data) {
