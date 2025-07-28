@@ -683,6 +683,61 @@ $(document).ajaxSuccess(function (event, xhr, settings) {
 
 
 /**
+ * Добавление дополнительных параметров в строке адреса
+ * Изменение без события hashchange
+ * @param {Object} params
+ */
+function setExtUrl(params) {
+
+	if (typeof params !== 'object' ||
+		params === null ||
+		Array.isArray(params)
+	) {
+		return;
+	}
+
+	let searchParams = new URLSearchParams(location.hash.substring(1));
+	let extParams    = [];
+
+	for (let [name, value] of searchParams) {
+		if (name && name.substring(0, 4) === 'ext_') {
+			extParams.push(name);
+		}
+	}
+
+	for (let name of extParams) {
+		searchParams.delete(name);
+	}
+
+	for (let [name, value] of Object.entries(params)) {
+		searchParams.append('ext_' + name, value)
+	}
+
+	let path = '#' + searchParams.toString();
+	window.history.pushState({ path: path }, '', path);
+}
+
+
+/**
+ * Получение дополнительных параметров из строки браузера
+ * @returns {Object}
+ */
+function getExtUrl() {
+
+	let searchParams = new URLSearchParams(location.hash.substring(1));
+	let extParams    = {};
+
+	for (let [name, value] of searchParams) {
+		if (name && name.substring(0, 4) === 'ext_') {
+			extParams[name.substring(4)] = value;
+		}
+	}
+
+	return extParams;
+}
+
+
+/**
  * Загрузка контента на страницу
  * @param url
  * @param data
@@ -980,7 +1035,12 @@ var loadExt = function (url) {
 	});
 };
 
-
+// Deprecated
+window.hashchange = function (callback) {
+	if (typeof callback === 'function') {
+		window.addEventListener("hashchange", callback, false);
+	}
+}
 
 window.addEventListener(
 	"hashchange",
@@ -997,7 +1057,7 @@ window.addEventListener(
 		removePDF();
 		removeScreen();
 	},
-	false,
+	false
 );
 window.addEventListener(
 	"resize",
@@ -1037,12 +1097,12 @@ document.addEventListener("DOMContentLoaded", function (e) {
 
 	window.dispatchEvent(new HashChangeEvent('hashchange'));
 
-    $("#menu-modules > .menu-module, #menu-modules > .menu-module-selected").on('mouseenter', ()=> {
-        if ($(window).width() >= 768 && ($(this).hasClass('menu-module') || $('.s-toggle')[0])) {
+    $("#menu-modules > .menu-module, #menu-modules > .menu-module-selected").on('mouseenter', function (e) {
+        if ($(window).width() >= 768 && ($(e.currentTarget).hasClass('menu-module') || $('.s-toggle')[0])) {
 			$('.menu-submodule, .menu-submodule-selected').hide();
 
 			var submodulesContainer = $('#menu-submodules').hide();
-            var module              = $(this).attr('id').substr(7);
+            var module              = $(e.currentTarget).attr('id').substr(7);
             var submodules          = $('li[id^=submodule-' + module + '-]').show();
 
 			if ($('.s-toggle')[0] || submodules[0]) {
@@ -1050,8 +1110,8 @@ document.addEventListener("DOMContentLoaded", function (e) {
 
 				if ($('.s-toggle')[0]) {
                     var issetSelectSubmodule = $('li[id^=submodule-' + module + '-].menu-submodule-selected')[0];
-					var selectedClass        = ! issetSelectSubmodule && $(this).hasClass('menu-module-selected') ? 'selected' : '';
-                    var $moduleElement       = $(this).find('>a');
+					var selectedClass        = ! issetSelectSubmodule && $(e.currentTarget).hasClass('menu-module-selected') ? 'selected' : '';
+                    var $moduleElement       = $(e.currentTarget).find('>a');
                     var moduleHref 	         = $moduleElement.attr('href');
                     var moduleOnClick        = $moduleElement.attr('onclick');
                     var moduleTitle          = $moduleElement.find('>.module-title').text().trim();
@@ -1065,9 +1125,9 @@ document.addEventListener("DOMContentLoaded", function (e) {
 
                 submodulesContainer.show();
 
-                var offsets = this.getBoundingClientRect();
+                var offsets = e.currentTarget.getBoundingClientRect();
 
-                if (($(window).height() - $(this)[0].offsetTop) < submodulesContainer.height()) {
+                if (($(window).height() - $(e.currentTarget)[0].offsetTop) < submodulesContainer.height()) {
                     submodulesContainer.css('top', (offsets.top - submodulesContainer.height() + 27) + 'px');
                 } else {
                     submodulesContainer.css('top', (offsets.top + 1) + 'px');
@@ -1075,13 +1135,13 @@ document.addEventListener("DOMContentLoaded", function (e) {
 			}
         }
     });
-    $("#menu-modules > .menu-module, #menu-modules > .menu-module-selected").on('mouseleave', ()=> {
-        if ($(window).width() >= 768 && ($(this).hasClass('menu-module') || $('.s-toggle')[0])) {
+    $("#menu-modules > .menu-module, #menu-modules > .menu-module-selected").on('mouseleave', (e) => {
+        if ($(window).width() >= 768 && ($(e.currentTarget).hasClass('menu-module') || $('.s-toggle')[0])) {
 			var target = e.toElement || e.relatedTarget || e.target;
 
 			if (target) {
 				if ($(target).parent().parent().attr('id') === 'menu-submodules') {
-					$(this).addClass('module-hover');
+					$(e.currentTarget).addClass('module-hover');
 				} else {
 					$('#menu-submodules').hide();
 				}
@@ -1091,8 +1151,8 @@ document.addEventListener("DOMContentLoaded", function (e) {
 			}
         }
     });
-    $("#menu-submodules").on('mouseleave', ()=> {
-        $(this).hide();
+    $("#menu-submodules").on('mouseleave', (e)=> {
+        $(e.currentTarget).hide();
         $("#menu-modules > .menu-module, #menu-modules > .menu-module-selected").removeClass('module-hover');
     });
 
