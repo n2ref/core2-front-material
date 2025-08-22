@@ -1371,7 +1371,7 @@ $.ui.autocomplete.prototype._renderItem = function( ul, item) {
 
 //------------Core2 worker-------------
 if (window.hasOwnProperty('SharedWorker') && typeof window.SharedWorker === 'function') {
-	var worker = new SharedWorker("core2/js/worker.js");
+	var worker = new SharedWorker("core2/js/worker.js", "Core2");
 	worker.port.addEventListener(
 		"message",
 		function(e) {
