@@ -71,7 +71,7 @@
 <!-- BEGIN load_counts -->
 <script>
     try {
-        let tabs = JSON.parse('[TABS_LOAD_COUNT]')
+        var tabs = JSON.parse('[TABS_LOAD_COUNT]')
         $.each(tabs, function (key, tab) {
             CoreUI.panel.loadCount('[RESOURCE]', tab.id, tab.url);
         });

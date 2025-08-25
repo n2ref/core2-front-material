@@ -1036,7 +1036,7 @@ var loadExt = function (url) {
 };
 
 // Deprecated
-window.hashchange = function (callback) {
+$.fn.hashchange = function (callback) {
 	if (typeof callback === 'function') {
 		window.addEventListener("hashchange", callback, false);
 	}
@@ -1430,54 +1430,54 @@ $.ui.autocomplete.prototype._renderItem = function( ul, item) {
 
 
 //------------Core2 worker-------------
-if (window.hasOwnProperty('SharedWorker') && typeof window.SharedWorker === 'function') {
-	var worker = new SharedWorker("core2/js/worker.js?v=1");
-	worker.port.addEventListener(
-		"message",
-		function(e) {
-			const evt = e.data.event;
-			switch (e.data.type) {
-				case 'modules':
-					for (i in evt) {
-						document.dispatchEvent(new CustomEvent(i, {'detail': evt[i]}));
-					}
-					break;
-				case 'Core2':
-					for (i in evt) {
-						document.dispatchEvent(new CustomEvent("Core2", {'detail': evt[i]}));
-					}
-					console.log(evt)
-					break;
-
-				default:
-					console.log(e.data);
-					break;
-			}
-
-		},
-		false,
-	);
-	worker.onerror = function(event) {
-		console.error("There is an error with your worker!");
-	};
-	worker.port.start();
-	worker.port.postMessage("start");
-	worker.port.postMessage("sse-open");
-	// worker.port.postMessage("sse-close");
-
-	document.addEventListener(
-		"Core2-Fact",
-		(e) => {
-			e.detail.forEach(function (data){
-				const e = JSON.parse(data);
-				// console.log(e)
-				if (e.element) {
-					$(e.element.selector).html(e.element.text);
-				}
-			})
-		},
-		false,
-	);
-
-}
-
+// if (window.hasOwnProperty('SharedWorker') && typeof window.SharedWorker === 'function') {
+// 	var worker = new SharedWorker("core2/js/worker.js?v=1");
+// 	worker.port.addEventListener(
+// 		"message",
+// 		function(e) {
+// 			const evt = e.data.event;
+// 			switch (e.data.type) {
+// 				case 'modules':
+// 					for (i in evt) {
+// 						document.dispatchEvent(new CustomEvent(i, {'detail': evt[i]}));
+// 					}
+// 					break;
+// 				case 'Core2':
+// 					for (i in evt) {
+// 						document.dispatchEvent(new CustomEvent("Core2", {'detail': evt[i]}));
+// 					}
+// 					console.log(evt)
+// 					break;
+//
+// 				default:
+// 					console.log(e.data);
+// 					break;
+// 			}
+//
+// 		},
+// 		false,
+// 	);
+// 	worker.onerror = function(event) {
+// 		console.error("There is an error with your worker!");
+// 	};
+// 	worker.port.start();
+// 	worker.port.postMessage("start");
+// 	worker.port.postMessage("sse-open");
+// 	// worker.port.postMessage("sse-close");
+//
+// 	document.addEventListener(
+// 		"Core2-Fact",
+// 		(e) => {
+// 			e.detail.forEach(function (data){
+// 				const e = JSON.parse(data);
+// 				// console.log(e)
+// 				if (e.element) {
+// 					$(e.element.selector).html(e.element.text);
+// 				}
+// 			})
+// 		},
+// 		false,
+// 	);
+//
+// }
+//

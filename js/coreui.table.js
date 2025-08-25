@@ -1796,7 +1796,7 @@ $(document).ready(function(){
             return false;
 
         } else {
-            $('.datepicker-container, .datetimepicker-container').hide('fast');
+            $('.coreui-table .datepicker-container, .coreui-table .datetimepicker-container').hide('fast');
         }
     });
 
