@@ -980,6 +980,40 @@ var loadExt = function (url) {
 	});
 };
 
+/**
+ * Загружает в элемент содержимое ссылки из data-атрибута
+ * @param obj
+ * @returns {Promise<any|Awaited<null>>}
+ */
+async function fetchDataAndUpdateElement(obj) {
+
+	try {
+		const response = await fetch($(obj).data('url'));
+		if (!response.ok) {
+			throw new Error(`HTTP error! status: ${response.status}`);
+		}
+		const contentType = response.headers.get('content-type');
+		if (contentType === null) return Promise.resolve(null);
+		else if (contentType.startsWith('application/json;')) {
+			//обработать json
+			return response.json();
+		}
+		else if (contentType.startsWith('text/')) {
+			// response.text()
+			// 	.then(data => {
+			// 		obj.innerHTML = data
+			// 	});
+
+			const arrayBuffer = await response.arrayBuffer(); // Get the response as an ArrayBuffer
+			const decoder = new TextDecoder('utf-8');
+			obj.innerHTML = decoder.decode(arrayBuffer);
+		}
+		else throw new Error(`Unsupported response content-type: ${contentType}`);
+	} catch (error) {
+		console.error('Error:', error);
+		obj.innerHTML = '<div class="alert alert-danger">' + error + '</div>';
+	}
+}
 
 
 window.addEventListener(
@@ -1300,17 +1334,25 @@ document.addEventListener("DOMContentLoaded", function (e) {
 	const callback = (mutationList, observer) => {
 		for (const mutation of mutationList) {
 			if (mutation.type === "childList" && mutation.addedNodes.length) {
-				$('a, button').each(function (){
-					if ($(this).data('hotkey')) {
-						if ($(this)[0].getAttribute('listener') !== 'true') {
-							const hotkey = $(this).data('hotkey')
-							keymaps[hotkey] = $(this)[0];
-							$(this)[0].setAttribute('listener', 'true');
+				for (const nod of mutation.addedNodes) {
+					if (nod instanceof Element) {
+						const elems = nod.querySelectorAll("[data-hotkey]");
+						for (const elem of elems) {
+							if (elem.getAttribute('listener') !== 'true') {
+								const hotkey = $(elem).data('hotkey')
+								keymaps[hotkey] = elem;
+								elem.setAttribute('listener', 'true');
+							}
+						}
+						const urls = nod.querySelectorAll("[data-url]");
+						for (const elem of urls) {
+							fetchDataAndUpdateElement(elem);
 						}
 					}
-				});
+				}
+
 			} else if (mutation.type === "attributes") {
-				//console.log(`The ${mutation.attributeName} attribute was modified.`);
+				console.log(`The ${mutation.attributeName} attribute was modified.`);
 			}
 		}
 	};
@@ -1318,7 +1360,7 @@ document.addEventListener("DOMContentLoaded", function (e) {
 
 	addEventListener("keydown", (event) => {});
 	onkeydown = (e) => {
-		// console.log(e)
+		//console.log(e)
 		let key = "";
 		if (e.ctrlKey) key += "Ctrl+";
 		if (e.altKey) key += "Alt+";
