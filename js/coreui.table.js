@@ -217,7 +217,6 @@ CoreUI.table = {
             var pageParam = '_page_' + resource;
             var url       = CoreUI.table.loc[resource];
 
-
             url  = url.replace(new RegExp('&' + pageParam + '=\\d*', 'i'), '');
             url  = url.replace(/\&__filter=\d*/, '');
             url += "&" + pageParam + '=1';
@@ -1774,7 +1773,7 @@ $(document).ready(function(){
     /**
      * Очистка даты в календаре
      */
-    $('.table-datepicker-clear, .table-datetimepicker-clear').on('click', ()=> {
+    $('.table-datepicker-clear, .table-datetimepicker-clear').on('click', function() {
         var container = $(this).parent();
         var $from_input = $('.table-datepicker-from-value, .table-datetimepicker-from-value', container);
         var $to_input   = $('.table-datepicker-to-value, .table-datetimepicker-to-value', container);
@@ -1797,7 +1796,7 @@ $(document).ready(function(){
             return false;
 
         } else {
-            $('.datepicker-container, .datetimepicker-container').hide('fast');
+            $('.coreui-table .datepicker-container, .coreui-table .datetimepicker-container').hide('fast');
         }
     });
 

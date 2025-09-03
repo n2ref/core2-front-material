@@ -28,58 +28,53 @@
 	<link rel="stylesheet" href="core2/html/material/css/animate.min.css" type="text/css"/>
 	<link rel="stylesheet" href="core2/html/material/css/snarl.min.css" type="text/css"/>
 	<link rel="stylesheet" href="core2/html/material/css/menu.css?_=9" type="text/css"/>
-	<link rel="stylesheet" href="core2/html/material/css/styles.css?_=42" type="text/css"/>
+	<link rel="stylesheet" href="core2/html/material/css/styles.css?_=43" type="text/css"/>
 
 	<link rel="stylesheet" href="core2/html/material/css/select2.bootstrap.css" type="text/css"/>
 	<link rel="stylesheet" href="core2/html/material/css/select2.min.css" type="text/css"/>
 	<!--system_css-->
 
-	<script type="text/javascript" src="core2/js/md5.js"></script>
+	<script src="core2/js/md5.js"></script>
 	<script src="core2/js/ua-parser.min.js"></script>
-	<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
-	<script src="https://code.jquery.com/jquery-migrate-3.4.1.js"></script>
-	<script type="text/javascript" src="core2/js/jquery/lib/jquery.cookie.js"></script>
-	<script type="text/javascript" src="core2/js/jquery/jquery-ui.min.js"></script>
-	<script type="text/javascript" src="core2/js/jquery/i18n/jquery.ui.datepicker-ru.js"></script>
-	<script type="text/javascript" src="core2/js/jquery/jquery-ui-timepicker-addon.js"></script>
-	<script type="text/javascript" src="core2/js/jquery/plugins/jquery.maskedinput.min.js"></script>
-	<script type="text/javascript" src="core2/js/jquery/plugins/jquery.maskMoney.js"></script>
-	<script type="text/javascript" src="core2/html/material/js/cleave.min.js"></script>
-	<script type="text/javascript" src="core2/html/material/js/es6-promise.auto.min.js"></script>
-	<script type="text/javascript" src="core2/html/material/js/sweetalert2.min.js?_=2"></script>
-	<script type="text/javascript" src="core2/html/material/js/coreui.notice.js?_=1"></script>
-	<script type="text/javascript" src="core2/html/material/js/coreui.table.js?_=22"></script>
-	<script type="text/javascript" src="core2/html/material/js/coreui.panel.js?_=1"></script>
-	<script type="text/javascript" src="core2/html/material/js/coreui.tabs.js?_=0"></script>
+	<script src="core2/html/material/js/jquery-3.7.1.min.js"></script>
+	<script src="core2/html/material/js/jquery-migrate-3.4.1.min.js"></script>
+	<script src="core2/js/jquery/lib/jquery.cookie.js"></script>
+	<script src="core2/js/jquery/jquery-ui.min.js"></script>
+	<script src="core2/js/jquery/i18n/jquery.ui.datepicker-ru.js"></script>
+	<script src="core2/js/jquery/jquery-ui-timepicker-addon.js"></script>
+	<script src="core2/js/jquery/plugins/jquery.maskedinput.min.js"></script>
+	<script src="core2/js/jquery/plugins/jquery.maskMoney.js"></script>
+	<script src="core2/html/material/js/cleave.min.js"></script>
+	<script src="core2/html/material/js/es6-promise.auto.min.js"></script>
+	<script src="core2/html/material/js/sweetalert2.min.js?_=2"></script>
+	<script src="core2/html/material/js/coreui.notice.js?_=1"></script>
+	<script src="core2/html/material/js/coreui.table.js?_=24"></script>
+	<script src="core2/html/material/js/coreui.panel.js?_=1"></script>
+	<script src="core2/html/material/js/coreui.tabs.js?_=0"></script>
 
-	<script type="text/javascript" src="core2/html/material/js/select2.min.js"></script>
-	<script type="text/javascript" src="core2/html/material/js/select2.ru.min.js"></script>
+	<script src="core2/html/material/js/select2.min.js"></script>
+	<script src="core2/html/material/js/select2.ru.min.js"></script>
 	<!--[if lte IE 10]>
-	<script type="text/javascript" src="core2/html/material/js/sweetalert2-ie.min.js"></script>
+	<script src="core2/html/material/js/sweetalert2-ie.min.js"></script>
 	<![endif]-->
 
-	<script type="text/javascript" src="core2/html/material/js/snarl.min.js"></script>
-	<script type="text/javascript" src="core2/html/material/js/bootstrap.min.js?_=2"></script>
-	<script type="text/javascript" src="core2/html/material/js/jquery.touchSwipe.min.js"></script>
-	<script type="text/javascript" src="core2/html/material/js/control_datepicker_range.js"></script>
+	<script src="core2/html/material/js/snarl.min.js"></script>
+	<script src="core2/html/material/js/bootstrap.min.js?_=2"></script>
+	<script src="core2/html/material/js/jquery.touchSwipe.min.js"></script>
+	<script src="core2/html/material/js/control_datepicker_range.js"></script>
 
 	<!--[if (gte IE 8)&(lt IE 10)]>
 	<script src="core2/vendor/blueimp/jquery-file-upload/js/cors/jquery.xdr-transport.js"></script>
 	<![endif]-->
 
-	<script type="text/javascript" src="core2/html/material/js/class.list.js?_=6"></script>
-	<script type="text/javascript" src="core2/html/material/js/class.edit.js?_=24"></script>
-	<script type="text/javascript" src="core2/js/eTip.js"></script>
-	<script type="text/javascript" src="core2/html/material/js/main.js?_=15"></script>
+	<script src="core2/html/material/js/class.list.js?_=7"></script>
+	<script src="core2/html/material/js/class.edit.js?_=26"></script>
+	<script src="core2/js/eTip.js"></script>
+	<script src="core2/html/material/js/main.js?_=18"></script>
     <!--[if IE]>
     <link rel="shortcut icon" type="image/x-icon" href="favicon.ico"/>
     <![endif]-->
 	<link rel="icon" type="image/png" href="favicon.png"/>
-	<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
-	<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
-	<link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
-	<link rel="manifest" href="site.webmanifest">
-	<link rel="mask-icon" href="safari-pinned-tab.svg" color="#5bbad5">
 	<meta name="msapplication-TileColor" content="#da532c">
 	<meta name="theme-color" content="#ffffff">
 	<!--[if lte IE 7]>

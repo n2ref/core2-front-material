@@ -1723,14 +1723,54 @@ var edit = {
 					lng = coordinates[1].trim();
 				}
 
-				if (this._inputAddressId && $('#' + this._inputAddressId)[0]) {
-					$('#' + this._inputAddressId).keyup(function (event) {
+				if (Array.isArray(this._inputAddressId) ** this._inputAddressId.length > 0) {
 
-						if (event.keyCode !== 32 &&
-							event.keyCode !== 37 &&
-							event.keyCode !== 39
-						) {
-							instance.findAddress($(this).val())
+					let inputAddresses = this._inputAddressId;
+
+
+					/**
+					 *
+					 */
+					function findAddress() {
+
+						let values = [];
+
+						inputAddresses.map(function (inputId) {
+							let value = $('#' + inputId).val().trim();
+
+							if (value) {
+								values.push(value);
+							}
+						});
+
+						if (values.length > 0) {
+							instance.findAddress(values.join(', '));
+						}
+					}
+
+					this._inputAddressId.map(function (inputId) {
+						let input = $('#' + inputId);
+
+						if (['INPUT', 'TEXTAREA'].indexOf(input.prop("tagName")) >= 0) {
+							input.keyup(function (event) {
+								if (event.keyCode !== 32 &&
+									event.keyCode !== 37 &&
+									event.keyCode !== 39
+								) {
+									findAddress()
+								}
+							});
+
+						} else {
+							input.change(function (event) {
+
+								if (event.keyCode !== 32 &&
+									event.keyCode !== 37 &&
+									event.keyCode !== 39
+								) {
+									findAddress()
+								}
+							});
 						}
 					});
 				}

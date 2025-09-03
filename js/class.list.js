@@ -159,20 +159,23 @@ var listx = {
      */
     pageSw: function(obj, id, isAjax) {
 
-        var o = $('#pagin_' + id).find('input');
-        o.value = obj.getAttribute('title');
-
         var container = '';
-        var p         = '_page_' + id + '=' + o.value;
+        var pageParam = '_page_' + id;
+        var page      = obj.getAttribute('title');
+        var url       = listx.loc[id];
+
+        url = url.replace(new RegExp('&' + pageParam + '=\\d*', 'i'), '');
+        url = url + "&" + pageParam + '=' + page;
+
 
         if (isAjax) {
             container = document.getElementById("list" + id).parentNode;
             if (listx.loc[id].indexOf('&__') < 0) {
                 if (container.id) {
-                    location.hash = preloader.prepare(location.hash.substr(1) + '&--' + container.id + '=' + preloader.toJson(listx.loc[id] + "&" + p));
+                    location.hash = preloader.prepare(location.hash.substr(1) + '&--' + container.id + '=' + preloader.toJson(url));
                 }
             } else {
-                load(listx.loc[id] + '&' + p, '', container, function () {
+                load(url, '', container, function () {
                     if (listx.reloadEvents.length > 0) {
                         $.each(listx.reloadEvents, function () {
                             if (this.list_id === id) {
@@ -183,17 +186,19 @@ var listx = {
                     preloader.callback();
                 });
             }
-        }
-        else load(listx.loc[id] + '&' + p, '', container, function () {
-            if (listx.reloadEvents.length > 0) {
-                $.each(listx.reloadEvents, function () {
-                    if (this.list_id === id) {
-                        this.func();
-                    }
-                })
-            }
-            preloader.callback();
-        });
+
+        } else {
+            load(url, '', container, function () {
+                if (listx.reloadEvents.length > 0) {
+                    $.each(listx.reloadEvents, function () {
+                        if (this.list_id === id) {
+                            this.func();
+                        }
+                    })
+                }
+                preloader.callback();
+            })
+        };
     },
 
 
@@ -205,17 +210,21 @@ var listx = {
     goToPage: function(obj, id, isAjax) {
 
         var container = '';
-        var o         = $('#pagin_' + id).find('input');
-        var p         = '_page_' + id + '=' + o.val();
+        var pageParam = '_page_' + id;
+        var page      = $('#pagin_' + id).find('input').val();
+        var url       = listx.loc[id];
+
+        url = url.replace(new RegExp('&' + pageParam + '=\\d*', 'i'), '');
+        url = url + "&" + pageParam + '=' + page;
 
         if (isAjax) {
             container = document.getElementById("list" + id).parentNode;
             if (listx.loc[id].indexOf('&__') < 0) {
                 if (container.id) {
-                    location.hash = preloader.prepare(location.hash.substr(1) + '&--' + container.id + '=' + preloader.toJson(listx.loc[id] + "&" + p));
+                    location.hash = preloader.prepare(location.hash.substr(1) + '&--' + container.id + '=' + preloader.toJson(url));
                 }
             } else {
-                load(listx.loc[id] + '&' + p, '', container, function () {
+                load(url, '', container, function () {
                     if (listx.reloadEvents.length > 0) {
                         $.each(listx.reloadEvents, function () {
                             if (this.list_id === id) {
@@ -228,7 +237,7 @@ var listx = {
             }
         }
         else {
-            load(listx.loc[id] + '&' + p, '', container, function () {
+            load(url, '', container, function () {
                 if (listx.reloadEvents.length > 0) {
                     $.each(listx.reloadEvents, function () {
                         if (this.list_id === id) {
