@@ -62,7 +62,7 @@
 	<![endif]-->
 
 	<script src="core2/html/material/js/class.list.js?_=7"></script>
-	<script src="core2/html/material/js/class.edit.js?_=26"></script>
+	<script src="core2/html/material/js/class.edit.js?_=27"></script>
 	<script src="core2/js/eTip.js"></script>
 	<script src="core2/html/material/js/main.js?_=18"></script>
     <link rel="icon" type="image/png" href="favicon.png"/>
