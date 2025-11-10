@@ -237,6 +237,17 @@ var edit = {
 	},
 
 
+	/**
+	 * @param {HTMLElement} checkbox
+	 * @param {string}      fieldName
+	 */
+	checkboxAll: function (checkbox, fieldName) {
+
+		let isChecked = $(checkbox).prop('checked');
+		$('input[type=checkbox][name="control[' + fieldName + '][]"]').prop('checked', isChecked);
+	},
+
+
 	changeForm: {
 
 		_forms: {},
