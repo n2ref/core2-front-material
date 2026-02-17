@@ -1409,8 +1409,18 @@ CoreUI.table = {
                                 });
                             }
 
-                        }).fail(function () {
-                            swal("Не удалось выполнить удаление", '', 'error').catch(swal.noop);
+                        }).fail(function (response) {
+
+                            if (response.responseJSON && response.responseJSON.error) {
+                                var msg = response.responseJSON.error
+                                    ? response.responseJSON.error
+                                    : "Не удалось выполнить удаление";
+                                errorContainer.html(msg);
+                                errorContainer.show();
+
+                            } else {
+                                swal("Не удалось выполнить удаление", '', 'error').catch(swal.noop);
+                            }
                         }).always(function () {
                             CoreUI.table.preloader.hide(resource);
                             preloader.hide();
@@ -1796,7 +1806,7 @@ $(document).ready(function(){
             return false;
 
         } else {
-            $('.datepicker-container, .datetimepicker-container').hide('fast');
+            $('.coreui-table .datepicker-container, .coreui-table .datetimepicker-container').hide('fast');
         }
     });
 

@@ -195,6 +195,7 @@ TOP MENU
 	padding-right:5px;
 }
 .navbar-header .module-title {
+    background: #fff;
     padding: 8px 15px 5px 15px;
     font-size: 15px;
     line-height: 15px;
@@ -203,6 +204,7 @@ TOP MENU
     left: 50px;
 }
 .navbar-header .module-action {
+    background: #fff;
     padding-left: 15px;
     font-size: 12px;
     color: #666;
@@ -1496,6 +1498,14 @@ label.control-label {font-weight: 700}
     background: #2e6da4 !important;
     color: #FFF;
 }
+.ui-menu .ui-menu-item a {
+    text-decoration: none;
+    display: block;
+    padding: 2px .4em;
+    line-height: 1.5;
+    min-height: 0;
+    font-weight: normal;
+}
 .first {
     border-bottom-right-radius: 0;
     border-top-right-radius: 0;
@@ -2553,7 +2563,7 @@ div[id^=fileupload-main_] tbody.files > tr:first-child > td {
 }
 .coreui-table-wrapper .coreui-table-responsive {
     width: 100%;
-    overflow-y: hidden;
+    /*overflow-y: hidden;*/
     -ms-overflow-style: -ms-autohiding-scrollbar;
     border: 1px solid #ddd;
     border-radius: 2px;

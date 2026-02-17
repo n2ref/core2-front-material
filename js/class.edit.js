@@ -237,6 +237,17 @@ var edit = {
 	},
 
 
+	/**
+	 * @param {HTMLElement} checkbox
+	 * @param {string}      fieldName
+	 */
+	checkboxAll: function (checkbox, fieldName) {
+
+		let isChecked = $(checkbox).prop('checked');
+		$('input[type=checkbox][name="control[' + fieldName + '][]"]').prop('checked', isChecked);
+	},
+
+
 	changeForm: {
 
 		_forms: {},
@@ -439,6 +450,12 @@ var edit = {
 					inputTitle.removeAttr('disabled');
 				}
 
+				inputTitle.blur(function() {
+					if ( ! inputValue.val()) {
+						inputTitle.val('');
+					}
+				});
+
 				let lastRequest = null;
 				inputTitle.autocomplete({
 					source: function (request, response) {
@@ -474,10 +491,6 @@ var edit = {
 					},
 					close: function( event, ui ) {
 						event.preventDefault();
-
-						if ( ! inputValue.val()) {
-							inputTitle.val('');
-						}
 					},
 					create: function (event, ui) {
 						$(this).data('ui-autocomplete')._renderItem = function (ul, item) {
@@ -1518,8 +1531,9 @@ var edit = {
 		/**
 		 * Инициализация визуального редактора для импорта
 		 * @param {string} field
+		 * @param {Array}  options
 		 */
-		init: function (field) {
+		init: function (field, options) {
 
 			let container = $('.field-import-' + field);
 
@@ -1538,17 +1552,67 @@ var edit = {
 			});
 
 
-			$('.row-number input', container).change(function () {
-				let numberChanged = this;
+			let rowSelect = ! options.rowSelect || options.rowSelect === 'start'
+				? 'start'
+				: (options.rowSelect === 'checked' ? 'checked' : 'start');
 
-				$('.row-number input', container).each(function (i, input) {
-					if (numberChanged !== input && $(input).prop('checked')) {
-						$(input).prop('checked', false);
-					}
+			if (rowSelect === 'start') {
+				$('.row-number input', container).change(function () {
+					let numberChanged = this;
+
+					$('.row-number input', container).each(function (i, input) {
+						if (numberChanged !== input && $(input).prop('checked')) {
+							$(input).prop('checked', false);
+						}
+					});
+
+					fillInputImport();
 				});
 
-				fillInputImport();
-			});
+			} else if (rowSelect === 'checked') {
+				$('.checked-all', container).change(function () {
+					let isChecked = $(this).prop('checked')
+					$('.row-number input', container).prop('checked', isChecked);
+
+					fillInputImport();
+				});
+
+				$('.row-number input', container).click(function (event) {
+
+					if (event.shiftKey) {
+						let currentRow   = Number(this.value);
+						let isChecked    = $(this).prop('checked');
+						let firstRow     = null;
+						let lastRow      = null;
+
+						$('.row-number input:checked', container).each(function (i, input) {
+							if (firstRow === null) {
+								firstRow = Number($(input).val());
+							}
+							lastRow = Number($(input).val());
+						});
+
+
+						if (firstRow !== null && firstRow < currentRow) {
+							$('.row-number input', container).each(function (i, input) {
+								if (firstRow <= Number(input.value) && Number(input.value) <= currentRow) {
+									$(input).prop('checked', isChecked);
+								}
+							});
+
+						} else if (lastRow !== null && Number(currentRow) < lastRow) {
+
+							$('.row-number input', container).each(function (i, input) {
+								if (currentRow <= Number(input.value) && Number(input.value) <= lastRow) {
+									$(input).prop('checked', isChecked);
+								}
+							});
+						}
+					}
+
+					fillInputImport();
+				});
+			}
 
 
 			/**
@@ -1558,8 +1622,16 @@ var edit = {
 
 				let importData = {};
 
-				importData.first_row = $(".row-number input:checked", container).val();
-				importData.fields    = {};
+				if (rowSelect === 'start') {
+					importData.first_row = $(".row-number input:checked", container).val();
+
+				} else if (rowSelect === 'checked') {
+					importData.rows = $(".row-number input:checked", container).map(function() {
+						return this.value;
+					}).get();
+				}
+
+				importData.fields = {};
 
 				$("thead select", container).each(function (i, select) {
 					let fieldName   = $(select).val();

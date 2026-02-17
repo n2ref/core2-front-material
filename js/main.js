@@ -873,7 +873,7 @@ var load = function (url, data, id, callback) {
             mod_title = '';
         }
 
-        var css_mod_title = action_title === ''
+        var css_mod_title = action_title === '' && mod_title !== ''
             ? {'fontSize': '18px', 'paddingTop': '15px','lineHeight': '20px'}
             : {'fontSize': '',     'paddingTop': '',    'lineHeight': ''};
 
@@ -1016,6 +1016,21 @@ function removePDF() {
  */
 var loadExt = function (url) {
 	preloader.show();
+
+	if (url.indexOf('#') >= 0) {
+		let urlSplit = url.split('#');
+		urlSplit[0] = urlSplit[0].indexOf('?') >= 0
+			? urlSplit[0] + '&_=' +  Math.floor(Math.random() * 1000000)
+			: urlSplit[0] + '?_=' +  Math.floor(Math.random() * 1000000);
+
+		url = urlSplit.join('#');
+
+	} else {
+		url = url.indexOf('?') >= 0
+			? url + '&_=' +  Math.floor(Math.random() * 1000000)
+			: url + '?_=' +  Math.floor(Math.random() * 1000000);
+	}
+
 	$("#main_body").prepend(
 	    '<div class="ext-panel hidden">' +
 			'<div class="ext-main-panel"><iframe id="core-iframe" frameborder="0" width="100%" height="100%" src="' + url + '"></iframe></div>' +
@@ -1036,11 +1051,46 @@ var loadExt = function (url) {
 };
 
 // Deprecated
-window.hashchange = function (callback) {
+$.fn.hashchange = function (callback) {
 	if (typeof callback === 'function') {
 		window.addEventListener("hashchange", callback, false);
 	}
 }
+/**
+ * Загружает в элемент содержимое ссылки из data-атрибута
+ * @param obj
+ * @returns {Promise<any|Awaited<null>>}
+ */
+async function fetchDataAndUpdateElement(obj) {
+
+	try {
+		const response = await fetch($(obj).data('url'));
+		if (!response.ok) {
+			throw new Error(`HTTP error! status: ${response.status}`);
+		}
+		const contentType = response.headers.get('content-type');
+		if (contentType === null) return Promise.resolve(null);
+		else if (contentType.startsWith('application/json;')) {
+			//обработать json
+			return response.json();
+		}
+		else if (contentType.startsWith('text/')) {
+			// response.text()
+			// 	.then(data => {
+			// 		obj.innerHTML = data
+			// 	});
+
+			const arrayBuffer = await response.arrayBuffer(); // Get the response as an ArrayBuffer
+			const decoder = new TextDecoder('utf-8');
+			obj.innerHTML = decoder.decode(arrayBuffer);
+		}
+		else throw new Error(`Unsupported response content-type: ${contentType}`);
+	} catch (error) {
+		console.error('Error:', error);
+		obj.innerHTML = '<div class="alert alert-danger">' + error + '</div>';
+	}
+}
+
 
 window.addEventListener(
 	"hashchange",
@@ -1077,20 +1127,20 @@ window.dispatchEvent(new HashChangeEvent('resize'));
 window.addEventListener('error', main_menu.errors._onErrorEvent, true);
 
 document.addEventListener("DOMContentLoaded", function (e) {
-	const uap = new UAParser();
-	if (uap) {
-		const br = uap.getResult();
-		console.log(br.browser)
-		if (br.browser.name == '???') { //TODO сделать проверку на актуальность браузера
-			$("#mainContainer").prepend(
-				"<h2>" +
-				"<span style=\"color:red\">Внимание!</span> " +
-				"Вы пользуетесь устаревшей версией браузера. " +
-				"Во избежание проблем с работой, рекомендуется обновить текущий или установить другой, более современный браузер." +
-				"</h2>"
-			);
-		}
-	}
+	// const uap = new UAParser();
+	// if (uap) {
+	// 	const br = uap.getResult();
+	// 	console.log(br.browser)
+	// 	if (br.browser.name == '???') { //TODO сделать проверку на актуальность браузера
+	// 		$("#mainContainer").prepend(
+	// 			"<h2>" +
+	// 			"<span style=\"color:red\">Внимание!</span> " +
+	// 			"Вы пользуетесь устаревшей версией браузера. " +
+	// 			"Во избежание проблем с работой, рекомендуется обновить текущий или установить другой, более современный браузер." +
+	// 			"</h2>"
+	// 		);
+	// 	}
+	// }
 
     main_menu.setAngles();
 	main_menu.setIconLetter();
@@ -1360,17 +1410,25 @@ document.addEventListener("DOMContentLoaded", function (e) {
 	const callback = (mutationList, observer) => {
 		for (const mutation of mutationList) {
 			if (mutation.type === "childList" && mutation.addedNodes.length) {
-				$('a, button').each(function (){
-					if ($(this).data('hotkey')) {
-						if ($(this)[0].getAttribute('listener') !== 'true') {
-							const hotkey = $(this).data('hotkey')
-							keymaps[hotkey] = $(this)[0];
-							$(this)[0].setAttribute('listener', 'true');
+				for (const nod of mutation.addedNodes) {
+					if (nod instanceof Element) {
+						const elems = nod.querySelectorAll("[data-hotkey]");
+						for (const elem of elems) {
+							if (elem.getAttribute('listener') !== 'true') {
+								const hotkey = $(elem).data('hotkey')
+								keymaps[hotkey] = elem;
+								elem.setAttribute('listener', 'true');
+							}
+						}
+						const urls = nod.querySelectorAll("[data-url]");
+						for (const elem of urls) {
+							fetchDataAndUpdateElement(elem);
 						}
 					}
-				});
+				}
+
 			} else if (mutation.type === "attributes") {
-				//console.log(`The ${mutation.attributeName} attribute was modified.`);
+				console.log(`The ${mutation.attributeName} attribute was modified.`);
 			}
 		}
 	};
@@ -1378,7 +1436,7 @@ document.addEventListener("DOMContentLoaded", function (e) {
 
 	addEventListener("keydown", (event) => {});
 	onkeydown = (e) => {
-		// console.log(e)
+		//console.log(e)
 		let key = "";
 		if (e.ctrlKey) key += "Ctrl+";
 		if (e.altKey) key += "Alt+";
@@ -1431,7 +1489,7 @@ $.ui.autocomplete.prototype._renderItem = function( ul, item) {
 
 //------------Core2 worker-------------
 if (window.hasOwnProperty('SharedWorker') && typeof window.SharedWorker === 'function') {
-	var worker = new SharedWorker("core2/js/worker.js?v=1");
+	var worker = new SharedWorker("core2/js/worker.js", "Core2");
 	worker.port.addEventListener(
 		"message",
 		function(e) {
@@ -1457,8 +1515,9 @@ if (window.hasOwnProperty('SharedWorker') && typeof window.SharedWorker === 'fun
 		},
 		false,
 	);
-	worker.onerror = function(event) {
+	worker.onerror = (event) => {
 		console.error("There is an error with your worker!");
+		console.error(event);
 	};
 	worker.port.start();
 	worker.port.postMessage("start");
