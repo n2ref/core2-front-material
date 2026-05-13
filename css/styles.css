@@ -2590,7 +2590,7 @@ table.coreui-table > thead > .table-service-panel .custom-buttons {display: inli
 table.coreui-table > thead > .table-control-panel {height: 35px;}
 
 table.coreui-table > tbody > tr.edit-row {cursor:pointer}
-table.coreui-table > tbody > tr:nth-child(2n){background-color:#fafafa}
+table.coreui-table > tbody > tr.row-table:nth-child(2n){background-color:#fafafa}
 table.coreui-table > tbody > tr.row-table:not(.coreui-table-row-group):hover > td,
 table.coreui-table > tbody > tr.row-table:not(.coreui-table-row-group):hover > th {background-color: #E1ECF1;}
 
@@ -2830,6 +2830,14 @@ table.coreui-table select.records-per-page {
 table.coreui-table .coreui-table-row-group {
     background-color: #f2f2f2;
     font-weight: bold;
+}
+table.coreui-table .coreui-table-row-group .btn-table-collapsed {
+    height: 20px;
+    margin-right: 8px;
+    font-size: 10px;
+}
+table.coreui-table .row-table.row-table-collapsed {
+    display: none;
 }
 
 .coreui-table-wrapper > .preloader {

@@ -1486,6 +1486,43 @@ CoreUI.table = {
 
 
     /**
+     * Переключение скрытия строк
+     * @param obj
+     * @param resource
+     */
+    toggleCollapsed : function (obj, resource) {
+
+        var row         = $(obj).parent().parent();
+        var icon        = $(obj).find('i.fa');
+        var isCollapsed = icon.hasClass('fa-chevron-right');
+
+        if (isCollapsed) {
+            icon.removeClass('fa-chevron-right');
+            icon.addClass('fa-chevron-down');
+        } else {
+            icon.removeClass('fa-chevron-down');
+            icon.addClass('fa-chevron-right');
+        }
+
+        for (var i = 0; i < 1000; i++) {
+            row = row.next('tr');
+
+            if (row.hasClass('coreui-table-row-group')) {
+                break;
+            }
+
+            if (row.hasClass('row-table')) {
+                if (isCollapsed) {
+                    $(row).removeClass('row-table-collapsed');
+                } else {
+                    $(row).addClass('row-table-collapsed');
+                }
+            }
+        }
+    },
+
+
+    /**
      Выделение строки
      * @param obj
      * @param resource

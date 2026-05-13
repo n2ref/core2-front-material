@@ -502,7 +502,14 @@
       <!-- BEGIN rows -->
       <tr [ROW_ATTR]>
         <!-- BEGIN group -->
-        <td colspan="[COLS]" [ATTR]>[VALUE]</td>
+        <td colspan="[COLS]" [ATTR]>
+          <!-- BEGIN group_collapse -->
+          <button class="btn btn-xs btn-default btn-table-collapsed" onclick="CoreUI.table.toggleCollapsed(this, '[RESOURCE]');">
+            <i class="fa [COLLAPSED_CLASS]"></i> [GROUP_ROWS]
+          </button>
+          <!-- END group_collapse -->
+          [VALUE]
+        </td>
 
         <!-- BEGIN group_checkbox -->
         <td class="checked-row" onclick="event.cancelBubble=true;">
