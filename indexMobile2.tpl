@@ -22,7 +22,7 @@
 	<link rel="stylesheet" href="core2/html/material/css/animate.min.css" type="text/css"/>
 	<link rel="stylesheet" href="core2/html/material/css/snarl.min.css" type="text/css"/>
 	<link rel="stylesheet" href="core2/html/material/css/menu.css?_=10" type="text/css"/>
-	<link rel="stylesheet" href="core2/html/material/css/styles.css?_=46" type="text/css"/>
+	<link rel="stylesheet" href="core2/html/material/css/styles.css?_=47" type="text/css"/>
 
 	<link rel="stylesheet" href="core2/html/material/css/select2.bootstrap.css" type="text/css"/>
 	<link rel="stylesheet" href="core2/html/material/css/select2.min.css" type="text/css"/>
