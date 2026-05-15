@@ -504,9 +504,11 @@
         <!-- BEGIN group -->
         <td colspan="[COLS]" [ATTR]>
           <!-- BEGIN group_collapse -->
-          <button class="btn btn-xs btn-default btn-table-collapsed" onclick="CoreUI.table.toggleCollapsed(this, '[RESOURCE]');">
-            <i class="fa [COLLAPSED_CLASS]"></i> [GROUP_ROWS]
-          </button>
+          <div class="table-group-collapsed">
+            <button class="btn btn-xs btn-default" onclick="CoreUI.table.toggleCollapsed(this, '[RESOURCE]');">
+              <i class="fa [COLLAPSED_CLASS]"></i> [GROUP_ROWS]
+            </button>
+          </div>
           <!-- END group_collapse -->
           [VALUE]
         </td>

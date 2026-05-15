@@ -1458,7 +1458,7 @@ CoreUI.table = {
      */
     toggleCollapsed : function (obj, resource) {
 
-        var row         = $(obj).parent().parent();
+        var row         = $(obj).parent().parent().parent();
         var icon        = $(obj).find('i.fa');
         var isCollapsed = icon.hasClass('fa-chevron-right');
 
