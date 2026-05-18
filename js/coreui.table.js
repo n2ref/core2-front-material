@@ -1876,7 +1876,6 @@ CoreUI.table = {
 
         }).finally(function (error) {
             CoreUI.table.preloader.hide(resource);
-            preloader.callback();
         });
     },
 
@@ -1915,7 +1914,6 @@ CoreUI.table = {
 
         }).finally(function (error) {
             CoreUI.table.preloader.hide(resource);
-            preloader.callback();
         });
     }
 };
