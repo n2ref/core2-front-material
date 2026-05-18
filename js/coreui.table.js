@@ -723,21 +723,20 @@ CoreUI.table = {
             }
             post['columns_' + resource] = columns;
 
+
+            var pageParam = '_page_' + resource;
+            var url       = CoreUI.table.loc[resource];
+
+            url  = url.replace(new RegExp('&' + pageParam + '=\\d*', 'i'), '');
+            url  = url.replace(/\&__filter=\d*/, '');
+            url += "&" + pageParam + '=1';
+            url += "&__filter=1";
+
             if (isAjax) {
-                var pageParam = '_page_' + resource;
-                var url       = CoreUI.table.loc[resource];
-
-                url  = url.replace(new RegExp('&' + pageParam + '=\\d*', 'i'), '');
-                url  = url.replace(/\&__filter=\d*/, '');
-                url += "&" + pageParam + '=1';
-                url += "&__filter=1";
-
                 var wrapper = document.getElementById("table-" + resource + "-wrapper");
                 container   = wrapper ? wrapper.parentNode : null;
 
                 CoreUI.table._sendPost(resource, url, post, container);
-
-
 
             } else {
                 load(url, post, container, function () {
