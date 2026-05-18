@@ -1121,6 +1121,45 @@ CoreUI.table = {
 
 
     /**
+     * Очистка сортировки
+     * @param resource
+     * @param isAjax
+     */
+    clearOrder : function(resource, isAjax) {
+
+        var container = '';
+        var post      = {};
+        var pageParam = '_page_' + resource;
+        var page      = 1;
+        var url       = CoreUI.table.loc[resource];
+
+        url  = url.replace(new RegExp('&' + pageParam + '=\\d*', 'i'), '');
+        url  = url.replace(/\$__order=\d*/, '');
+        url += "&" + pageParam + '=' + page;
+        url += "&__order=1";
+
+
+        post['order_clear_' + resource] = 1;
+
+        if (isAjax) {
+            CoreUI.table.preloader.show(resource);
+            var wrapper = document.getElementById("table-" + resource + "-wrapper");
+            container   = wrapper ? wrapper.parentNode : null;
+
+            CoreUI.table._sendPost(resource, url, post, container);
+
+        } else {
+            var path = this._resetPathPage(resource);
+
+            load(path, post, container, function () {
+                preloader.callback();
+                CoreUI.table._callEventReload(resource);
+            });
+        }
+    },
+
+
+    /**
      * Перезагрузка таблицы
      * @param resource
      * @param isAjax
