@@ -1881,11 +1881,17 @@ CoreUI.table = {
                     formData.append(data[dataKey].name, data[dataKey].value);
 
                 } else {
-                    formData.append(dataKey, data[dataKey]);
+                    if (Array.isArray(data[dataKey])) {
+                        let rows = data[dataKey];
+                        for (const rowKey in rows) {
+                            formData.append(dataKey + '[]', rows[rowKey]);
+                        }
+                    } else {
+                        formData.append(dataKey, data[dataKey]);
+                    }
                 }
             }
         }
-
 
         if (url.indexOf('/') < 0 &&
             url.indexOf('index.php') < 0
