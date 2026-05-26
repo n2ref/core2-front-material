@@ -1033,7 +1033,7 @@ var loadExt = function (url) {
 
 	$("#main_body").prepend(
 	    '<div class="ext-panel hidden">' +
-			'<div class="ext-main-panel"><iframe id="core-iframe" frameborder="0" width="100%" height="100%" src="' + url + '"></iframe></div>' +
+			'<div class="ext-main-panel"><iframe id="core-iframe" allow="clipboard-read; clipboard-write *; camera *; microphone *" frameborder="0" width="100%" height="100%" src="' + url + '"></iframe></div>' +
         '</div>'
 
 	);
@@ -1089,6 +1089,71 @@ async function fetchDataAndUpdateElement(obj) {
 		console.error('Error:', error);
 		obj.innerHTML = '<div class="alert alert-danger">' + error + '</div>';
 	}
+}
+
+async function core2Clip(elem) {
+	const textToCopy = elem.dataset.copy || elem.textContent || elem.innerText || elem.value;
+
+	const wrapper = document.createElement('div');
+	wrapper.className = 'copyable-wrapper';
+	elem.parentNode.insertBefore(wrapper, elem);
+	wrapper.appendChild(elem);
+
+	const copyIcon = document.createElement('span');
+	copyIcon.className = 'copy-icon';
+	//copyIcon.innerHTML = '📋';
+	copyIcon.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="16" height="16" class="g-icon" fill="currentColor" stroke="none" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 16"><path fill="currentColor" fill-rule="evenodd" d="M12 2.5H8A1.5 1.5 0 0 0 6.5 4v1H8a3 3 0 0 1 3 3v1.5h1A1.5 1.5 0 0 0 13.5 8V4A1.5 1.5 0 0 0 12 2.5M11 11h1a3 3 0 0 0 3-3V4a3 3 0 0 0-3-3H8a3 3 0 0 0-3 3v1H4a3 3 0 0 0-3 3v4a3 3 0 0 0 3 3h4a3 3 0 0 0 3-3zM4 6.5h4A1.5 1.5 0 0 1 9.5 8v4A1.5 1.5 0 0 1 8 13.5H4A1.5 1.5 0 0 1 2.5 12V8A1.5 1.5 0 0 1 4 6.5" clip-rule="evenodd"></path></svg></svg>';
+	copyIcon.title = 'Копировать текст';
+	wrapper.appendChild(copyIcon);
+
+	copyIcon.addEventListener('click', async (e) => {
+		e.stopPropagation();
+
+		try {
+			await navigator.clipboard.writeText(textToCopy);
+
+			// Визуальная обратная связь
+			const originalText = copyIcon.innerHTML;
+			copyIcon.innerHTML = '✅';
+			copyIcon.style.background = '#4CAF50';
+
+			setTimeout(() => {
+				copyIcon.innerHTML = originalText;
+				copyIcon.style.background = '';
+			}, 1500);
+
+		} catch (err) {
+			// Fallback для старых браузеров
+			console.error('Ошибка копирования:', err);
+			const textArea = document.createElement('textarea');
+			textArea.value = textToCopy;
+			textArea.style.position = 'fixed';
+			textArea.style.opacity = '0';
+			document.body.appendChild(textArea);
+			textArea.focus();
+			textArea.select();
+
+			try {
+				const successful = document.execCommand('copy');
+				if (successful) {
+					const originalText = copyIcon.innerHTML;
+					copyIcon.innerHTML = '✅';
+					copyIcon.style.background = '#4CAF50';
+
+					setTimeout(() => {
+						copyIcon.innerHTML = originalText;
+						copyIcon.style.background = '';
+					}, 1500);
+				}
+			} catch (err) {
+				console.error('Fallback: Ошибка копирования', err);
+				alert('Не удалось скопировать текст');
+			}
+
+			document.body.removeChild(textArea);
+		}
+	});
+
 }
 
 
@@ -1424,6 +1489,11 @@ document.addEventListener("DOMContentLoaded", function (e) {
 						for (const elem of urls) {
 							fetchDataAndUpdateElement(elem);
 						}
+						const cpy = nod.querySelectorAll("[data-copy]");
+						for (const elem of cpy) {
+							//core2Clip(elem);
+							console.log(elem)
+						}
 					}
 				}
 
@@ -1467,7 +1537,7 @@ $.ui.autocomplete.prototype._renderItem = function( ul, item) {
 	if (term) {
 		term = term.replace(new RegExp('[.\\\\+*?\\[\\^\\]$(){}=!<>|:\\' + '' + '-]', 'g'), '\\$&');
 
-		var re = new RegExp("(" + term + ")", "gi");
+		const re = new RegExp("(" + term + ")", "gi");
 		t = t.replace(re, "<b>$1</b>");
 	}
 
@@ -1504,7 +1574,7 @@ if (window.hasOwnProperty('SharedWorker') && typeof window.SharedWorker === 'fun
 					for (i in evt) {
 						document.dispatchEvent(new CustomEvent("Core2", {'detail': evt[i]}));
 					}
-					console.log(evt)
+					//console.log(evt)
 					break;
 
 				default:
@@ -1529,7 +1599,6 @@ if (window.hasOwnProperty('SharedWorker') && typeof window.SharedWorker === 'fun
 		(e) => {
 			e.detail.forEach(function (data){
 				const e = JSON.parse(data);
-				// console.log(e)
 				if (e.element) {
 					$(e.element.selector).html(e.element.text);
 				}

@@ -83,26 +83,23 @@ CoreUI.table = {
 
             var post      = {};
             var container = '';
-            var pageParam = '_page_' + resource;
-            var url       = CoreUI.table.loc[resource];
-
-            url  = url.replace(new RegExp('&' + pageParam + '=\\d*', 'i'), '');
-            url  = url.replace(/\&__clear=\d*/, '');
-            url += "&" + pageParam + '=1';
-            url += "&__clear=1";
 
             post['search_clear_' + resource] = 1;
 
             if (isAjax) {
+                var url       = CoreUI.table.loc[resource];
+                var pageParam = '_page_' + resource;
+
+                url  = url.replace(new RegExp('&' + pageParam + '=\\d*', 'i'), '');
+                url  = url.replace(/\&__clear=\d*/, '');
+                url += "&" + pageParam + '=1';
+                url += "&__clear=1";
+
                 CoreUI.table.preloader.show(resource);
                 var wrapper = document.getElementById("table-" + resource + "-wrapper");
                 container   = wrapper ? wrapper.parentNode : null;
 
-                load(url, post, container, function () {
-                    CoreUI.table.preloader.hide(resource);
-                    preloader.callback();
-                    CoreUI.table._callEventReload(resource);
-                });
+                CoreUI.table._sendPost(resource, url, post, container);
 
             } else {
                 var path = CoreUI.table._resetPathPage(resource);
@@ -125,32 +122,27 @@ CoreUI.table = {
             var allInputs = $(form).find(":input");
             var post      = {};
             var container = '';
-            var pageParam = '_page_' + resource;
-            var url       = CoreUI.table.loc[resource];
-
-            url  = url.replace(new RegExp('&' + pageParam + '=\\d*', 'i'), '');
-            url  = url.replace(/\&__search=\d*/, '');
-            url += "&" + pageParam + '=1';
-            url += "&__search=1";
 
 
             post = allInputs.serializeArray();
 
             if (isAjax) {
+                var pageParam = '_page_' + resource;
+                var url       = CoreUI.table.loc[resource];
+
+                url  = url.replace(new RegExp('&' + pageParam + '=\\d*', 'i'), '');
+                url  = url.replace(/\&__search=\d*/, '');
+                url += "&" + pageParam + '=1';
+                url += "&__search=1";
+
                 CoreUI.table.preloader.show(resource);
                 var wrapper = document.getElementById("table-" + resource + "-wrapper");
                 container   = wrapper ? wrapper.parentNode : null;
 
-                load(url, post, container, function () {
-                    CoreUI.table.preloader.hide(resource);
-                    preloader.callback();
-                    CoreUI.table._callEventReload(resource);
-                });
+                CoreUI.table._sendPost(resource, url, post, container);
 
             } else {
                 var path = CoreUI.table._resetPathPage(resource);
-
-                console.log(path)
 
                 load(path, post, container, function () {
                     preloader.callback();
@@ -171,27 +163,24 @@ CoreUI.table = {
 
             var post      = {};
             var container = '';
-            var pageParam = '_page_' + resource;
-            var url       = CoreUI.table.loc[resource];
-
-            url  = url.replace(new RegExp('&' + pageParam + '=\\d*', 'i'), '');
-            url  = url.replace(/\&__filter_clear=\d*/, '');
-            url += "&" + pageParam + '=1';
-            url += "&__filter_clear=1";
 
             post['filter_clear_' + resource] = 1;
 
             if (CoreUI.table.loc[resource]) {
                 if (isAjax) {
+                    var pageParam = '_page_' + resource;
+                    var url       = CoreUI.table.loc[resource];
+
+                    url  = url.replace(new RegExp('&' + pageParam + '=\\d*', 'i'), '');
+                    url  = url.replace(/\&__filter_clear=\d*/, '');
+                    url += "&" + pageParam + '=1';
+                    url += "&__filter_clear=1";
+
                     CoreUI.table.preloader.show(resource);
                     var wrapper = document.getElementById("table-" + resource + "-wrapper");
                     container   = wrapper ? wrapper.parentNode : null;
 
-                    load(url, post, container, function () {
-                        CoreUI.table.preloader.hide(resource);
-                        preloader.callback();
-                        CoreUI.table._callEventReload(resource);
-                    });
+                    CoreUI.table._sendPost(resource, url, post, container);
 
                 } else {
                     var path = CoreUI.table._resetPathPage(resource);
@@ -214,13 +203,6 @@ CoreUI.table = {
             var allInputs = $("#filter-" + resource).find(":input");
             var post      = {};
             var container = '';
-            var pageParam = '_page_' + resource;
-            var url       = CoreUI.table.loc[resource];
-
-            url  = url.replace(new RegExp('&' + pageParam + '=\\d*', 'i'), '');
-            url  = url.replace(/\&__filter=\d*/, '');
-            url += "&" + pageParam + '=1';
-            url += "&__filter=1";
 
             $.each(allInputs, function(key, input) {
                 var name = $(input).attr('name');
@@ -258,15 +240,19 @@ CoreUI.table = {
 
 
             if (isAjax) {
+                var pageParam = '_page_' + resource;
+                var url       = CoreUI.table.loc[resource];
+
+                url  = url.replace(new RegExp('&' + pageParam + '=\\d*', 'i'), '');
+                url  = url.replace(/\&__filter=\d*/, '');
+                url += "&" + pageParam + '=1';
+                url += "&__filter=1";
+
                 CoreUI.table.preloader.show(resource);
                 var wrapper = document.getElementById("table-" + resource + "-wrapper");
                 container   = wrapper ? wrapper.parentNode : null;
 
-                load(url, post, container, function () {
-                    CoreUI.table.preloader.hide(resource);
-                    preloader.callback();
-                    CoreUI.table._callEventReload(resource);
-                });
+                CoreUI.table._sendPost(resource, url, post, container);
 
             } else {
                 var path = CoreUI.table._resetPathPage(resource);
@@ -731,6 +717,13 @@ CoreUI.table = {
             var post       = {};
             var columns    = [];
             var container  = '';
+
+            for (var i = 0; i < checkboxes.length; i++) {
+                columns.push(checkboxes[i].value);
+            }
+            post['columns_' + resource] = columns;
+
+
             var pageParam = '_page_' + resource;
             var url       = CoreUI.table.loc[resource];
 
@@ -739,21 +732,11 @@ CoreUI.table = {
             url += "&" + pageParam + '=1';
             url += "&__filter=1";
 
-            for (var i = 0; i < checkboxes.length; i++) {
-                columns.push(checkboxes[i].value);
-            }
-            post['columns_' + resource] = columns;
-
             if (isAjax) {
                 var wrapper = document.getElementById("table-" + resource + "-wrapper");
                 container   = wrapper ? wrapper.parentNode : null;
 
-                load(url, post, container, function () {
-                    preloader.callback();
-                    CoreUI.table._callEventReload(resource);
-                });
-
-
+                CoreUI.table._sendPost(resource, url, post, container);
 
             } else {
                 load(url, post, container, function () {
@@ -850,18 +833,16 @@ CoreUI.table = {
                     });
 
 
-                    var pageParam = '_page_' + resource;
-                    var url       = CoreUI.table.loc[resource];
-
-                    url  = url.replace(new RegExp('&' + pageParam + '=\\d*', 'i'), '');
-                    url += "&" + pageParam + '=1';
-
                     if (isAjax) {
+                        var pageParam = '_page_' + resource;
+                        var url       = CoreUI.table.loc[resource];
+
+                        url  = url.replace(new RegExp('&' + pageParam + '=\\d*', 'i'), '');
+                        url += "&" + pageParam + '=1';
+
                         var container = document.getElementById("table-" + resource).parentNode;
-                        load(url, searchControls, container, function () {
-                            preloader.hide();
-                            CoreUI.table._callEventReload(resource);
-                        });
+
+                        CoreUI.table._sendPost(resource, url, searchControls, container);
 
                     } else {
                         var path = CoreUI.table._resetPathPage(resource);
@@ -910,10 +891,7 @@ CoreUI.table = {
 
                     if (isAjax) {
                         var container = document.getElementById("table-" + resource).parentNode;
-                        load(url, post, container, function () {
-                            preloader.hide();
-                            CoreUI.table._callEventReload(resource);
-                        });
+                        CoreUI.table._sendPost(resource, url, post, container);
 
                     } else {
                         load(url, post, '', function () {
@@ -942,18 +920,16 @@ CoreUI.table = {
                 'value': id,
             }];
 
-            var pageParam = '_page_' + resource;
-            var url       = CoreUI.table.loc[resource];
-
-            url  = url.replace(new RegExp('&' + pageParam + '=\\d*', 'i'), '');
-            url += "&" + pageParam + '=1';
 
             if (isAjax) {
+                var pageParam = '_page_' + resource;
+                var url       = CoreUI.table.loc[resource];
+
+                url  = url.replace(new RegExp('&' + pageParam + '=\\d*', 'i'), '');
+                url += "&" + pageParam + '=1';
+
                 var container = document.getElementById("table-" + resource).parentNode;
-                load(url, post, container, function () {
-                    preloader.hide();
-                    CoreUI.table._callEventReload(resource);
-                });
+                CoreUI.table._sendPost(resource, url, post, container);
 
             } else {
                 var path = CoreUI.table._resetPathPage(resource);
@@ -1057,11 +1033,7 @@ CoreUI.table = {
                 }
 
             } else {
-                load(url, '', container, function () {
-                    CoreUI.table.preloader.hide(resource);
-                    preloader.callback();
-                    CoreUI.table._callEventReload(resource);
-                });
+                CoreUI.table._sendGet(resource, url, container);
             }
         } else {
             load(url, '', container, function () {
@@ -1096,10 +1068,7 @@ CoreUI.table = {
                     location.hash = preloader.prepare(location.hash.substr(1) + '&--' + container.id + '=' + preloader.toJson(url));
                 }
             } else {
-                load(url, '', container, function () {
-                    preloader.callback();
-                    CoreUI.table._callEventReload(resource);
-                });
+                CoreUI.table._sendGet(resource, url, container);
             }
 
         } else {
@@ -1137,13 +1106,46 @@ CoreUI.table = {
             var wrapper = document.getElementById("table-" + resource + "-wrapper");
             container   = wrapper ? wrapper.parentNode : null;
 
-            load(url, post, container, function () {
-                CoreUI.table.preloader.hide(resource);
+            CoreUI.table._sendPost(resource, url, post, container);
+
+        } else {
+            var path = this._resetPathPage(resource);
+
+            load(path, post, container, function () {
                 preloader.callback();
                 CoreUI.table._callEventReload(resource);
             });
+        }
+    },
 
-            preloader.hide();
+
+    /**
+     * Очистка сортировки
+     * @param resource
+     * @param isAjax
+     */
+    clearOrder : function(resource, isAjax) {
+
+        var container = '';
+        var post      = {};
+        var pageParam = '_page_' + resource;
+        var page      = 1;
+        var url       = CoreUI.table.loc[resource];
+
+        url  = url.replace(new RegExp('&' + pageParam + '=\\d*', 'i'), '');
+        url  = url.replace(/\$__order=\d*/, '');
+        url += "&" + pageParam + '=' + page;
+        url += "&__order=1";
+
+
+        post['order_clear_' + resource] = 1;
+
+        if (isAjax) {
+            CoreUI.table.preloader.show(resource);
+            var wrapper = document.getElementById("table-" + resource + "-wrapper");
+            container   = wrapper ? wrapper.parentNode : null;
+
+            CoreUI.table._sendPost(resource, url, post, container);
 
         } else {
             var path = this._resetPathPage(resource);
@@ -1167,13 +1169,10 @@ CoreUI.table = {
             CoreUI.table.preloader.show(resource);
 
             var wrapper = document.getElementById("table-" + resource + "-wrapper");
+            var url     = CoreUI.table.loc[resource];
             container   = wrapper ? wrapper.parentNode : null;
 
-            load(CoreUI.table.loc[resource], {}, container, function () {
-                CoreUI.table.preloader.hide(resource);
-                preloader.hide();
-                CoreUI.table._callEventReload(resource);
-            });
+            CoreUI.table._sendGet(resource, url, container);
 
         } else {
             load(CoreUI.table.loc[resource], {}, '', function () {
@@ -1403,10 +1402,15 @@ CoreUI.table = {
                                     }
                                 }
 
-                                load(loc, '', container, function () {
-                                    preloader.callback();
-                                    CoreUI.table._callEventReload(resource);
-                                });
+                                if (isAjax) {
+                                    CoreUI.table._sendGet(resource, loc, container);
+
+                                } else {
+                                    load(loc, '', container, function () {
+                                        preloader.callback();
+                                        CoreUI.table._callEventReload(resource);
+                                    });
+                                }
                             }
 
                         }).fail(function (response) {
@@ -1482,6 +1486,43 @@ CoreUI.table = {
         }
 
         CoreUI.table._callEventChecked(resource, rowsId, state);
+    },
+
+
+    /**
+     * Переключение скрытия строк
+     * @param obj
+     * @param resource
+     */
+    toggleCollapsed : function (obj, resource) {
+
+        var row         = $(obj).parent().parent().parent();
+        var icon        = $(obj).find('i.fa');
+        var isCollapsed = icon.hasClass('fa-chevron-right');
+
+        if (isCollapsed) {
+            icon.removeClass('fa-chevron-right');
+            icon.addClass('fa-chevron-down');
+        } else {
+            icon.removeClass('fa-chevron-down');
+            icon.addClass('fa-chevron-right');
+        }
+
+        for (var i = 0; i < 1000; i++) {
+            row = row.next('tr');
+
+            if (row.hasClass('coreui-table-row-group')) {
+                break;
+            }
+
+            if (row.hasClass('row-table')) {
+                if (isCollapsed) {
+                    $(row).removeClass('row-table-collapsed');
+                } else {
+                    $(row).addClass('row-table-collapsed');
+                }
+            }
+        }
     },
 
 
@@ -1723,24 +1764,29 @@ CoreUI.table = {
      */
     recordsPerPage : function(resource, select, isAjax) {
 
+        var post      = {};
         var container = '';
+        post['count_' + resource] = select.value;
+
 
         if (isAjax) {
+            let url = CoreUI.table.loc[resource];
+
             CoreUI.table.preloader.show(resource);
             var wrapper = document.getElementById("table-" + resource + "-wrapper");
             container   = wrapper ? wrapper.parentNode : null;
+
+            CoreUI.table._sendPost(resource, url, post, container);
+
+        } else {
+            var path = this._resetPathPage(resource);
+
+            load(path, post, container, function () {
+                CoreUI.table.preloader.hide(resource);
+                preloader.callback();
+                CoreUI.table._callEventReload(resource);
+            });
         }
-
-        var post = {};
-        post['count_' + resource] = select.value;
-
-        var path = this._resetPathPage(resource);
-
-        load(path, post, container, function () {
-            CoreUI.table.preloader.hide(resource);
-            preloader.callback();
-            CoreUI.table._callEventReload(resource);
-        });
     },
 
 
@@ -1775,6 +1821,148 @@ CoreUI.table = {
         }
 
         return path;
+    },
+
+
+    /**
+     * Удаляет дублирующиеся параметры из строки запроса, оставляя только первые вхождения
+     * @param queryString
+     * @returns {string|string}
+     */
+    _removeDuplicateParams: function(queryString) {
+
+        // Убираем начальный знак вопроса, если есть
+        const cleanString = queryString.startsWith('?') ? queryString.slice(1) : queryString;
+
+        // Если строка пустая, возвращаем пустую строку
+        if (!cleanString) return '';
+
+        // Разбиваем строку на отдельные параметры
+        const params = cleanString.split('&');
+
+        // Создаем Map для хранения уникальных ключей
+        const uniqueParams = new Map();
+
+        // Проходим по каждому параметру
+        for (const param of params) {
+            const [key, value] = param.split('=');
+
+            // Если ключ еще не существует в Map, добавляем его
+            if (!uniqueParams.has(key)) {
+                uniqueParams.set(key, value || '');
+            }
+        }
+
+        // Собираем параметры обратно в строку
+        const resultParams = Array.from(uniqueParams.entries())
+            .map(([key, value]) => value ? `${key}=${value}` : key);
+
+        // Возвращаем с вопросительным знаком, если он был в исходной строке
+        return queryString.startsWith('?') ? '?' + resultParams.join('&') : resultParams.join('&');
+    },
+
+
+    /**
+     * @param resource
+     * @param url
+     * @param data
+     * @param container
+     * @private
+     */
+    _sendPost: function (resource, url, data, container) {
+
+        var formData = new FormData();
+
+        if (data && typeof data === 'object') {
+            for (const dataKey in data) {
+                if (typeof data[dataKey] === 'object' &&
+                    data[dataKey].name
+                ) {
+                    formData.append(data[dataKey].name, data[dataKey].value);
+
+                } else {
+                    if (Array.isArray(data[dataKey])) {
+                        let rows = data[dataKey];
+                        for (const rowKey in rows) {
+                            if (dataKey.slice(-2) === '[]') {
+                                formData.append(dataKey, rows[rowKey]);
+                            } else {
+                                formData.append(dataKey + '[]', rows[rowKey]);
+                            }
+                        }
+                    } else {
+                        formData.append(dataKey, data[dataKey]);
+                    }
+                }
+            }
+        }
+
+        if (url.indexOf('/') < 0 &&
+            url.indexOf('index.php') < 0
+        ) {
+            url = 'index.php?' + url;
+        }
+
+        url = url.replace('#', '?');
+        url = this._removeDuplicateParams(url);
+
+
+        CoreUI.table.preloader.show(resource);
+
+        fetch(url, {
+            method: 'POST',
+            body: formData
+        }).then(function (response) {
+            return response.text();
+
+        }).then(function (response) {
+            if (container) {
+                $(container).html(response);
+            }
+
+            CoreUI.table._callEventReload(resource);
+
+        }).finally(function (error) {
+            CoreUI.table.preloader.hide(resource);
+        });
+    },
+
+
+    /**
+     * @param resource
+     * @param url
+     * @param container
+     * @private
+     */
+    _sendGet: function (resource, url, container) {
+
+        if (url.indexOf('/') < 0 &&
+            url.indexOf('index.php') < 0
+        ) {
+            url = 'index.php?' + url;
+        }
+
+        url = url.replace('#', '?');
+        url = this._removeDuplicateParams(url);
+
+
+        CoreUI.table.preloader.show(resource);
+
+        fetch(url, {
+            method: 'GET',
+        }).then(function (response) {
+            return response.text();
+
+        }).then(function (response) {
+            if (container) {
+                $(container).html(response);
+            }
+
+            CoreUI.table._callEventReload(resource);
+
+        }).finally(function (error) {
+            CoreUI.table.preloader.hide(resource);
+        });
     }
 };
 

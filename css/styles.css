@@ -2549,6 +2549,7 @@ div[id^=fileupload-main_] tbody.files > tr:first-child > td {
     border-top-right-radius: 4px;
     border-bottom-right-radius: 4px;
     padding-right: 25px;
+    display: inline-block;
 }
 .coreui-table-wrapper .filter-controls .filter-control.filter-control-type-date_period .icon-calendar {
     position: relative;
@@ -2590,7 +2591,7 @@ table.coreui-table > thead > .table-service-panel .custom-buttons {display: inli
 table.coreui-table > thead > .table-control-panel {height: 35px;}
 
 table.coreui-table > tbody > tr.edit-row {cursor:pointer}
-table.coreui-table > tbody > tr:nth-child(2n){background-color:#fafafa}
+table.coreui-table > tbody > tr.row-table:nth-child(2n){background-color:#fafafa}
 table.coreui-table > tbody > tr.row-table:not(.coreui-table-row-group):hover > td,
 table.coreui-table > tbody > tr.row-table:not(.coreui-table-row-group):hover > th {background-color: #E1ECF1;}
 
@@ -2831,6 +2832,18 @@ table.coreui-table .coreui-table-row-group {
     background-color: #f2f2f2;
     font-weight: bold;
 }
+table.coreui-table .coreui-table-row-group .table-group-collapsed {
+    min-width: 45px;
+    display: inline-block;
+}
+table.coreui-table .coreui-table-row-group .table-group-collapsed button {
+    height: 20px;
+    margin-right: 8px;
+    font-size: 10px;
+}
+table.coreui-table .row-table.row-table-collapsed {
+    display: none;
+}
 
 .coreui-table-wrapper > .preloader {
     position: absolute;
@@ -2976,4 +2989,33 @@ table.coreui-table .coreui-table-row-group {
         text-align: left;
         width: 100%!important;
     }
+}
+
+.copy-icon {
+    position: absolute;
+    right: 5px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+    color: white;
+    border-radius: 3px;
+    padding: 4px;
+    font-size: 12px;
+    z-index: 10;
+}
+
+.copy-icon:hover {
+    background: rgba(0, 0, 0, 0.9);
+}
+
+.copyable-wrapper {
+    position: relative;
+    display: inline;
+    width: 100%;
+}
+
+.copyable-wrapper:hover .copy-icon {
+    opacity: 1;
 }
