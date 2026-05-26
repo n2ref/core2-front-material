@@ -1884,7 +1884,11 @@ CoreUI.table = {
                     if (Array.isArray(data[dataKey])) {
                         let rows = data[dataKey];
                         for (const rowKey in rows) {
-                            formData.append(dataKey + '[]', rows[rowKey]);
+                            if (dataKey.slice(-2) === '[]') {
+                                formData.append(dataKey, rows[rowKey]);
+                            } else {
+                                formData.append(dataKey + '[]', rows[rowKey]);
+                            }
                         }
                     } else {
                         formData.append(dataKey, data[dataKey]);
