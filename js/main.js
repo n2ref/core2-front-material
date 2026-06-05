@@ -747,6 +747,7 @@ function getExtUrl() {
 var load = function (url, data, id, callback) {
 
 	if ( ! id) {
+		// В формах есть признак для предупреждения об изменениях
 		if (edit.changeForm.issetChanged()) {
 			edit.changeForm.showConfirm(arguments);
 			return;
@@ -761,12 +762,21 @@ var load = function (url, data, id, callback) {
 		id = '#' + id;
 	}
 
-	if (url.indexOf("index.php") === 0) {
-		url = url.substr(10);
+	url = url.replace('#', '?');
+
+	// Запрос POST
+	if (data) {
+		$(id).load(url, data, callback);
+		return;
 	}
 
-	const h = preloader.prepare(location.hash.substr(1));
-	url = preloader.prepare(url);
+	url = new URL(url, location.origin);
+
+	// Сделать запрос только после изменения адреса
+	if (location.hash !== url.search.replace('?', '#')) {
+		location.hash = url.search.replace('?', '#');
+		return;
+	}
 
     $("body").removeClass("pdf-open")
 		.removeClass("ext-open");
@@ -776,170 +786,125 @@ var load = function (url, data, id, callback) {
         $('#menu-wrapper .module-submodules').hide();
     }
 
-	if ( ! data && h !== url && url.indexOf('&__') < 0) {
-        if (typeof callback === 'function') {
-            locData.callback = callback;
-        }
-		document.location.hash = url;
+	if (url.searchParams.has('module')) {
+		changeRoot($('#module-' + url.searchParams.get('module'))[0], false, url.searchParams.get('action'));
+
+		if (url.searchParams.has('action')) {
+			changeSub($('#submodule-' + url.searchParams.get('module') + '-' + url.searchParams.get('action'))[0]);
+		}
 	}
-	else {
-		if (url) {
-			url = '?' + url;
-			var qs = preloader.qs(url);
-			var r = [];
-			var ax = {};
-			for (var key in qs) {
-				if (key.indexOf('--') !== 0) {
-					r.push(key + '=' + qs[key]);
+
+	if (url.search === 'index.php?module=admin&action=welcome') {
+		$('#home-button > a').addClass('home-select');
+		$('#menu-modules li').removeClass("menu-module-selected").addClass('menu-module');
+		$('#menu-submodules .menu-submodule-selected, #menu-submodules .menu-submodule').hide();
+	}
+
+	var match_module   = typeof locData['loc'] === 'string' ? locData['loc'].match(/module=([a-zA-Z0-9_]+)/) : '';
+	var current_module = match_module !== null && typeof match_module === 'object' && typeof match_module[1] === 'string'
+		? match_module[1]
+		: 'admin';
+
+	var match_action   = typeof locData['loc'] === 'string' ? locData['loc'].match(/action=([a-zA-Z0-9_]+)/) : '';
+	var current_action = match_action !== null && typeof match_action === 'object' && typeof match_action[1] === 'string'
+		? match_action[1]
+		: 'index';
+
+	match_module    = document.location.hash.match(/module=([a-zA-Z0-9_]+)/);
+	var load_module = match_module !== null && typeof match_module === 'object' && typeof match_module[1] === 'string'
+		? match_module[1]
+		: 'admin';
+
+	match_action    = document.location.hash.match(/action=([a-zA-Z0-9_]+)/);
+	var load_action = match_action !== null && typeof match_action === 'object' && typeof match_action[1] === 'string'
+		? match_action[1]
+		: 'index';
+
+	locData['id']  = id;
+	locData['loc'] = url.toString();
+
+	loc = url.toString(); //DEPRECATED
+
+	var mod_title    = $('#module-' + load_module + ' > a .module-title').text();
+	var action_title = $('#submodule-' + load_module + '-' + load_action + ' > a').text();
+
+	if (load_module === 'admin' && load_action === 'welcome') {
+		mod_title = '';
+	}
+
+	var css_mod_title = action_title === '' && mod_title !== ''
+		? {'fontSize': '18px', 'paddingTop': '15px','lineHeight': '20px'}
+		: {'fontSize': '',     'paddingTop': '',    'lineHeight': ''};
+
+	$('#navbar-top .module-title').css(css_mod_title).text(mod_title);
+	$('#navbar-top .module-action').text(action_title);
+
+	const siteName = $('.site-name').text().trim();
+	const title    = (action_title ? (action_title + ' - ') : '') + (mod_title ? mod_title + ' - ' : '') + siteName;
+
+	$('html > head > title').text(title);
+
+	if (xhrs[id]) {
+		xhrs[id].abort();
+	}
+
+	if (typeof callback !== 'function') {
+		callback = preloader.hide
+	}
+
+	xhrs[id] = $.ajax({
+		url: url.toString(),
+		global: false,
+		async: true,
+		method: 'GET'
+	}).done(function (result) {
+		$(id).html(result);
+
+		if (current_module !== load_module || current_action !== load_action ||
+			document.location.hash.match(/^#module=([a-zA-Z0-9_]+)$/) ||
+			document.location.hash.match(/^#module=([a-zA-Z0-9_]+)&action=([a-zA-Z0-9_]+)$/)
+		) {
+			$(locData.id).hide();
+			$(locData.id).fadeIn('fast');
+		} else {
+			$(locData.id).hide();
+			$(locData.id).fadeIn(50);
+		}
+		if (typeof locData.callback === 'function') {
+			locData.callback();
+			locData.callback = null;
+		}
+
+		if (typeof callback === 'function') {
+			callback();
+		}
+		$(id)[0].dispatchEvent(new CustomEvent("loaded", {bubbles: true, detail: {"url":url} }));
+
+	}).fail(function (jqXHR) {
+		preloader.hide();
+
+		$(id)[0].dispatchEvent(new CustomEvent("failed", {bubbles: true, detail: {"url":url} }));
+
+		if (jqXHR.statusText !== 'abort') {
+
+			if ( ! jqXHR.status) {
+				swal("Превышено время ожидания ответа. Проверьте соединение с Интернет.", '', 'error').catch(swal.noop);
+
+			} else if (jqXHR.status === 404) {
+				swal("Запрашиваемый ресурс не найден.", '', 'error').catch(swal.noop);
+
+			} else if (jqXHR.status === 403) {
+				if (current_module !== load_module || current_action !== load_action) {
+					location.reload();
 				} else {
-					ax[key] = qs[key];
+					swal("Время жизни вашей сессии истекло", 'Чтобы войти в систему заново, обновите страницу (F5)', 'error').catch(swal.noop);
 				}
-			}
-			r = r.join('&');
-			if (r === preloader.oldHash['--root']) {
-				var gotIt = false;
-				for (var key in ax) {
-					if (preloader.oldHash[key] !== ax[key]) {
-						gotIt = true;
-						preloader.oldHash[key] = ax[key];
-						var aUrl = JSON.parse(ax[key]);
-						var bUrl = [];
-						for (var k in aUrl) {
-							if (typeof aUrl.hasOwnProperty === 'function' && aUrl.hasOwnProperty(k)) {
-								bUrl.push(encodeURIComponent(k) + '=' + encodeURIComponent(aUrl[k]));
-							}
-						}
-						$('#' + key.substr(2)).load("index.php?" + bUrl.join('&'));
-					}
-				}
-				if (gotIt) {
-					preloader.hide();
-					return;
-				}
+
 			} else {
-				preloader.oldHash['--root'] = r;
-			}
-			//Activate root menu
-			if (qs['module'] && url.indexOf('&__') < 0) {
-				changeRoot($('#module-' + qs['module'])[0], false, qs['action']);
-				if (qs['action']) {
-					changeSub($('#submodule-' + qs['module'] + '-' + qs['action'])[0])
-				}
+				swal("Во время обработки вашего запроса произошла ошибка", 'Обновите страницу и попробуйте снова', 'error').catch(swal.noop);
 			}
 		}
-		else {
-			url = '?module=admin&action=welcome';
-		}
-		if (url === '?module=admin&action=welcome') {
-            $('#home-button > a').addClass('home-select');
-			$('#menu-modules li').removeClass("menu-module-selected").addClass('menu-module');
-			$('#menu-submodules .menu-submodule-selected, #menu-submodules .menu-submodule').hide();
-		}
-
-		if (!callback) {
-			if (ax) {
-				for (var key in ax) {
-					preloader.extraLoad[key.substr(2)] = ax[key];
-				}
-			}
-			callback = preloader.callback;
-		}
-
-        var match_module   = typeof locData['loc'] === 'string' ? locData['loc'].match(/module=([a-zA-Z0-9_]+)/) : '';
-        var current_module = match_module !== null && typeof match_module === 'object' && typeof match_module[1] === 'string'
-            ? match_module[1] : 'admin';
-
-        var match_action   = typeof locData['loc'] === 'string' ? locData['loc'].match(/action=([a-zA-Z0-9_]+)/) : '';
-        var current_action = match_action !== null && typeof match_action === 'object' && typeof match_action[1] === 'string'
-            ? match_action[1] : 'index';
-
-            match_module   = document.location.hash.match(/module=([a-zA-Z0-9_]+)/);
-        var load_module    = match_module !== null && typeof match_module === 'object' && typeof match_module[1] === 'string'
-            ? match_module[1] : 'admin';
-
-            match_action = document.location.hash.match(/action=([a-zA-Z0-9_]+)/);
-        var load_action  = match_action !== null && typeof match_action === 'object' && typeof match_action[1] === 'string'
-            ? match_action[1] : 'index';
-
-		locData['id']   = id;
-		locData['data'] = data;
-        locData['loc']  = 'index.php' + url;
-		loc = 'index.php' + url; //DEPRECATED
-
-		var mod_title    = $('#module-' + load_module + ' > a .module-title').text();
-		var action_title = $('#submodule-' + load_module + '-' + load_action + ' > a').text();
-
-        if (load_module === 'admin' && load_action === 'welcome') {
-            mod_title = '';
-        }
-
-        var css_mod_title = action_title === '' && mod_title !== ''
-            ? {'fontSize': '18px', 'paddingTop': '15px','lineHeight': '20px'}
-            : {'fontSize': '',     'paddingTop': '',    'lineHeight': ''};
-
-        $('#navbar-top .module-title').css(css_mod_title).text(mod_title);
-        $('#navbar-top .module-action').text(action_title);
-
-		const siteName = $('.site-name').text().trim();
-		const title    = (action_title ? (action_title + ' - ') : '') + (mod_title ? mod_title + ' - ' : '') + siteName;
-
-		$('html > head > title').text(title);
-
-        if (xhrs[id]) {
-        	xhrs[id].abort();
-        }
-
-        if (locData.data) {
-            $(id).load('index.php' + url, locData.data, callback);
-
-        } else {
-			xhrs[id] = $.ajax({
-				url: 'index.php' + url,
-				data: data,
-				global: false,
-				async: true,
-				method: 'GET'
-			}).done(function (result) {
-				$(id).html(result);
-
-				if (current_module !== load_module || current_action !== load_action ||
-					document.location.hash.match(/^#module=([a-zA-Z0-9_]+)$/) ||
-					document.location.hash.match(/^#module=([a-zA-Z0-9_]+)&action=([a-zA-Z0-9_]+)$/)
-				) {
-					$(locData.id).hide();
-					$(locData.id).fadeIn('fast');
-				} else {
-					$(locData.id).hide();
-					$(locData.id).fadeIn(50);
-				}
-				if (typeof locData.callback === 'function') {
-					locData.callback();
-					locData.callback = null;
-				}
-				callback();
-				$(id)[0].dispatchEvent(new CustomEvent("loaded", {bubbles: true, detail: {"url":url} }));
-
-			}).fail(function (jqXHR, textStatus, errorThrown) {
-				preloader.hide();
-				$(id)[0].dispatchEvent(new CustomEvent("failed", {bubbles: true, detail: {"url":url} }));
-				if (jqXHR.statusText !== 'abort') {
-
-					if ( ! jqXHR.status) swal("Превышено время ожидания ответа. Проверьте соединение с Интернет.", '', 'error').catch(swal.noop);
-					else if (jqXHR.status === 404) swal("Запрашиваемый ресурс не найден.", '', 'error').catch(swal.noop);
-					else if (jqXHR.status === 403) {
-                        if (current_module !== load_module || current_action !== load_action) {
-							location.reload();
-						} else {
-                            swal("Время жизни вашей сессии истекло", 'Чтобы войти в систему заново, обновите страницу (F5)', 'error').catch(swal.noop);
-						}
-                    }
-					else {
-						swal("Во время обработки вашего запроса произошла ошибка", 'Обновите страницу и попробуйте снова', 'error').catch(swal.noop);
-					}
-				}
-			});
-        }
-	}
+	});
 };
 
 
@@ -1161,14 +1126,18 @@ window.addEventListener(
 	"hashchange",
 	() => {
 		const hash = location.hash;
-		const url = preloader.prepare(hash.substr(1));
+		let   url = preloader.prepare(hash.substr(1));
+		url = 'index.php' + (url ? '?' + url : '');
+
 		load(url);
 
 		$('body > .modal-backdrop').fadeOut(function () {
 			$('body').removeClass('modal-open');
 			$(this).remove();
 		});
+
 		$("body").removeClass("ext-open");
+
 		removePDF();
 		removeScreen();
 	},
