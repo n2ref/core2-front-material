@@ -81,30 +81,24 @@ CoreUI.table = {
          */
         clear : function(resource, isAjax) {
 
-            var post      = {};
-            var container = '';
-
+            var post = {};
             post['search_clear_' + resource] = 1;
 
             if (isAjax) {
-                var url       = CoreUI.table.loc[resource];
-                var pageParam = '_page_' + resource;
-
-                url  = url.replace(new RegExp('&' + pageParam + '=\\d*', 'i'), '');
-                url  = url.replace(/\&__clear=\d*/, '');
-                url += "&" + pageParam + '=1';
-                url += "&__clear=1";
+                var url = new URL(CoreUI.table.loc[resource], location.origin)
+                url.searchParams.set('_page_' + resource, 1);
+                url.searchParams.set('__clear', 1);
 
                 CoreUI.table.preloader.show(resource);
-                var wrapper = document.getElementById("table-" + resource + "-wrapper");
-                container   = wrapper ? wrapper.parentNode : null;
+                var wrapper   = document.getElementById("table-" + resource + "-wrapper");
+                var container = wrapper ? wrapper.parentNode : null;
 
-                CoreUI.table._sendPost(resource, url, post, container);
+                CoreUI.table._sendPost(resource, url.toString(), post, container);
 
             } else {
                 var path = CoreUI.table._resetPathPage(resource);
 
-                load(path, post, container, function () {
+                load(path, post, '', function () {
                     preloader.callback();
                     CoreUI.table._callEventReload(resource);
                 });
@@ -121,30 +115,23 @@ CoreUI.table = {
 
             var allInputs = $(form).find(":input");
             var post      = {};
-            var container = '';
-
-
             post = allInputs.serializeArray();
 
             if (isAjax) {
-                var pageParam = '_page_' + resource;
-                var url       = CoreUI.table.loc[resource];
-
-                url  = url.replace(new RegExp('&' + pageParam + '=\\d*', 'i'), '');
-                url  = url.replace(/\&__search=\d*/, '');
-                url += "&" + pageParam + '=1';
-                url += "&__search=1";
+                var url = new URL(CoreUI.table.loc[resource], location.origin)
+                url.searchParams.set('_page_' + resource, 1);
+                url.searchParams.set('__search', 1);
 
                 CoreUI.table.preloader.show(resource);
-                var wrapper = document.getElementById("table-" + resource + "-wrapper");
-                container   = wrapper ? wrapper.parentNode : null;
+                var wrapper   = document.getElementById("table-" + resource + "-wrapper");
+                var container = wrapper ? wrapper.parentNode : null;
 
-                CoreUI.table._sendPost(resource, url, post, container);
+                CoreUI.table._sendPost(resource, url.toString(), post, container);
 
             } else {
                 var path = CoreUI.table._resetPathPage(resource);
 
-                load(path, post, container, function () {
+                load(path, post, '', function () {
                     preloader.callback();
                     CoreUI.table._callEventReload(resource);
                 });
@@ -161,31 +148,25 @@ CoreUI.table = {
          */
         clear : function(resource, isAjax) {
 
-            var post      = {};
-            var container = '';
-
+            var post = {};
             post['filter_clear_' + resource] = 1;
 
             if (CoreUI.table.loc[resource]) {
                 if (isAjax) {
-                    var pageParam = '_page_' + resource;
-                    var url       = CoreUI.table.loc[resource];
-
-                    url  = url.replace(new RegExp('&' + pageParam + '=\\d*', 'i'), '');
-                    url  = url.replace(/\&__filter_clear=\d*/, '');
-                    url += "&" + pageParam + '=1';
-                    url += "&__filter_clear=1";
+                    var url = new URL(CoreUI.table.loc[resource], location.origin)
+                    url.searchParams.set('_page_' + resource, 1);
+                    url.searchParams.set('__filter_clear', 1);
 
                     CoreUI.table.preloader.show(resource);
-                    var wrapper = document.getElementById("table-" + resource + "-wrapper");
-                    container   = wrapper ? wrapper.parentNode : null;
+                    var wrapper   = document.getElementById("table-" + resource + "-wrapper");
+                    var container = wrapper ? wrapper.parentNode : null;
 
-                    CoreUI.table._sendPost(resource, url, post, container);
+                    CoreUI.table._sendPost(resource, url.toString(), post, container);
 
                 } else {
                     var path = CoreUI.table._resetPathPage(resource);
 
-                    load(path, post, container, function () {
+                    load(path, post, '', function () {
                         preloader.callback();
                         CoreUI.table._callEventReload(resource);
                     });
@@ -202,7 +183,6 @@ CoreUI.table = {
 
             var allInputs = $("#filter-" + resource).find(":input");
             var post      = {};
-            var container = '';
 
             $.each(allInputs, function(key, input) {
                 var name = $(input).attr('name');
@@ -240,23 +220,19 @@ CoreUI.table = {
 
 
             if (isAjax) {
-                var pageParam = '_page_' + resource;
-                var url       = CoreUI.table.loc[resource];
-
-                url  = url.replace(new RegExp('&' + pageParam + '=\\d*', 'i'), '');
-                url  = url.replace(/\&__filter=\d*/, '');
-                url += "&" + pageParam + '=1';
-                url += "&__filter=1";
+                var url = new URL(CoreUI.table.loc[resource], location.origin)
+                url.searchParams.set('_page_' + resource, 1);
+                url.searchParams.set('__filter', 1);
 
                 CoreUI.table.preloader.show(resource);
-                var wrapper = document.getElementById("table-" + resource + "-wrapper");
-                container   = wrapper ? wrapper.parentNode : null;
+                var wrapper   = document.getElementById("table-" + resource + "-wrapper");
+                var container = wrapper ? wrapper.parentNode : null;
 
-                CoreUI.table._sendPost(resource, url, post, container);
+                CoreUI.table._sendPost(resource, url.toString(), post, container);
 
             } else {
                 var path = CoreUI.table._resetPathPage(resource);
-                load(path, post, container, function () {
+                load(path, post, '', function () {
                     preloader.callback();
                     CoreUI.table._callEventReload(resource);
                 });
@@ -716,30 +692,25 @@ CoreUI.table = {
             var checkboxes = $('#column-switcher-' + resource + ' form').find('.table-switch-column :checkbox:checked');
             var post       = {};
             var columns    = [];
-            var container  = '';
 
             for (var i = 0; i < checkboxes.length; i++) {
                 columns.push(checkboxes[i].value);
             }
             post['columns_' + resource] = columns;
 
+            var url = new URL(CoreUI.table.loc[resource], location.origin)
+            url.searchParams.set('_page_' + resource, '1');
+            url.searchParams.set('__filter', '1');
 
-            var pageParam = '_page_' + resource;
-            var url       = CoreUI.table.loc[resource];
-
-            url  = url.replace(new RegExp('&' + pageParam + '=\\d*', 'i'), '');
-            url  = url.replace(/\&__filter=\d*/, '');
-            url += "&" + pageParam + '=1';
-            url += "&__filter=1";
 
             if (isAjax) {
-                var wrapper = document.getElementById("table-" + resource + "-wrapper");
-                container   = wrapper ? wrapper.parentNode : null;
+                var wrapper   = document.getElementById("table-" + resource + "-wrapper");
+                var container = wrapper ? wrapper.parentNode : null;
 
-                CoreUI.table._sendPost(resource, url, post, container);
+                CoreUI.table._sendPost(resource, url.toString(), post, container);
 
             } else {
-                load(url, post, container, function () {
+                load(url.toString(), post, '', function () {
                     preloader.callback();
                     CoreUI.table._callEventReload(resource);
                 });
@@ -834,15 +805,12 @@ CoreUI.table = {
 
 
                     if (isAjax) {
-                        var pageParam = '_page_' + resource;
-                        var url       = CoreUI.table.loc[resource];
-
-                        url  = url.replace(new RegExp('&' + pageParam + '=\\d*', 'i'), '');
-                        url += "&" + pageParam + '=1';
+                        var url = new URL(CoreUI.table.loc[resource], location.origin)
+                        url.searchParams.set('_page_' + resource, '1');
 
                         var container = document.getElementById("table-" + resource).parentNode;
 
-                        CoreUI.table._sendPost(resource, url, searchControls, container);
+                        CoreUI.table._sendPost(resource, url.toString(), searchControls, container);
 
                     } else {
                         var path = CoreUI.table._resetPathPage(resource);
@@ -883,18 +851,15 @@ CoreUI.table = {
                         'value': id,
                     }];
 
-                    var pageParam = '_page_' + resource;
-                    var url       = CoreUI.table.loc[resource];
-
-                    url  = url.replace(new RegExp('&' + pageParam + '=\\d*', 'i'), '');
-                    url += "&" + pageParam + '=1';
+                    var url = new URL(CoreUI.table.loc[resource], location.origin)
+                    url.searchParams.set('_page_' + resource, '1');
 
                     if (isAjax) {
                         var container = document.getElementById("table-" + resource).parentNode;
-                        CoreUI.table._sendPost(resource, url, post, container);
+                        CoreUI.table._sendPost(resource, url.toString(), post, container);
 
                     } else {
-                        load(url, post, '', function () {
+                        load(url.toString(), post, '', function () {
                             preloader.hide();
                             CoreUI.table._callEventReload(resource);
                         });
@@ -922,14 +887,11 @@ CoreUI.table = {
 
 
             if (isAjax) {
-                var pageParam = '_page_' + resource;
-                var url       = CoreUI.table.loc[resource];
-
-                url  = url.replace(new RegExp('&' + pageParam + '=\\d*', 'i'), '');
-                url += "&" + pageParam + '=1';
+                var url = new URL(CoreUI.table.loc[resource], location.origin)
+                url.searchParams.set('_page_' + resource, '1');
 
                 var container = document.getElementById("table-" + resource).parentNode;
-                CoreUI.table._sendPost(resource, url, post, container);
+                CoreUI.table._sendPost(resource, url.toString(), post, container);
 
             } else {
                 var path = CoreUI.table._resetPathPage(resource);
@@ -1013,30 +975,21 @@ CoreUI.table = {
      */
     pageSw: function(obj, resource, isAjax) {
 
-        var container = '';
-        var pageParam = '_page_' + resource;
-        var page      = obj.getAttribute('title');
-        var url       = CoreUI.table.loc[resource];
+        var page = obj.getAttribute('title');
+        var url  = new URL(CoreUI.table.loc[resource], location.origin)
 
-        url = url.replace(new RegExp('&' + pageParam + '=\\d*', 'i'), '');
-        url = url + "&" + pageParam + '=' + page;
+        url.searchParams.set('_page_' + resource, page);
 
         if (isAjax) {
             CoreUI.table.preloader.show(resource);
 
-            var wrapper = document.getElementById("table-" + resource + "-wrapper");
-            container   = wrapper ? wrapper.parentNode : null;
+            var wrapper   = document.getElementById("table-" + resource + "-wrapper");
+            var container = wrapper ? wrapper.parentNode : null;
 
-            if (url.indexOf('&__') < 0) {
-                if (container && container.id) {
-                    location.hash = preloader.prepare(location.hash.substr(1) + '&--' + container.id + '=' + preloader.toJson(url));
-                }
+            CoreUI.table._sendGet(resource, url.toString(), container);
 
-            } else {
-                CoreUI.table._sendGet(resource, url, container);
-            }
         } else {
-            load(url, '', container, function () {
+            load(url.toString(), '', '', function () {
                 preloader.callback();
                 CoreUI.table._callEventReload(resource);
             });
@@ -1051,28 +1004,19 @@ CoreUI.table = {
      */
     goToPage: function(obj, resource, isAjax) {
 
-        var container = '';
-        var pageParam = '_page_' + resource;
-        var page      = $('#table-' + resource + '-gotopage').val();
-        var url       = CoreUI.table.loc[resource];
+        var url  = new URL(CoreUI.table.loc[resource], location.origin)
+        var page = $('#table-' + resource + '-gotopage').val();
 
-        url = url.replace(new RegExp('&' + pageParam + '=\\d*', 'i'), '');
-        url = url + "&" + pageParam + '=' + page;
+        url.searchParams.set('_page_' + resource, page);
 
         if (isAjax) {
-            var wrapper = document.getElementById("table-" + resource + "-wrapper");
-            container   = wrapper ? wrapper.parentNode : null;
+            var wrapper   = document.getElementById("table-" + resource + "-wrapper");
+            var container = wrapper ? wrapper.parentNode : null;
 
-            if (url.indexOf('&__') < 0) {
-                if (container && container.id) {
-                    location.hash = preloader.prepare(location.hash.substr(1) + '&--' + container.id + '=' + preloader.toJson(url));
-                }
-            } else {
-                CoreUI.table._sendGet(resource, url, container);
-            }
+            CoreUI.table._sendGet(resource, url.toString(), container);
 
         } else {
-            load(url, '', container, function () {
+            load(url.toString(), '', '', function () {
                 preloader.callback();
                 CoreUI.table._callEventReload(resource);
             });
@@ -1087,31 +1031,24 @@ CoreUI.table = {
      */
     order : function(resource, columnNumber, isAjax) {
 
-        var container = '';
-        var post      = {};
-        var pageParam = '_page_' + resource;
-        var page      = 1;
-        var url       = CoreUI.table.loc[resource];
-
-        url  = url.replace(new RegExp('&' + pageParam + '=\\d*', 'i'), '');
-        url  = url.replace(/\$__order=\d*/, '');
-        url += "&" + pageParam + '=' + page;
-        url += "&__order=1";
-
-
+        var post = {};
         post['order_' + resource] = columnNumber;
 
         if (isAjax) {
             CoreUI.table.preloader.show(resource);
-            var wrapper = document.getElementById("table-" + resource + "-wrapper");
-            container   = wrapper ? wrapper.parentNode : null;
+            var wrapper   = document.getElementById("table-" + resource + "-wrapper");
+            var container = wrapper ? wrapper.parentNode : null;
 
-            CoreUI.table._sendPost(resource, url, post, container);
+            var url = new URL(CoreUI.table.loc[resource], location.origin);
+            url.searchParams.set('_page_' + resource, '1');
+            url.searchParams.set('__order', '1');
+
+            CoreUI.table._sendPost(resource, url.toString(), post, container);
 
         } else {
             var path = this._resetPathPage(resource);
 
-            load(path, post, container, function () {
+            load(path, post, '', function () {
                 preloader.callback();
                 CoreUI.table._callEventReload(resource);
             });
@@ -1126,31 +1063,24 @@ CoreUI.table = {
      */
     clearOrder : function(resource, isAjax) {
 
-        var container = '';
-        var post      = {};
-        var pageParam = '_page_' + resource;
-        var page      = 1;
-        var url       = CoreUI.table.loc[resource];
-
-        url  = url.replace(new RegExp('&' + pageParam + '=\\d*', 'i'), '');
-        url  = url.replace(/\$__order=\d*/, '');
-        url += "&" + pageParam + '=' + page;
-        url += "&__order=1";
-
-
+        var post = {};
         post['order_clear_' + resource] = 1;
 
         if (isAjax) {
-            CoreUI.table.preloader.show(resource);
-            var wrapper = document.getElementById("table-" + resource + "-wrapper");
-            container   = wrapper ? wrapper.parentNode : null;
+            var url = new URL(CoreUI.table.loc[resource], location.origin);
+            url.searchParams.set('_page_' + resource, '1');
+            url.searchParams.set('__order', '1');
 
-            CoreUI.table._sendPost(resource, url, post, container);
+            CoreUI.table.preloader.show(resource);
+            var wrapper   = document.getElementById("table-" + resource + "-wrapper");
+            var container = wrapper ? wrapper.parentNode : null;
+
+            CoreUI.table._sendPost(resource, url.toString(), post, container);
 
         } else {
             var path = this._resetPathPage(resource);
 
-            load(path, post, container, function () {
+            load(path, post, '', function () {
                 preloader.callback();
                 CoreUI.table._callEventReload(resource);
             });
@@ -1764,24 +1694,22 @@ CoreUI.table = {
      */
     recordsPerPage : function(resource, select, isAjax) {
 
-        var post      = {};
-        var container = '';
+        var post = {};
         post['count_' + resource] = select.value;
-
 
         if (isAjax) {
             let url = CoreUI.table.loc[resource];
 
             CoreUI.table.preloader.show(resource);
-            var wrapper = document.getElementById("table-" + resource + "-wrapper");
-            container   = wrapper ? wrapper.parentNode : null;
+            var wrapper   = document.getElementById("table-" + resource + "-wrapper");
+            var container = wrapper ? wrapper.parentNode : null;
 
             CoreUI.table._sendPost(resource, url, post, container);
 
         } else {
             var path = this._resetPathPage(resource);
 
-            load(path, post, container, function () {
+            load(path, post, '', function () {
                 CoreUI.table.preloader.hide(resource);
                 preloader.callback();
                 CoreUI.table._callEventReload(resource);
@@ -1805,22 +1733,20 @@ CoreUI.table = {
     /**
      * Очистка номера страницы в адресе
      * @param resource
-     * @return path
+     * @return string
      * @private
      */
     _resetPathPage: function(resource) {
 
-        var path      = 'index.php#' + CoreUI.table.loc[resource];
-        var pageParam = '_page_' + resource;
+        var url = new URL(CoreUI.table.loc[resource], location.origin);
 
-        if (path.indexOf(pageParam) >= 0) {
-            var regexp = new RegExp('&' + pageParam + '=\\d+', 'g');
-            path = path.replace(regexp, '');
+        if (url.searchParams.has('_page_' + resource)) {
+            url.searchParams.delete('_page_' + resource);
 
-            window.history.pushState({ path: path }, '', path);
+            window.history.pushState({ path: url.toString() }, '', url.toString());
         }
 
-        return path;
+        return url.toString();
     },
 
 
@@ -1897,14 +1823,14 @@ CoreUI.table = {
             }
         }
 
-        if (url.indexOf('/') < 0 &&
-            url.indexOf('index.php') < 0
-        ) {
-            url = 'index.php?' + url;
-        }
+        // url = new URL(url, location.origin);
 
-        url = url.replace('#', '?');
-        url = this._removeDuplicateParams(url);
+        // if (url.pathname !== '/' && url.pathname !== 'index.php') {
+        //     url = 'index.php?' + url;
+        // }
+
+        // url = url.replace('#', '?');
+        // url = this._removeDuplicateParams(url);
 
 
         CoreUI.table.preloader.show(resource);
@@ -1936,14 +1862,14 @@ CoreUI.table = {
      */
     _sendGet: function (resource, url, container) {
 
-        if (url.indexOf('/') < 0 &&
-            url.indexOf('index.php') < 0
-        ) {
-            url = 'index.php?' + url;
-        }
-
-        url = url.replace('#', '?');
-        url = this._removeDuplicateParams(url);
+        // if (url.indexOf('/') < 0 &&
+        //     url.indexOf('index.php') < 0
+        // ) {
+        //     url = 'index.php?' + url;
+        // }
+        //
+        // url = url.replace('#', '?');
+        // url = this._removeDuplicateParams(url);
 
 
         CoreUI.table.preloader.show(resource);
