@@ -1048,6 +1048,27 @@ async function fetchDataAndUpdateElement(obj) {
 			const arrayBuffer = await response.arrayBuffer(); // Get the response as an ArrayBuffer
 			const decoder = new TextDecoder('utf-8');
 			obj.innerHTML = decoder.decode(arrayBuffer);
+
+			const scripts = [...obj.querySelectorAll('script')];
+
+			for (const oldScript of scripts) {
+				const newScript = document.createElement('script');
+
+				for (const attr of oldScript.attributes) {
+					newScript.setAttribute(attr.name, attr.value);
+				}
+
+				if (oldScript.src) {
+					await new Promise((resolve, reject) => {
+						newScript.onload = resolve;
+						newScript.onerror = reject;
+						oldScript.replaceWith(newScript);
+					});
+				} else {
+					newScript.textContent = oldScript.textContent;
+					oldScript.replaceWith(newScript);
+				}
+			}
 		}
 		else throw new Error(`Unsupported response content-type: ${contentType}`);
 	} catch (error) {
