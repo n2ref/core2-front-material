@@ -1,199 +1,508 @@
 
-var main_menu = {
+var Core2 = {
 
-    /**
-     *
-     */
-    setAngles : function() {
 
-        $('.menu-module, .menu-module-selected').each(function(){
-            var module = $(this).attr('id').substr(7);
-            if ($('li[id^=submodule-' + module + '-]')[0]) {
+	menu: {
+		/**
+		 *
+		 */
+		setAngles : function() {
 
-            	if ($(this).hasClass('menu-module-selected')) {
-                    $(this).find('>a').append('<span class="nav-second-level-toggle fa"></span>');
-				} else {
-                    $(this).find('>a').append('<span class="nav-second-level-toggle fa fa-angle-right"></span>');
+			$('.menu-module, .menu-module-selected').each(function(){
+				var module = $(this).attr('id').substr(7);
+				if ($('li[id^=submodule-' + module + '-]')[0]) {
+
+					if ($(this).hasClass('menu-module-selected')) {
+						$(this).find('>a').append('<span class="nav-second-level-toggle fa"></span>');
+					} else {
+						$(this).find('>a').append('<span class="nav-second-level-toggle fa fa-angle-right"></span>');
+					}
 				}
-            }
-        });
-    },
+			});
+		},
 
-    /**
-	 *
-	 */
-    setIconLetter : function() {
+		/**
+		 *
+		 */
+		setIconLetter : function() {
 
-        $('.menu-module, .menu-module-selected').each(function(){
-            var $i = $(this).find('i');
-            if ( ! $i[0]) {
-				var letter = $(this).text().trim().substr(0, 1);
-                $('a', this).append('<span class="module-icon-letter">' + letter + '</span>');
-            }
-        });
-    },
+			$('.menu-module, .menu-module-selected').each(function(){
+				var $i = $(this).find('i');
+				if ( ! $i[0]) {
+					var letter = $(this).text().trim().substr(0, 1);
+					$('a', this).append('<span class="module-icon-letter">' + letter + '</span>');
+				}
+			});
+		},
+
+
+		/**
+		 * Переключение модуля
+		 * @param obj
+		 * @param to
+		 * @param actionSelect
+		 * @private
+		 */
+		_changeRoot: function(obj, to, actionSelect) {
+
+			$('#menu-wrapper .module-submodules').empty();
+			$('#menu-submodules').hide();
+
+			var parent = $('#menu-modules')[0];
+			for (var i = 0; i < parent.childNodes.length; i++) {
+				if (parent.childNodes[i].nodeName === 'LI') {
+					parent.childNodes[i].className = 'menu-module';
+
+					$(parent.childNodes[i]).find('.nav-second-level-toggle').addClass('fa-angle-right');
+
+					if (parent.childNodes[i] === obj) {
+						parent.childNodes[i].className = 'menu-module-selected';
+
+						var module_id = parent.childNodes[i].id;
+						if (module_id !== 'module-admin' || (module_id === 'module-admin' && actionSelect !== 'welcome')) {
+							if ( ! actionSelect || actionSelect === 'index') {
+								$(parent.childNodes[i]).find('>a').addClass('index-select');
+							} else {
+								$(parent.childNodes[i]).find('>a').removeClass('index-select');
+							}
+							$('#home-button > a').removeClass('home-select');
+
+						} else {
+							$('#home-button > a').addClass('home-select');
+						}
+
+						var issetSubmodules = false;
+						var sub 			= document.getElementById('menu-submodules');
+
+						for (var x = 0; x < sub.childNodes.length; x++) {
+							if (sub.childNodes[x].nodeName === 'LI') {
+								sub.childNodes[x].className = 'menu-submodule';
+								sub.childNodes[x].style.display = 'none';
+								if (sub.childNodes[x].id.indexOf(parent.childNodes[i].id + '-') !== -1) {
+									if (module_id !== 'module-admin' || (module_id === 'module-admin' && actionSelect !== 'welcome')) {
+										issetSubmodules = true;
+										$(parent.childNodes[i]).find('.module-submodules').append(
+											$(sub.childNodes[x]).find('>a').clone()
+										);
+									}
+
+									sub.childNodes[x].style.display = '';
+								}
+							}
+						}
+
+						if (issetSubmodules) {
+							$(parent.childNodes[i]).addClass('module-isset-submodules');
+							$(parent.childNodes[i]).find('.nav-second-level-toggle').removeClass('fa-angle-right');
+							if ($(window).width() < 768 || ! $('.s-toggle')[0]) {
+								$(parent.childNodes[i]).find('.module-submodules').show()
+							}
+						} else {
+							$(parent.childNodes[i]).removeClass('module-isset-submodules');
+							$(parent.childNodes[i]).find('.module-submodules').hide();
+						}
+					}
+				}
+			}
+			if (to) load(to);
+		},
+
+
+		/**
+		 * @param obj
+		 * @param path
+		 * @private
+		 */
+		_changeSub: function(obj, path) {
+
+			if ( ! obj) {
+				return;
+			}
+
+			var parent = obj.parentNode;
+			for (var i = 0; i < parent.childNodes.length; i++) {
+				if (parent.childNodes[i].nodeName === 'LI') {
+					parent.childNodes[i].className = 'menu-submodule';
+					if (parent.childNodes[i] === obj) {
+						parent.childNodes[i].className = 'menu-submodule-selected';
+
+
+						var module_name = parent.childNodes[i].id.split('-')[1];
+						var href        = $(parent.childNodes[i]).find('>a').attr('href');
+
+						if (module_name && href) {
+							$('#module-' + module_name).find('.module-submodules > a[href="' + href + '"]').addClass('module-submodules-selected');
+						}
+
+						if (path) load(path);
+					}
+				}
+			}
+		},
+
+
+		/**
+		 * @returns {{width: *, height: *}}
+		 */
+		viewport: function() {
+			var e = window,
+				a = 'inner';
+			if ( ! ('innerWidth' in window)) {
+				a = 'client';
+				e = document.documentElement || document.body;
+			}
+			return { width : e[ a+'Width' ] , height : e[ a+'Height' ] }
+		}
+	},
 
 
 	/**
-	 * Получение данных о браузере
+	 * Загрузка контента на страницу
+	 * @param {string}   url
+	 * @param {string}   id
+	 * @param {function} callback
 	 */
-	getBrowserInfo: function () {
+	load : function(url, id, callback) {
 
-		// screen
-		var screenSize = '';
-		if (screen.width) {
-			width = (screen.width) ? screen.width : '';
-			height = (screen.height) ? screen.height : '';
-			screenSize += '' + width + "x" + height;
+		if ( ! id) {
+			// В формах есть признак для предупреждения об изменениях
+			if (edit.changeForm.issetChanged()) {
+				edit.changeForm.showConfirm(arguments);
+				return;
+			} else {
+				edit.changeForm.removeListen();
+			}
+
+			id = '#main_body';
+			preloader.show();
+
+		} else if (typeof id === 'string') {
+			id = '#' + id;
 		}
 
-		// browser
-		var nVer       = navigator.appVersion;
-		var user_agent = navigator.userAgent;
-		var browser    = navigator.appName;
-		var version    = '' + parseFloat(nVer);
-		var nameOffset, verOffset, ix;
+		url = url.replace('#', '?');
 
-		if ((verOffset = user_agent.indexOf('YaBrowser')) !== -1) {
-			browser = 'Yandex';
-			version = user_agent.substring(verOffset + 10);
+		if (url === 'index.php' || url === '/') {
+			url = 'index.php?module=admin&action=welcome';
+		}
 
-		} else if ((verOffset = user_agent.indexOf('SamsungBrowser')) !== -1) {
-			browser = 'Samsung';
-			version = user_agent.substring(verOffset + 15);
+		url = new URL(url, location.origin);
 
-		} else if ((verOffset = user_agent.indexOf('UCBrowser')) !== -1) {
-			browser = 'UC Browser';
-			version = user_agent.substring(verOffset + 10);
+		// Сделать запрос только после изменения адреса
+		if (location.hash !== url.search.replace('?', '#')) {
+			location.hash = url.search.replace('?', '#');
+			return;
+		}
 
-		} else if ((verOffset = user_agent.indexOf('OPR')) !== -1) {
-			browser = 'Opera';
-			version = user_agent.substring(verOffset + 4);
+		$("body").removeClass("pdf-open")
+			.removeClass("ext-open");
 
-		} else if ((verOffset = user_agent.indexOf('Opera')) !== -1) {
-			browser = 'Opera';
-			version = user_agent.substring(verOffset + 6);
-			if ((verOffset = user_agent.indexOf('Version')) !== -1) {
+		if ($(window).width() < 768) {
+			$('#main').removeClass('s-toggle');
+			$('#menu-wrapper .module-submodules').hide();
+		}
+
+		if (url.searchParams.has('module')) {
+			Core2.menu._changeRoot($('#module-' + url.searchParams.get('module'))[0], false, url.searchParams.get('action'));
+
+			if (url.searchParams.has('action')) {
+				changeSub($('#submodule-' + url.searchParams.get('module') + '-' + url.searchParams.get('action'))[0]);
+			}
+		}
+
+		if (url.search === 'index.php?module=admin&action=welcome') {
+			$('#home-button > a').addClass('home-select');
+			$('#menu-modules li').removeClass("menu-module-selected").addClass('menu-module');
+			$('#menu-submodules .menu-submodule-selected, #menu-submodules .menu-submodule').hide();
+		}
+
+		var match_module   = typeof locData['loc'] === 'string' ? locData['loc'].match(/module=([a-zA-Z0-9_]+)/) : '';
+		var current_module = match_module !== null && typeof match_module === 'object' && typeof match_module[1] === 'string'
+			? match_module[1]
+			: 'admin';
+
+		var match_action   = typeof locData['loc'] === 'string' ? locData['loc'].match(/action=([a-zA-Z0-9_]+)/) : '';
+		var current_action = match_action !== null && typeof match_action === 'object' && typeof match_action[1] === 'string'
+			? match_action[1]
+			: 'index';
+
+		match_module    = document.location.hash.match(/module=([a-zA-Z0-9_]+)/);
+		var load_module = match_module !== null && typeof match_module === 'object' && typeof match_module[1] === 'string'
+			? match_module[1]
+			: 'admin';
+
+		match_action    = document.location.hash.match(/action=([a-zA-Z0-9_]+)/);
+		var load_action = match_action !== null && typeof match_action === 'object' && typeof match_action[1] === 'string'
+			? match_action[1]
+			: 'index';
+
+		locData['id']  = id;
+		locData['loc'] = url.toString();
+
+		loc = url.toString(); //DEPRECATED
+
+		var mod_title    = $('#module-' + load_module + ' > a .module-title').text();
+		var action_title = $('#submodule-' + load_module + '-' + load_action + ' > a').text();
+
+		if (load_module === 'admin' && load_action === 'welcome') {
+			mod_title = '';
+		}
+
+		var css_mod_title = action_title === '' && mod_title !== ''
+			? {'fontSize': '18px', 'paddingTop': '15px','lineHeight': '20px'}
+			: {'fontSize': '',     'paddingTop': '',    'lineHeight': ''};
+
+		$('#navbar-top .module-title').css(css_mod_title).text(mod_title);
+		$('#navbar-top .module-action').text(action_title);
+
+		const siteName = $('.site-name').text().trim();
+		const title    = (action_title ? (action_title + ' - ') : '') + (mod_title ? mod_title + ' - ' : '') + siteName;
+
+		$('html > head > title').text(title);
+
+		if (xhrs[id]) {
+			xhrs[id].abort();
+		}
+
+		if (typeof callback !== 'function') {
+			callback = preloader.hide
+		}
+
+		xhrs[id] = $.ajax({
+			url: url.toString(),
+			global: false,
+			async: true,
+			method: 'GET'
+		}).done(function (result) {
+			$(id).html(result);
+
+			if (current_module !== load_module || current_action !== load_action ||
+				document.location.hash.match(/^#module=([a-zA-Z0-9_]+)$/) ||
+				document.location.hash.match(/^#module=([a-zA-Z0-9_]+)&action=([a-zA-Z0-9_]+)$/)
+			) {
+				$(locData.id).hide();
+				$(locData.id).fadeIn('fast');
+			} else {
+				$(locData.id).hide();
+				$(locData.id).fadeIn(50);
+			}
+			if (typeof locData.callback === 'function') {
+				locData.callback();
+				locData.callback = null;
+			}
+
+			if (typeof callback === 'function') {
+				callback();
+			}
+			$(id)[0].dispatchEvent(new CustomEvent("loaded", {bubbles: true, detail: {"url":url} }));
+
+		}).fail(function (jqXHR) {
+			preloader.hide();
+
+			$(id)[0].dispatchEvent(new CustomEvent("failed", {bubbles: true, detail: {"url":url} }));
+
+			if (jqXHR.statusText !== 'abort') {
+
+				if ( ! jqXHR.status) {
+					swal("Превышено время ожидания ответа. Проверьте соединение с Интернет.", '', 'error').catch(swal.noop);
+
+				} else if (jqXHR.status === 404) {
+					swal("Запрашиваемый ресурс не найден.", '', 'error').catch(swal.noop);
+
+				} else if (jqXHR.status === 403) {
+					if (current_module !== load_module || current_action !== load_action) {
+						location.reload();
+					} else {
+						swal("Время жизни вашей сессии истекло", 'Чтобы войти в систему заново, обновите страницу (F5)', 'error').catch(swal.noop);
+					}
+
+				} else {
+					swal("Во время обработки вашего запроса произошла ошибка", 'Обновите страницу и попробуйте снова', 'error').catch(swal.noop);
+				}
+			}
+		});
+	},
+
+	tools: {
+
+		/**
+		 * @param evt
+		 * @returns {boolean}
+		 */
+		checkInt: function(evt) {
+
+			var keycode;
+			if (evt.keyCode) keycode = evt.keyCode;
+			else if(evt.which) keycode = evt.which;
+			var av = [8, 9, 35, 36, 37, 38, 39, 40, 45, 46, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57];
+			for (var i = 0; i < av.length; i++) {
+				if (av[i] === keycode) return true;
+			}
+			return false;
+		},
+
+
+		/**
+		 * Получение данных о браузере
+		 */
+		getBrowserInfo: function () {
+
+			// screen
+			var screenSize = '';
+			if (screen.width) {
+				width = (screen.width) ? screen.width : '';
+				height = (screen.height) ? screen.height : '';
+				screenSize += '' + width + "x" + height;
+			}
+
+			// browser
+			var nVer       = navigator.appVersion;
+			var user_agent = navigator.userAgent;
+			var browser    = navigator.appName;
+			var version    = '' + parseFloat(nVer);
+			var nameOffset, verOffset, ix;
+
+			if ((verOffset = user_agent.indexOf('YaBrowser')) !== -1) {
+				browser = 'Yandex';
+				version = user_agent.substring(verOffset + 10);
+
+			} else if ((verOffset = user_agent.indexOf('SamsungBrowser')) !== -1) {
+				browser = 'Samsung';
+				version = user_agent.substring(verOffset + 15);
+
+			} else if ((verOffset = user_agent.indexOf('UCBrowser')) !== -1) {
+				browser = 'UC Browser';
+				version = user_agent.substring(verOffset + 10);
+
+			} else if ((verOffset = user_agent.indexOf('OPR')) !== -1) {
+				browser = 'Opera';
+				version = user_agent.substring(verOffset + 4);
+
+			} else if ((verOffset = user_agent.indexOf('Opera')) !== -1) {
+				browser = 'Opera';
+				version = user_agent.substring(verOffset + 6);
+				if ((verOffset = user_agent.indexOf('Version')) !== -1) {
+					version = user_agent.substring(verOffset + 8);
+				}
+
+			} else if ((verOffset = user_agent.indexOf('Edge')) !== -1) {
+				browser = 'Microsoft Legacy Edge';
+				version = user_agent.substring(verOffset + 5);
+
+			} else if ((verOffset = user_agent.indexOf('Edg')) !== -1) {
+				browser = 'Microsoft Edge';
+				version = user_agent.substring(verOffset + 4);
+
+			} else if ((verOffset = user_agent.indexOf('MSIE')) !== -1) {
+				browser = 'Microsoft Internet Explorer';
+				version = user_agent.substring(verOffset + 5);
+
+			} else if ((verOffset = user_agent.indexOf('Chrome')) !== -1) {
+				browser = 'Chrome';
+				version = user_agent.substring(verOffset + 7);
+
+			} else if ((verOffset = user_agent.indexOf('Safari')) !== -1) {
+				browser = 'Safari';
+				version = user_agent.substring(verOffset + 7);
+				if ((verOffset = user_agent.indexOf('Version')) !== -1) {
+					version = user_agent.substring(verOffset + 8);
+				}
+
+			} else if ((verOffset = user_agent.indexOf('Firefox')) !== -1) {
+				browser = 'Firefox';
 				version = user_agent.substring(verOffset + 8);
+
+			} else if (user_agent.indexOf('Trident/') !== -1) {
+				browser = 'Microsoft Internet Explorer';
+				version = user_agent.substring(user_agent.indexOf('rv:') + 3);
+
+			} else if ((nameOffset = user_agent.lastIndexOf(' ') + 1) < (verOffset = user_agent.lastIndexOf('/'))) {
+				browser = user_agent.substring(nameOffset, verOffset);
+				version = user_agent.substring(verOffset + 1);
+				if (browser.toLowerCase() === browser.toUpperCase()) {
+					browser = navigator.appName;
+				}
 			}
 
-		} else if ((verOffset = user_agent.indexOf('Edge')) !== -1) {
-			browser = 'Microsoft Legacy Edge';
-			version = user_agent.substring(verOffset + 5);
+			// trim the version string
+			if ((ix = version.indexOf(';')) !== -1) version = version.substring(0, ix);
+			if ((ix = version.indexOf(' ')) !== -1) version = version.substring(0, ix);
+			if ((ix = version.indexOf(')')) !== -1) version = version.substring(0, ix);
 
-		} else if ((verOffset = user_agent.indexOf('Edg')) !== -1) {
-			browser = 'Microsoft Edge';
-			version = user_agent.substring(verOffset + 4);
+			// mobile version
+			var mobile = /Mobile|mini|Fennec|Android|iP(ad|od|hone)/.test(nVer);
 
-		} else if ((verOffset = user_agent.indexOf('MSIE')) !== -1) {
-			browser = 'Microsoft Internet Explorer';
-			version = user_agent.substring(verOffset + 5);
 
-		} else if ((verOffset = user_agent.indexOf('Chrome')) !== -1) {
-			browser = 'Chrome';
-			version = user_agent.substring(verOffset + 7);
-
-		} else if ((verOffset = user_agent.indexOf('Safari')) !== -1) {
-			browser = 'Safari';
-			version = user_agent.substring(verOffset + 7);
-			if ((verOffset = user_agent.indexOf('Version')) !== -1) {
-				version = user_agent.substring(verOffset + 8);
+			// system
+			var os = '';
+			var clientStrings = [
+				{s:'Windows 10', r:/(Windows 10.0|Windows NT 10.0)/},
+				{s:'Windows 8.1', r:/(Windows 8.1|Windows NT 6.3)/},
+				{s:'Windows 8', r:/(Windows 8|Windows NT 6.2)/},
+				{s:'Windows 7', r:/(Windows 7|Windows NT 6.1)/},
+				{s:'Windows Vista', r:/Windows NT 6.0/},
+				{s:'Windows Server 2003', r:/Windows NT 5.2/},
+				{s:'Windows XP', r:/(Windows NT 5.1|Windows XP)/},
+				{s:'Windows 2000', r:/(Windows NT 5.0|Windows 2000)/},
+				{s:'Windows ME', r:/(Win 9x 4.90|Windows ME)/},
+				{s:'Windows 98', r:/(Windows 98|Win98)/},
+				{s:'Windows 95', r:/(Windows 95|Win95|Windows_95)/},
+				{s:'Windows NT 4.0', r:/(Windows NT 4.0|WinNT4.0|WinNT|Windows NT)/},
+				{s:'Windows CE', r:/Windows CE/},
+				{s:'Windows 3.11', r:/Win16/},
+				{s:'Android', r:/Android/},
+				{s:'Open BSD', r:/OpenBSD/},
+				{s:'Sun OS', r:/SunOS/},
+				{s:'Chrome OS', r:/CrOS/},
+				{s:'Linux', r:/(Linux|X11(?!.*CrOS))/},
+				{s:'iOS', r:/(iPhone|iPad|iPod)/},
+				{s:'Mac OS X', r:/Mac OS X/},
+				{s:'Mac OS', r:/(Mac OS|MacPPC|MacIntel|Mac_PowerPC|Macintosh)/},
+				{s:'QNX', r:/QNX/},
+				{s:'UNIX', r:/UNIX/},
+				{s:'BeOS', r:/BeOS/},
+				{s:'OS/2', r:/OS\/2/},
+				{s:'Search Bot', r:/(nuhk|Googlebot|Yammybot|Openbot|Slurp|MSNBot|Ask Jeeves\/Teoma|ia_archiver)/}
+			];
+			for (var id in clientStrings) {
+				var cs = clientStrings[id];
+				if (cs.r.test(user_agent)) {
+					os = cs.s;
+					break;
+				}
 			}
 
-		} else if ((verOffset = user_agent.indexOf('Firefox')) !== -1) {
-			browser = 'Firefox';
-			version = user_agent.substring(verOffset + 8);
+			var osVersion = '';
 
-		} else if (user_agent.indexOf('Trident/') !== -1) {
-			browser = 'Microsoft Internet Explorer';
-			version = user_agent.substring(user_agent.indexOf('rv:') + 3);
-
-		} else if ((nameOffset = user_agent.lastIndexOf(' ') + 1) < (verOffset = user_agent.lastIndexOf('/'))) {
-			browser = user_agent.substring(nameOffset, verOffset);
-			version = user_agent.substring(verOffset + 1);
-			if (browser.toLowerCase() === browser.toUpperCase()) {
-				browser = navigator.appName;
+			if (/Windows/.test(os)) {
+				osVersion = /Windows (.*)/.exec(os)[1];
+				os = 'Windows';
 			}
-		}
 
-		// trim the version string
-		if ((ix = version.indexOf(';')) !== -1) version = version.substring(0, ix);
-		if ((ix = version.indexOf(' ')) !== -1) version = version.substring(0, ix);
-		if ((ix = version.indexOf(')')) !== -1) version = version.substring(0, ix);
+			switch (os) {
+				case 'Mac OS':
+				case 'Mac OS X':
+				case 'Android':
+					osVersion = /(?:Android|Mac OS|Mac OS X|MacPPC|MacIntel|Mac_PowerPC|Macintosh) ([\.\_\d]+)/.exec(user_agent)[1];
+					break;
 
-		// mobile version
-		var mobile = /Mobile|mini|Fennec|Android|iP(ad|od|hone)/.test(nVer);
-
-
-		// system
-		var os = '';
-		var clientStrings = [
-			{s:'Windows 10', r:/(Windows 10.0|Windows NT 10.0)/},
-			{s:'Windows 8.1', r:/(Windows 8.1|Windows NT 6.3)/},
-			{s:'Windows 8', r:/(Windows 8|Windows NT 6.2)/},
-			{s:'Windows 7', r:/(Windows 7|Windows NT 6.1)/},
-			{s:'Windows Vista', r:/Windows NT 6.0/},
-			{s:'Windows Server 2003', r:/Windows NT 5.2/},
-			{s:'Windows XP', r:/(Windows NT 5.1|Windows XP)/},
-			{s:'Windows 2000', r:/(Windows NT 5.0|Windows 2000)/},
-			{s:'Windows ME', r:/(Win 9x 4.90|Windows ME)/},
-			{s:'Windows 98', r:/(Windows 98|Win98)/},
-			{s:'Windows 95', r:/(Windows 95|Win95|Windows_95)/},
-			{s:'Windows NT 4.0', r:/(Windows NT 4.0|WinNT4.0|WinNT|Windows NT)/},
-			{s:'Windows CE', r:/Windows CE/},
-			{s:'Windows 3.11', r:/Win16/},
-			{s:'Android', r:/Android/},
-			{s:'Open BSD', r:/OpenBSD/},
-			{s:'Sun OS', r:/SunOS/},
-			{s:'Chrome OS', r:/CrOS/},
-			{s:'Linux', r:/(Linux|X11(?!.*CrOS))/},
-			{s:'iOS', r:/(iPhone|iPad|iPod)/},
-			{s:'Mac OS X', r:/Mac OS X/},
-			{s:'Mac OS', r:/(Mac OS|MacPPC|MacIntel|Mac_PowerPC|Macintosh)/},
-			{s:'QNX', r:/QNX/},
-			{s:'UNIX', r:/UNIX/},
-			{s:'BeOS', r:/BeOS/},
-			{s:'OS/2', r:/OS\/2/},
-			{s:'Search Bot', r:/(nuhk|Googlebot|Yammybot|Openbot|Slurp|MSNBot|Ask Jeeves\/Teoma|ia_archiver)/}
-		];
-		for (var id in clientStrings) {
-			var cs = clientStrings[id];
-			if (cs.r.test(user_agent)) {
-				os = cs.s;
-				break;
+				case 'iOS':
+					osVersion = /OS (\d+)_(\d+)_?(\d+)?/.exec(nVer);
+					osVersion = osVersion[1] + '.' + osVersion[2] + '.' + (osVersion[3] | 0);
+					break;
 			}
-		}
 
-		var osVersion = '';
-
-		if (/Windows/.test(os)) {
-			osVersion = /Windows (.*)/.exec(os)[1];
-			os = 'Windows';
-		}
-
-		switch (os) {
-			case 'Mac OS':
-			case 'Mac OS X':
-			case 'Android':
-				osVersion = /(?:Android|Mac OS|Mac OS X|MacPPC|MacIntel|Mac_PowerPC|Macintosh) ([\.\_\d]+)/.exec(user_agent)[1];
-				break;
-
-			case 'iOS':
-				osVersion = /OS (\d+)_(\d+)_?(\d+)?/.exec(nVer);
-				osVersion = osVersion[1] + '.' + osVersion[2] + '.' + (osVersion[3] | 0);
-				break;
-		}
-
-		return {
-			userAgent: user_agent,
-			screen: screenSize,
-			browser: browser,
-			browserVersion: version,
-			mobile: mobile,
-			os: os,
-			osVersion: osVersion,
-			language: navigator.language
-		};
+			return {
+				userAgent: user_agent,
+				screen: screenSize,
+				browser: browser,
+				browserVersion: version,
+				mobile: mobile,
+				os: os,
+				osVersion: osVersion,
+				language: navigator.language
+			};
+		},
 	},
 
 	errors: {
@@ -212,7 +521,7 @@ var main_menu = {
 				return;
 			}
 
-			main_menu.errors.addError('js error', 'error', {
+			Core2.errors.addError('js error', 'error', {
 				message: event.message,
 				file: event.filename,
 				line: event.lineno,
@@ -227,12 +536,12 @@ var main_menu = {
 		 */
 		_sendError: function() {
 
-			let sendErrors = main_menu.errors._errors.splice(0, 100);
+			let sendErrors = Core2.errors._errors.splice(0, 100);
 
-			main_menu.errors._errorSend = true;
+			Core2.errors._errorSend = true;
 
 			$.ajax({
-				url: main_menu.errors._url,
+				url: Core2.errors._url,
 				method: "POST",
 				contentType: "application/json; charset=utf-8",
 				data: JSON.stringify(sendErrors),
@@ -241,10 +550,10 @@ var main_menu = {
 				}
 			})
 			.always(function() {
-				main_menu.errors._errorSend = false;
+				Core2.errors._errorSend = false;
 
-				if (main_menu.errors._errors.length > 0) {
-					setTimeout(main_menu.errors._sendError, 3000);
+				if (Core2.errors._errors.length > 0) {
+					setTimeout(Core2.errors._sendError, 3000);
 				}
 			});
 		},
@@ -259,9 +568,9 @@ var main_menu = {
 		addError: function (type, level, error) {
 
 			// чтобы не плодить одинаковые ошибки
-			if (main_menu.errors._errors.length > 0) {
-				let lastError = main_menu.errors._errors.hasOwnProperty(main_menu.errors._errors.length)
-					? main_menu.errors._errors[main_menu.errors._errors.length]
+			if (Core2.errors._errors.length > 0) {
+				let lastError = Core2.errors._errors.hasOwnProperty(Core2.errors._errors.length)
+					? Core2.errors._errors[Core2.errors._errors.length]
 					: null;
 
 				if (lastError &&
@@ -276,8 +585,8 @@ var main_menu = {
 
 			error.count = 1;
 
-			let client = main_menu.getBrowserInfo();
-			main_menu.errors._errors.push({
+			let client = Core2.getBrowserInfo();
+			Core2.errors._errors.push({
 				type: type,
 				level: level,
 				url: location.href,
@@ -285,8 +594,8 @@ var main_menu = {
 				error: error
 			});
 
-			if (main_menu.errors._errorSend === false) {
-				setTimeout(main_menu.errors._sendError, 500);
+			if (Core2.errors._errorSend === false) {
+				setTimeout(Core2.errors._sendError, 500);
 			}
 		}
 	}
@@ -298,27 +607,7 @@ var main_menu = {
  * @param path
  */
 function changeSub(obj, path) {
-	if (!obj) return;
-
-	var parent = obj.parentNode;
-	for (var i = 0; i < parent.childNodes.length; i++) {
-		if (parent.childNodes[i].nodeName === 'LI') {
-			parent.childNodes[i].className = 'menu-submodule';
-			if (parent.childNodes[i] === obj) {
-				parent.childNodes[i].className = 'menu-submodule-selected';
-
-
-                var module_name = parent.childNodes[i].id.split('-')[1];
-                var href        = $(parent.childNodes[i]).find('>a').attr('href');
-
-                if (module_name && href) {
-                	$('#module-' + module_name).find('.module-submodules > a[href="' + href + '"]').addClass('module-submodules-selected');
-				}
-
-				if (path) load(path);
-			}
-		}
-	}
+	Core2.menu._changeSub(obj, path);
 }
 
 
@@ -327,99 +616,29 @@ function changeSub(obj, path) {
  * @param obj
  * @param to
  * @param actionSelect
+ * @deprecated
  */
 function changeRoot(obj, to, actionSelect) {
-
-    $('#menu-wrapper .module-submodules').empty();
-    $('#menu-submodules').hide();
-
-	var parent = $('#menu-modules')[0];
-	for (var i = 0; i < parent.childNodes.length; i++) {
-		if (parent.childNodes[i].nodeName === 'LI') {
-            parent.childNodes[i].className = 'menu-module';
-
-            $(parent.childNodes[i]).find('.nav-second-level-toggle').addClass('fa-angle-right');
-
-			if (parent.childNodes[i] === obj) {
-                parent.childNodes[i].className = 'menu-module-selected';
-
-                var module_id = parent.childNodes[i].id;
-				if (module_id !== 'module-admin' || (module_id === 'module-admin' && actionSelect !== 'welcome')) {
-					if ( ! actionSelect || actionSelect === 'index') {
-						$(parent.childNodes[i]).find('>a').addClass('index-select');
-					} else {
-						$(parent.childNodes[i]).find('>a').removeClass('index-select');
-					}
-                    $('#home-button > a').removeClass('home-select');
-
-                } else {
-                    $('#home-button > a').addClass('home-select');
-				}
-
-                var issetSubmodules = false;
-				var sub 			= document.getElementById('menu-submodules');
-
-				for (var x = 0; x < sub.childNodes.length; x++) {
-					if (sub.childNodes[x].nodeName === 'LI') {
-						sub.childNodes[x].className = 'menu-submodule';
-						sub.childNodes[x].style.display = 'none';
-						if (sub.childNodes[x].id.indexOf(parent.childNodes[i].id + '-') !== -1) {
-                            if (module_id !== 'module-admin' || (module_id === 'module-admin' && actionSelect !== 'welcome')) {
-                                issetSubmodules = true;
-                                $(parent.childNodes[i]).find('.module-submodules').append(
-                                    $(sub.childNodes[x]).find('>a').clone()
-                                );
-                            }
-
-							sub.childNodes[x].style.display = '';
-						}
-					}
-				}
-
-				if (issetSubmodules) {
-                    $(parent.childNodes[i]).addClass('module-isset-submodules');
-                    $(parent.childNodes[i]).find('.nav-second-level-toggle').removeClass('fa-angle-right');
-                    if ($(window).width() < 768 || ! $('.s-toggle')[0]) {
-                        $(parent.childNodes[i]).find('.module-submodules').show()
-                    }
-				} else {
-					$(parent.childNodes[i]).removeClass('module-isset-submodules');
-					$(parent.childNodes[i]).find('.module-submodules').hide();
-				}
-			}
-		}
-	}
-	if (to) load(to);
+	Core2.menu._changeRoot(obj, to, actionSelect);
 }
 
 
 /**
  * @returns {{width: *, height: *}}
+ * @deprecated
  */
 function viewport() {
-    var e = window,
-		a = 'inner';
-    if ( ! ('innerWidth' in window)) {
-        a = 'client';
-        e = document.documentElement || document.body;
-    }
-    return { width : e[ a+'Width' ] , height : e[ a+'Height' ] }
+    return Core2.menu.viewport();
 }
 
 
 /**
  * @param evt
  * @returns {boolean}
+ * @deprecated use Core2.tools.checkInt
  */
 function checkInt(evt) {
-	var keycode;
-	if (evt.keyCode) keycode = evt.keyCode;
-	else if(evt.which) keycode = evt.which;
-	var av = [8, 9, 35, 36, 37, 38, 39, 40, 45, 46, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57];
-	for (var i = 0; i < av.length; i++) {
-		if (av[i] === keycode) return true;
-	}
-	return false;
+	return Core2.tools.checkInt(evt);
 }
 
 /**
@@ -739,172 +958,38 @@ function getExtUrl() {
 
 /**
  * Загрузка контента на страницу
- * @param url
- * @param data
- * @param id
- * @param callback
+ * @param {string}   url
+ * @param {Object}   data deprecated
+ * @param {string}   id
+ * @param {function} callback
  */
 var load = function (url, data, id, callback) {
 
-	if ( ! id) {
-		// В формах есть признак для предупреждения об изменениях
-		if (edit.changeForm.issetChanged()) {
-			edit.changeForm.showConfirm(arguments);
-			return;
-		} else {
-			edit.changeForm.removeListen();
+	// Запрос POST deprecated
+	if (data) {
+		if ( ! id) {
+			// В формах есть признак для предупреждения об изменениях
+			if (edit.changeForm.issetChanged()) {
+				edit.changeForm.showConfirm(arguments);
+				return;
+			} else {
+				edit.changeForm.removeListen();
+			}
+
+			id = '#main_body';
+			preloader.show();
+
+		} else if (typeof id === 'string') {
+			id = '#' + id;
 		}
 
-		id = '#main_body';
-		preloader.show();
+		url = url.replace('#', '?');
 
-	} else if (typeof id === 'string') {
-		id = '#' + id;
-	}
-
-	url = url.replace('#', '?');
-
-	// Запрос POST
-	if (data) {
 		$(id).load(url, data, callback);
 		return;
 	}
 
-	url = new URL(url, location.origin);
-
-	// Сделать запрос только после изменения адреса
-	if (location.hash !== url.search.replace('?', '#')) {
-		location.hash = url.search.replace('?', '#');
-		return;
-	}
-
-    $("body").removeClass("pdf-open")
-		.removeClass("ext-open");
-
-    if ($(window).width() < 768) {
-        $('#main').removeClass('s-toggle');
-        $('#menu-wrapper .module-submodules').hide();
-    }
-
-	if (url.searchParams.has('module')) {
-		changeRoot($('#module-' + url.searchParams.get('module'))[0], false, url.searchParams.get('action'));
-
-		if (url.searchParams.has('action')) {
-			changeSub($('#submodule-' + url.searchParams.get('module') + '-' + url.searchParams.get('action'))[0]);
-		}
-	}
-
-	if (url.search === 'index.php?module=admin&action=welcome') {
-		$('#home-button > a').addClass('home-select');
-		$('#menu-modules li').removeClass("menu-module-selected").addClass('menu-module');
-		$('#menu-submodules .menu-submodule-selected, #menu-submodules .menu-submodule').hide();
-	}
-
-	var match_module   = typeof locData['loc'] === 'string' ? locData['loc'].match(/module=([a-zA-Z0-9_]+)/) : '';
-	var current_module = match_module !== null && typeof match_module === 'object' && typeof match_module[1] === 'string'
-		? match_module[1]
-		: 'admin';
-
-	var match_action   = typeof locData['loc'] === 'string' ? locData['loc'].match(/action=([a-zA-Z0-9_]+)/) : '';
-	var current_action = match_action !== null && typeof match_action === 'object' && typeof match_action[1] === 'string'
-		? match_action[1]
-		: 'index';
-
-	match_module    = document.location.hash.match(/module=([a-zA-Z0-9_]+)/);
-	var load_module = match_module !== null && typeof match_module === 'object' && typeof match_module[1] === 'string'
-		? match_module[1]
-		: 'admin';
-
-	match_action    = document.location.hash.match(/action=([a-zA-Z0-9_]+)/);
-	var load_action = match_action !== null && typeof match_action === 'object' && typeof match_action[1] === 'string'
-		? match_action[1]
-		: 'index';
-
-	locData['id']  = id;
-	locData['loc'] = url.toString();
-
-	loc = url.toString(); //DEPRECATED
-
-	var mod_title    = $('#module-' + load_module + ' > a .module-title').text();
-	var action_title = $('#submodule-' + load_module + '-' + load_action + ' > a').text();
-
-	if (load_module === 'admin' && load_action === 'welcome') {
-		mod_title = '';
-	}
-
-	var css_mod_title = action_title === '' && mod_title !== ''
-		? {'fontSize': '18px', 'paddingTop': '15px','lineHeight': '20px'}
-		: {'fontSize': '',     'paddingTop': '',    'lineHeight': ''};
-
-	$('#navbar-top .module-title').css(css_mod_title).text(mod_title);
-	$('#navbar-top .module-action').text(action_title);
-
-	const siteName = $('.site-name').text().trim();
-	const title    = (action_title ? (action_title + ' - ') : '') + (mod_title ? mod_title + ' - ' : '') + siteName;
-
-	$('html > head > title').text(title);
-
-	if (xhrs[id]) {
-		xhrs[id].abort();
-	}
-
-	if (typeof callback !== 'function') {
-		callback = preloader.hide
-	}
-
-	xhrs[id] = $.ajax({
-		url: url.toString(),
-		global: false,
-		async: true,
-		method: 'GET'
-	}).done(function (result) {
-		$(id).html(result);
-
-		if (current_module !== load_module || current_action !== load_action ||
-			document.location.hash.match(/^#module=([a-zA-Z0-9_]+)$/) ||
-			document.location.hash.match(/^#module=([a-zA-Z0-9_]+)&action=([a-zA-Z0-9_]+)$/)
-		) {
-			$(locData.id).hide();
-			$(locData.id).fadeIn('fast');
-		} else {
-			$(locData.id).hide();
-			$(locData.id).fadeIn(50);
-		}
-		if (typeof locData.callback === 'function') {
-			locData.callback();
-			locData.callback = null;
-		}
-
-		if (typeof callback === 'function') {
-			callback();
-		}
-		$(id)[0].dispatchEvent(new CustomEvent("loaded", {bubbles: true, detail: {"url":url} }));
-
-	}).fail(function (jqXHR) {
-		preloader.hide();
-
-		$(id)[0].dispatchEvent(new CustomEvent("failed", {bubbles: true, detail: {"url":url} }));
-
-		if (jqXHR.statusText !== 'abort') {
-
-			if ( ! jqXHR.status) {
-				swal("Превышено время ожидания ответа. Проверьте соединение с Интернет.", '', 'error').catch(swal.noop);
-
-			} else if (jqXHR.status === 404) {
-				swal("Запрашиваемый ресурс не найден.", '', 'error').catch(swal.noop);
-
-			} else if (jqXHR.status === 403) {
-				if (current_module !== load_module || current_action !== load_action) {
-					location.reload();
-				} else {
-					swal("Время жизни вашей сессии истекло", 'Чтобы войти в систему заново, обновите страницу (F5)', 'error').catch(swal.noop);
-				}
-
-			} else {
-				swal("Во время обработки вашего запроса произошла ошибка", 'Обновите страницу и попробуйте снова', 'error').catch(swal.noop);
-			}
-		}
-	});
+	Core2.load(url, id, callback);
 };
 
 
@@ -1179,26 +1264,11 @@ window.addEventListener(
 
 window.dispatchEvent(new HashChangeEvent('resize'));
 
-window.addEventListener('error', main_menu.errors._onErrorEvent, true);
+window.addEventListener('error', Core2.errors._onErrorEvent, true);
 
 document.addEventListener("DOMContentLoaded", function (e) {
-	// const uap = new UAParser();
-	// if (uap) {
-	// 	const br = uap.getResult();
-	// 	console.log(br.browser)
-	// 	if (br.browser.name == '???') { //TODO сделать проверку на актуальность браузера
-	// 		$("#mainContainer").prepend(
-	// 			"<h2>" +
-	// 			"<span style=\"color:red\">Внимание!</span> " +
-	// 			"Вы пользуетесь устаревшей версией браузера. " +
-	// 			"Во избежание проблем с работой, рекомендуется обновить текущий или установить другой, более современный браузер." +
-	// 			"</h2>"
-	// 		);
-	// 	}
-	// }
-
-    main_menu.setAngles();
-	main_menu.setIconLetter();
+    Core2.menu.setAngles();
+	Core2.menu.setIconLetter();
 
 	window.dispatchEvent(new HashChangeEvent('hashchange'));
 
