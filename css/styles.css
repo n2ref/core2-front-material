@@ -2964,6 +2964,18 @@ table.coreui-table .row-table.row-table-collapsed {
 .coreui-table-wrapper.coreui-table-limit-height .coreui-table-responsive > table > tfoot > tr > td {
     border-top: 0;
 }
+.coreui-table-wrapper .coreui-table-legend {
+    margin-top: 12px;
+}
+.coreui-table-wrapper .coreui-table-legend .coreui-table-legend-item {
+    width: 14px;
+    height: 14px;
+    display: inline-block;
+    border-radius: 3px;
+    border: 1px solid #9E9E9E;
+    margin-left: 10px;
+    margin-bottom: -2px;
+}
 
 .select2-container.select2-container--bootstrap .select2-selection--single {
     min-height: 30px;
