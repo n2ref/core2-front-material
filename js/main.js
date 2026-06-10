@@ -269,7 +269,7 @@ var Core2 = {
 		}
 
 		xhrs[id] = $.ajax({
-			url: url.toString(),
+			url: "index.php" + url.search,
 			global: false,
 			async: true,
 			method: 'GET'
