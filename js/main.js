@@ -585,7 +585,7 @@ var Core2 = {
 
 			error.count = 1;
 
-			let client = Core2.getBrowserInfo();
+			let client = Core2.tools.getBrowserInfo();
 			Core2.errors._errors.push({
 				type: type,
 				level: level,
