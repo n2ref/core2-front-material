@@ -454,7 +454,9 @@ var listx = {
                             container = document.getElementById("list" + id).parentNode;
                         }
                         if (listx.loc[id]) {
-                            const searchParams = new URLSearchParams(listx.loc[id]);
+                            const parts = listx.loc[id].split('php?');
+                            const paramsString = parts.length > 1 ? parts[1] : listx.loc[id];
+                            const searchParams = new URLSearchParams(paramsString);
                             const module       = searchParams.get("module");
                             let action         = searchParams.get("action");
 
