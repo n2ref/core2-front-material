@@ -530,7 +530,7 @@ var Core2 = {
 				return;
 			}
 
-			Core2.errors.addError('js error', 'error', {
+			Core2.errors.addError('js error', 'warning', {
 				message: event.message,
 				file: event.filename,
 				line: event.lineno,
