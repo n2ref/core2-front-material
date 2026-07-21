@@ -1,6 +1,7 @@
 
 var Core2 = {
 
+	_loadCallback: null,
 
 	menu: {
 		/**
@@ -191,6 +192,10 @@ var Core2 = {
 		// Сделать запрос только после изменения адреса
 		if (location.hash !== url.search.replace('?', '#')) {
 			location.hash = url.search.replace('?', '#');
+
+			if (typeof callback === 'function') {
+				this._loadCallback = callback;
+			}
 			return;
 		}
 
@@ -1220,7 +1225,11 @@ window.addEventListener(
 		let   url = preloader.prepare(hash.substr(1));
 		url = 'index.php' + (url ? '?' + url : '');
 
-		load(url);
+		const callback = Core2._loadCallback || null;
+		Core2._loadCallback = null;
+
+		Core2.load(url, null, callback);
+
 
 		$('body > .modal-backdrop').fadeOut(function () {
 			$('body').removeClass('modal-open');
