@@ -517,6 +517,116 @@ var Core2 = {
 				language: navigator.language
 			};
 		},
+
+
+		/**
+		 * Скачивание файла
+		 * @param {string} url
+		 * @param {string} contentType
+		 */
+		downloadFile(url, contentType) {
+
+			preloader.setText('Подготовка...');
+
+			let xhr = new XMLHttpRequest();
+			xhr.open('GET', url);
+			xhr.responseType = 'blob';
+
+
+			xhr.onprogress = function (event) {
+				if (event.lengthComputable) {
+					let percentComplete = Math.round((event.loaded / event.total) * 100);
+					preloader.setText('Скачивание ' + percentComplete + '%');
+				}
+			};
+
+			xhr.onreadystatechange = function() {
+				if (xhr.readyState === 2) {
+					preloader.setText('Скачивание...');
+					xhr.responseType = xhr.getResponseHeader('Content-Type') === contentType
+						? "blob"
+						: "text";
+
+				} else if (xhr.readyState === 4) {
+					preloader.hide();
+
+					if (xhr.status === 200) {
+						if (xhr.getResponseHeader('Content-Type') !== contentType) {
+
+							try {
+								let jsonData     = JSON.parse(xhr.responseText);
+								let errorMessage = jsonData.error_message || "Не удалось скачать файл. Обновите страницу и попробуйте снова";
+								swal(errorMessage, '', 'warning').catch(swal.noop);
+								return false;
+
+							} catch (e) {
+								swal("Не удалось скачать файл. Обновите страницу и попробуйте снова", '', 'error').catch(swal.noop);
+								return false;
+							}
+						}
+
+						let blob     = xhr.response;
+						let filename = "";
+						let disposition = xhr.getResponseHeader('Content-Disposition');
+
+						if (disposition && disposition.indexOf('attachment') !== -1) {
+							let filenameRegex = /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/;
+							let matches = filenameRegex.exec(disposition);
+							if (matches != null && matches[1]) {
+								filename = matches[1].replace(/['"]/g, '');
+								filename = decodeURIComponent(filename);
+								filename = filename.replace(/\+/g, ' ');
+							}
+						}
+
+						if (typeof window.navigator.msSaveBlob !== 'undefined') {
+							// IE workaround for "HTML7007: One or more blob URLs were revoked by closing the blob for
+							// which they were created. These URLs will no longer resolve as the data backing the URL
+							// has been freed."
+							window.navigator.msSaveBlob(blob, filename);
+						} else {
+							let URL = window.URL || window.webkitURL;
+							let downloadUrl = URL.createObjectURL(blob);
+
+							if (filename) {
+								// use HTML5 a[download] attribute to specify filename
+								let a = document.createElement("a");
+								// safari doesn't support this yet
+								if (typeof a.download === 'undefined') {
+									window.location.href = downloadUrl;
+								} else {
+									a.href = downloadUrl;
+									a.download = filename;
+									document.body.appendChild(a);
+									a.click();
+									$(a).remove();
+								}
+							} else {
+								window.location.href = downloadUrl;
+							}
+
+							setTimeout(function () {
+								URL.revokeObjectURL(downloadUrl);
+							}, 100); // cleanup
+						}
+
+					} else {
+						try {
+							let jsonData     = JSON.parse(xhr.responseText);
+							let errorMessage = jsonData.error_message || "Не удалось скачать файл";
+							swal(errorMessage, '', 'warning').catch(swal.noop);
+							return false;
+
+						} catch (e) {
+							swal("Не удалось скачать файл", '', 'error').catch(swal.noop);
+							return false;
+						}
+					}
+				}
+			}
+
+			xhr.send();
+		}
 	},
 
 	errors: {
