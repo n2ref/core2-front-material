@@ -330,6 +330,34 @@ var Core2 = {
 
 
 	/**
+	 * Загрузка pdf файла и показ его на странице
+	 * @param url
+	 */
+	loadPDF: function (url) {
+
+		preloader.show();
+		$("#main_body").prepend(
+			'<div class="pdf-panel hidden">' +
+			'<div class="pdf-tool-panel"><button class="btn btn-sm btn-default" onclick="removePDF();">Закрыть</button></div>' +
+			'<div class="pdf-main-panel"><iframe id="core-iframe" frameborder="0" width="100%" height="100%" src="' + url + '"></iframe></div>' +
+			'</div>'
+
+		);
+
+		$("#core-iframe").load( function() {
+			$("body").addClass("pdf-open");
+
+			$("#main_body .pdf-main-panel").css({
+				'height': ($("body").height() - ($("#navbar-top").height()) - 40)
+			});
+
+			preloader.hide();
+			$('.pdf-panel').removeClass('hidden');
+		});
+	},
+
+
+	/**
 	 * Перезагрузка страницы
 	 */
 	reload: function () {
@@ -1121,25 +1149,7 @@ var load = function (url, data, id, callback) {
  * @param url
  */
 var loadPDF = function (url) {
-	preloader.show();
-	$("#main_body").prepend(
-	    '<div class="pdf-panel hidden">' +
-		'<div class="pdf-tool-panel"><button class="btn btn-sm btn-default" onclick="removePDF();">Закрыть</button></div>' +
-		'<div class="pdf-main-panel"><iframe id="core-iframe" frameborder="0" width="100%" height="100%" src="' + url + '"></iframe></div>' +
-        '</div>'
-
-	);
-
-	$("#core-iframe").load( function() {
-        $("body").addClass("pdf-open");
-
-        $("#main_body .pdf-main-panel").css({
-            'height': ($("body").height() - ($("#navbar-top").height()) - 40)
-        });
-
-		preloader.hide();
-		$('.pdf-panel').removeClass('hidden');
-	});
+	Core2.loadPDF(url);
 };
 
 
