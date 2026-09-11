@@ -1415,7 +1415,7 @@ var edit = {
 
 			var tplFieldSelect2 =
 				'<td>' +
-				'<select id = "select2_[NUM]" class="form-control input-sm" name="control[[FIELD]][[NUM]][[CODE]]" [ATTRIBUTES]>[OPTIONS]</select>' +
+				'<select id="select2_[NUM]_[CODE]" class="form-control input-sm" name="control[[FIELD]][[NUM]][[CODE]]" [ATTRIBUTES]>[OPTIONS]</select>' +
 				'</td>';
 
 			var fields = [];
@@ -1469,7 +1469,7 @@ var edit = {
 							tplFieldCustom = tplFieldCustom.replace(/\[OPTIONS\]/g, selectOptions2);
 
 							setTimeout(function () {
-								$('#select2_' + key ).select2({
+								$('#select2_' + key + '_' + field['code']).select2({
 									language: 'ru',
 									theme: 'bootstrap',
 								});
