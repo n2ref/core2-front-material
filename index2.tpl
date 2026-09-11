@@ -27,7 +27,7 @@
 
 	<link rel="stylesheet" href="core2/html/material/css/animate.min.css" type="text/css"/>
 	<link rel="stylesheet" href="core2/html/material/css/snarl.min.css" type="text/css"/>
-	<link rel="stylesheet" href="core2/html/material/css/menu.css?_=10" type="text/css"/>
+	<link rel="stylesheet" href="core2/html/material/css/menu.css?_=11" type="text/css"/>
 	<link rel="stylesheet" href="core2/html/material/css/styles.css?_=49" type="text/css"/>
 
 	<link rel="stylesheet" href="core2/html/material/css/select2.bootstrap.css" type="text/css"/>
@@ -68,9 +68,9 @@
 	<![endif]-->
 
 	<script src="core2/html/material/js/class.list.js?_=8"></script>
-	<script src="core2/html/material/js/class.edit.js?_=28"></script>
+	<script src="core2/html/material/js/class.edit.js?_=29"></script>
 	<script src="core2/js/eTip.js"></script>
-	<script src="core2/html/material/js/main.js?_=22"></script>
+	<script src="core2/html/material/js/main.js?_=23"></script>
     <!--[if IE]>
     <link rel="shortcut icon" type="image/x-icon" href="favicon.ico"/>
     <![endif]-->
