@@ -7,6 +7,11 @@
 					<span><i class="fa fa-home"></i> <!--SYSTEM_NAME--></span>
 				</a>
 			</div>
+			<div id="menu-search-container">
+				<input type="text" id="menu-search" placeholder="_tr(Поиск)" autocomplete="off" />
+				<i class="fa fa-search"></i>
+				<i class="fa fa-times-circle" id="menu-search-clear"></i>
+			</div>
 			<ul class="nav" id="menu-modules">
 				<!-- BEGIN modules -->
 				<li id="module-[MODULE_ID]" class="menu-module">
@@ -95,6 +100,8 @@
 	#home-button > a { color: [TEXT_COLOR] }
 
 	#main-content #sidebar-toggle { color: [TEXT_COLOR] }
+
+	#menu-search-container { display: [SHOW_SEARCH_MENU] }
 
 	#menu-modules .menu-module:hover a,
 	#menu-modules .menu-module a:hover,

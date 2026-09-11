@@ -4,7 +4,10 @@ var Core2 = {
 	_loadCallback: null,
 
 	menu: {
+		searchText: '',
+
 		/**
+		 *
 		 *
 		 */
 		setAngles : function() {
@@ -34,6 +37,112 @@ var Core2 = {
 					$('a', this).append('<span class="module-icon-letter">' + letter + '</span>');
 				}
 			});
+		},
+
+
+		/**
+		 * Генерирует варианты поискового текста с учётом раскладки клавиатуры.
+		 * Если введены латиницей — добавляет вариант с кириллицей и наоборот.
+		 * Например: "privet" → ["privet", "привет"]
+		 */
+		_layoutVariants: function(text) {
+
+			var latin  = "qwertyuiop[]asdfghjkl;'zxcvbnm,./";
+			var cyril  = 'йцукенгшщзхъфывапролджэячсмитьбю.';
+
+			text = text.replace(/ё/g, 'е');
+
+			var variants = [text];
+
+			if (/[a-z]/.test(text)) {
+				var cyr = '';
+				for (var i = 0; i < text.length; i++) {
+					var idx = latin.indexOf(text[i]);
+					cyr += idx !== -1 ? cyril[idx] : text[i];
+				}
+				if (cyr !== text) variants.push(cyr);
+			}
+
+			if (/[а-яё]/.test(text)) {
+				var lat = '';
+				for (var i = 0; i < text.length; i++) {
+					var idx = cyril.indexOf(text[i]);
+					lat += idx !== -1 ? latin[idx] : text[i];
+				}
+				if (lat !== text) variants.push(lat);
+			}
+
+			return variants;
+		},
+
+
+		/**
+		 * Фильтрация модулей и субмодулей по тексту из поискового поля.
+		 * Ищет по названиям (из HTML) и внутренним именам (module ID / submodule ID).
+		 * Если название модуля совпадает — показывается модуль и все его субмодули.
+		 * Если совпадает только название субмодуля — показывается модуль и только подходящие субмодули.
+		 * При очистке поискового поля все модули и субмодули отображаются обратно.
+		 * Учитывается раскладка клавиатуры (латиница ↔ кириллица).
+		 */
+		filter: function() {
+
+			var text = $('#menu-search').val().toLowerCase().trim();
+			Core2.menu.searchText = text;
+
+			if (!text) {
+				$('.menu-module, .menu-submodule').removeData('filtered-out').show();
+				$('#menu-search-clear').hide();
+				return;
+			}
+
+			var variants = Core2.menu._layoutVariants(text);
+
+			var nameMatches = function(name) {
+				for (var v = 0; v < variants.length; v++) {
+					if (name.indexOf(variants[v]) !== -1) return true;
+				}
+				return false;
+			};
+
+			$('.menu-module').each(function(){
+
+				var $module = $(this);
+				var moduleId   = $module.attr('id').substr(7);
+				var moduleName = $module.find('.module-title').text().toLowerCase();
+				var moduleMatch = nameMatches(moduleName + ' ' + moduleId);
+
+				var $submodules  = $('li[id^=submodule-' + moduleId + '-]');
+				var hasMatchingSub = false;
+
+				$submodules.each(function(){
+					var subName  = $(this).text().toLowerCase();
+					var subId    = $(this).attr('id').split('-').slice(2).join('-');
+					if (nameMatches(subName + ' ' + subId)) {
+						hasMatchingSub = true;
+					}
+				});
+
+				if (moduleMatch) {
+					$module.removeData('filtered-out').show();
+					$submodules.removeData('filtered-out').show();
+				} else if (hasMatchingSub) {
+					$module.removeData('filtered-out').show();
+					$submodules.each(function(){
+						var subName  = $(this).text().toLowerCase();
+						var subId    = $(this).attr('id').split('-').slice(2).join('-');
+						if (nameMatches(subName + ' ' + subId)) {
+							$(this).removeData('filtered-out').show();
+						} else {
+							$(this).data('filtered-out', true).hide();
+						}
+					});
+				} else {
+					$module.data('filtered-out', true).hide();
+					$submodules.data('filtered-out', true).hide();
+				}
+			});
+
+			$('#menu-search-clear').show();
 		},
 
 
@@ -87,7 +196,9 @@ var Core2 = {
 										);
 									}
 
-									sub.childNodes[x].style.display = '';
+									if (!Core2.menu.searchText || !$(sub.childNodes[x]).data('filtered-out')) {
+										sub.childNodes[x].style.display = '';
+									}
 								}
 							}
 						}
@@ -1384,6 +1495,13 @@ document.addEventListener("DOMContentLoaded", function (e) {
     Core2.menu.setAngles();
 	Core2.menu.setIconLetter();
 
+	$('#menu-search').on('input', function() {
+		Core2.menu.filter();
+	});
+	$('#menu-search-clear').on('click', function() {
+		$('#menu-search').val('').trigger('input');
+	});
+
 	window.dispatchEvent(new HashChangeEvent('hashchange'));
 
     $("#menu-modules > .menu-module, #menu-modules > .menu-module-selected").on('mouseenter', function (e) {
@@ -1392,7 +1510,9 @@ document.addEventListener("DOMContentLoaded", function (e) {
 
 			var submodulesContainer = $('#menu-submodules').hide();
             var module              = $(e.currentTarget).attr('id').substr(7);
-            var submodules          = $('li[id^=submodule-' + module + '-]').show();
+            var submodules          = $('li[id^=submodule-' + module + '-]').filter(function() {
+				return !Core2.menu.searchText || !$(this).data('filtered-out');
+			}).show();
 
 			if ($('.s-toggle')[0] || submodules[0]) {
                 $('#menu-submodules').find('.submenu-module-title').remove();
