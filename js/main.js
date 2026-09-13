@@ -765,6 +765,107 @@ var Core2 = {
 			}
 
 			xhr.send();
+		},
+
+
+		/**
+		 * Выполняет запрос
+		 * @param {String}      method
+		 * @param {String}      url
+		 * @param {Object|null} options
+		 * @return {Promise}
+		 * @private
+		 */
+		request: function (method, url, options) {
+
+			options = this.isObject(options) ? options : {};
+
+			const quiet = typeof options.quiet === 'boolean' ? options.quiet : false;
+			const data  = this.isObject(options.data) ? options.data : null;
+
+			if (quiet) {
+				preloader.show();
+			}
+
+			return fetch(url, {
+				method: method,
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: data ? JSON.stringify(data) : null
+			})
+				.then(function (response) {
+					if (quiet) {
+						preloader.hide();
+					}
+
+					if (response.ok && response.status === 200) {
+						return response.json();
+					} else {
+						return Promise.reject(response);
+					}
+				})
+				.then(function (data) {
+					if (data) {
+						if (data.status === 'error') {
+							CoreUI.notice.create(data.error_message || data.msg, 'danger');
+							return Promise.reject(data);
+						} else if (data.status === 'warning') {
+							CoreUI.notice.create(data.error_message || data.msg, 'warning');
+							return Promise.reject(data);
+						} else {
+							return data;
+						}
+					} else {
+						return Promise.reject(data);
+					}
+				})
+				.catch((response) => {
+					console.error(response);
+
+					if (quiet) {
+						preloader.hide();
+					}
+
+					if (response && typeof response.json === 'function') {
+						return response.json()
+							.then((json) => {
+								let message = json ? json.error_message || json.msg : null;
+								CoreUI.notice.create(message || 'Ошибка выполнения действия', 'danger');
+								return Promise.reject(json);
+							})
+							.catch(() => {
+								CoreUI.notice.create('Ошибка! Не удалось выполнить действие', 'danger');
+								return Promise.reject(response);
+							});
+					} else {
+						CoreUI.notice.create('Ошибка! Не удалось выполнить действие', 'danger');
+						return Promise.reject(response);
+					}
+				});
+		},
+
+
+		/**
+		 * Проверка на объект
+		 * @param value
+		 */
+		isObject: function (value) {
+
+			return typeof value === 'object' &&
+				! Array.isArray(value) &&
+				value !== null;
+		},
+
+
+		/**
+		 * Проверка на число
+		 * @param num
+		 * @returns {boolean}
+		 * @private
+		 */
+		isNumeric: function(num) {
+			return (typeof(num) === 'number' || typeof(num) === "string" && num.trim() !== '') && ! isNaN(num);
 		}
 	},
 
