@@ -170,6 +170,21 @@
                 onchange="CoreUI.table.filter.submit('[RESOURCE]', [IS_AJAX]);"></select>
       </div>
       <!-- END select -->
+
+      <!-- BEGIN select2 -->
+      <div class="input-group">
+        <!-- BEGIN title -->
+        <div class="input-group-addon">[TITLE]</div>
+        <!-- END title -->
+
+        <div>
+          <select id="filter-[RESOURCE]-[KEY]" name="filter[[RESOURCE]][[KEY]]" class="form-control input-sm" [ATTR]
+                  onchange="CoreUI.table.filter.submit('[RESOURCE]', [IS_AJAX]);"></select>
+          <script> $('#filter-[RESOURCE]-[KEY]').select2({language: 'ru', theme: 'bootstrap', dropdownParent: $('#filter-[RESOURCE]-[KEY]').parent() }); </script>
+        </div>
+      </div>
+      <!-- END select2 -->
+
     </li>
     <!-- END filter_control -->
 
@@ -340,6 +355,8 @@
                               multiple="multiple" [IN_TEXT]></select>
                     </div>
                     <!-- END multiselect -->
+
+
 
                     <!-- BEGIN multiselect2 -->
                     <div>
