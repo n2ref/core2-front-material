@@ -205,50 +205,69 @@
     <table width="100%" id="table-[RESOURCE]" class="coreui-table">
       <thead>
 
-      <!-- BEGIN controls -->
-      <tr class="table-control-panel">
+      <!-- BEGIN service -->
+      <tr class="table-service-panel">
         <td colspan="1000">
-          <ul class="table-controls">
+          <div class="total pull-left">
+            <ul class="table-controls">
+              <li class="table-control">
+                _tr(Всего): [TOTAL_RECORDS]
+              </li>
 
-            <!-- BEGIN search_control -->
-            <li class="table-control">
-              <button type="button" onclick="CoreUI.table.search.toggle('[RESOURCE]')">
-                <img src="[THEME_SRC]/list/img/view.png" alt="_tr(Поиск)"/>
-                <span>_tr(Поиск)</span>
-              </button>
-            </li>
+              <!-- BEGIN search_control -->
+              <li class="table-control">
+                <button type="button" onclick="CoreUI.table.search.toggle('[RESOURCE]')">
+                  <img src="[THEME_SRC]/list/img/view.png" alt="_tr(Поиск)"/>
+                  <span>_tr(Поиск)</span>
+                </button>
+              </li>
 
-            <!-- BEGIN search_clear -->
-            <li class="table-control">
-              <button type="button" onclick="CoreUI.table.search.clear('[RESOURCE]', [IS_AJAX])">
-                <img src="[THEME_SRC]/list/img/clearview.png" alt="_tr(Очистить)"/>
-                <span>_tr(Очистить)</span>
-              </button>
-            </li>
-            <!-- END search_clear -->
-            <!-- END search_control -->
+              <!-- BEGIN search_clear -->
+              <li class="table-control">
+                <button type="button" onclick="CoreUI.table.search.clear('[RESOURCE]', [IS_AJAX])">
+                  <img src="[THEME_SRC]/list/img/clearview.png" alt="_tr(Очистить)"/>
+                  <span>_tr(Очистить)</span>
+                </button>
+              </li>
+              <!-- END search_clear -->
+              <!-- END search_control -->
 
-            <!-- BEGIN column_switcher_control -->
-            <li class="table-control" title="_tr(Колонки)">
-              <button type="button" onclick="CoreUI.table.columnSwitcher.toggleContainer('[RESOURCE]')">
-                <img src="[THEME_SRC]/list/img/application_view_columns.png" alt="_tr(Колонки)"/>
-                <span>_tr(Колонки)</span>
-              </button>
-            </li>
-            <!-- END column_switcher_control -->
+              <!-- BEGIN column_switcher_control -->
+              <li class="table-control" title="_tr(Колонки)">
+                <button type="button" onclick="CoreUI.table.columnSwitcher.toggleContainer('[RESOURCE]')">
+                  <img src="[THEME_SRC]/list/img/application_view_columns.png" alt="_tr(Колонки)"/>
+                  <span>_tr(Колонки)</span>
+                </button>
+              </li>
+              <!-- END column_switcher_control -->
 
-            <!-- BEGIN template_control -->
-            <li class="table-control" title="_tr(Колонки)">
-              <button type="button" onclick="CoreUI.table.template.toggleContainer('[RESOURCE]')">
-                <i class="icon-template"></i>
-                <span>_tr(Шаблоны)</span>
-              </button>
-            </li>
-            <!-- END template_control -->
-          </ul>
+              <!-- BEGIN template_control -->
+              <li class="table-control" title="_tr(Колонки)">
+                <button type="button" onclick="CoreUI.table.template.toggleContainer('[RESOURCE]')">
+                  <i class="icon-template"></i>
+                  <span>_tr(Шаблоны)</span>
+                </button>
+              </li>
+              <!-- END template_control -->
+            </ul>
+          </div>
+          <div class="pull-right">
+            <div class="custom-buttons">[BUTTONS]</div>
+            <!-- BEGIN add_button -->
+            <a href="[URL]" class="btn btn-success btn-sm">[ADD_TEXT]</a>
+            <!-- END add_button -->
+            <!-- BEGIN del_button -->
+            <input type="button" class="btn btn-warning btn-sm" value="[DELETE_TEXT]"
+                   onclick="CoreUI.table.deleteRows('[DELETE]', '[DELETE_MSG]', '[DELETE_NO_SELECT]', [IS_AJAX])"/>
+            <!-- END del_button -->
+          </div>
+          <form action="" method="post" style="display: none">
+            <input name="table_order[[RESOURCE]]" value="" type="hidden"
+                   id="table-order-[RESOURCE]">
+          </form>
         </td>
       </tr>
-      <!-- END controls -->
+      <!-- END service -->
 
       <!-- BEGIN search_container -->
       <tr class="search-container" style="display:none" id="search-[RESOURCE]">
@@ -456,30 +475,6 @@
         </td>
       </tr>
       <!-- END templates_container -->
-
-      <!-- BEGIN service -->
-      <tr class="table-service-panel">
-        <td colspan="1000">
-          <div class="total pull-left">
-            _tr(Всего): [TOTAL_RECORDS]
-          </div>
-          <div class="pull-right">
-            <div class="custom-buttons">[BUTTONS]</div>
-            <!-- BEGIN add_button -->
-            <a href="[URL]" class="btn btn-success btn-sm">[ADD_TEXT]</a>
-            <!-- END add_button -->
-            <!-- BEGIN del_button -->
-            <input type="button" class="btn btn-warning btn-sm" value="[DELETE_TEXT]"
-                   onclick="CoreUI.table.deleteRows('[DELETE]', '[DELETE_MSG]', '[DELETE_NO_SELECT]', [IS_AJAX])"/>
-            <!-- END del_button -->
-          </div>
-          <form action="" method="post" style="display: none">
-            <input name="table_order[[RESOURCE]]" value="" type="hidden"
-                   id="table-order-[RESOURCE]">
-          </form>
-        </td>
-      </tr>
-      <!-- END service -->
 
       <!-- BEGIN header -->
       <tr class="table-header">

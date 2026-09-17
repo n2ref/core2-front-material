@@ -33,6 +33,7 @@
 	<link rel="stylesheet" href="core2/html/material/css/select2.bootstrap.css" type="text/css"/>
 	<link rel="stylesheet" href="core2/html/material/css/select2.min.css" type="text/css"/>
 	<!--system_css-->
+	<link rel="stylesheet" href="core2/html/material/css/bootstrap5-compat.css?_1" type="text/css"/>
 
 	<script src="core2/js/md5.js"></script>
 	<script src="core2/js/ua-parser.min.js"></script>
