@@ -783,7 +783,7 @@ var Core2 = {
 			const quiet = typeof options.quiet === 'boolean' ? options.quiet : false;
 			const data  = this.isObject(options.data) ? options.data : null;
 
-			if (quiet) {
+			if ( ! quiet) {
 				preloader.show();
 			}
 
@@ -795,7 +795,7 @@ var Core2 = {
 				body: data ? JSON.stringify(data) : null
 			})
 				.then(function (response) {
-					if (quiet) {
+					if ( ! quiet) {
 						preloader.hide();
 					}
 
@@ -823,7 +823,7 @@ var Core2 = {
 				.catch((response) => {
 					console.error(response);
 
-					if (quiet) {
+					if ( ! quiet) {
 						preloader.hide();
 					}
 
