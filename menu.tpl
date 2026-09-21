@@ -53,15 +53,13 @@
                         <div class="avatar-container">
                             <img src="[GRAVATAR_URL]" alt=""/>
                         </div>
+                        <span class="nav-title hidden-xs hidden-sm">
+                            <b><!--CURRENT_USER_FN--> <!--CURRENT_USER_LN--></b><br>
+                            <!--CURRENT_USER_LOGIN-->
+                        </span>
                         <i class="fa fa-caret-down"></i>
                     </div>
                     <ul class="dropdown-menu dropdown-menu-right dropdown-user">
-                        <li class="dropdown-user-login">
-                            <b><!--CURRENT_USER_FN--> <!--CURRENT_USER_LN--></b><br>
-                            <!--CURRENT_USER_LOGIN-->
-                        </li>
-                        <li class="divider"></li>
-
                         <!-- BEGIN navigate_item_profile -->
                         <li class="dropdown-[MODULE_NAME]">[HTML]</li>
                         <!-- END navigate_item_profile -->

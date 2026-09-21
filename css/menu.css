@@ -343,6 +343,17 @@ a {color: #337AB7}
     padding: 0 20px;
     white-space: nowrap;
 }
+#user-section .nav-profile .dropdown-toggle {
+    display: flex;
+    align-items: center;
+    flex-wrap: nowrap;
+    gap: 8px;
+}
+#user-section .nav-profile .nav-title {
+    display: inline-block;
+    line-height: 14px;
+    text-align: right;
+}
 .nav-profile .feedback-container textarea {
     min-width: 240px;
     max-width: 240px;
@@ -368,8 +379,6 @@ a {color: #337AB7}
     width: 28px;
     display: inline-block;
     height: 28px;
-    margin-right: 8px;
-    margin-bottom: -8px;
     border: 1px solid transparent;
     overflow: hidden;
     border-radius: 20px;
