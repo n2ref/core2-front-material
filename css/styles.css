@@ -209,7 +209,7 @@ TOP MENU
     font-size: 12px;
     color: #666;
     position: absolute;
-    top: 28px;
+    top: 27px;
     left: 50px;
 }
 .navigate-file {
@@ -1877,6 +1877,7 @@ div[id^=fileupload-main_] tbody.files > tr:first-child > td {
     border-right: 1px solid #ddd;
     width: 210px;
     min-width: 210px;
+    gap: 5px;
 }
 .core-panel.core-panel-tabs-left > .core-panel-body > .core-panel-content {
     padding-left: 20px;
