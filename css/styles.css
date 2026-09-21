@@ -959,14 +959,13 @@ table.calendar {
     -ms-user-select: none;
     user-select: none;
     background-image: none;
-    border: 1px solid #ccc;
     -webkit-border-radius: 4px;
        -moz-border-radius: 4px;
          -o-border-radius: 4px;
             border-radius: 4px;
-    color: #333;
-    background-color: #fff;
-    height: 30px;
+    color: #343434;
+    background-color: var(--bs-secondary);
+    border: 1px solid var(--bs-border-color);
 }
 
 .button:active,
@@ -1287,10 +1286,15 @@ table td.homeTD {padding: 10px}
     padding-top: 10px;
 }
 form .buttons-area .button[type=submit] {
-    color: #fff;
-    background-color: #337ab7;
-    border-color: #2e6da4;
+    color: var(--bs-primary-text, #fff);
+    background-color: var(--bs-primary);
+    border-color: var(--bs-border-color);
     float: left;
+}
+form .buttons-area .button[type=button] {
+    color: var(--bs-secondary-text-emphasis, #fff);
+    background-color: var(--bs-secondary);
+    border-color: var(--bs-border-color);
 }
 form .buttons-area .button[type=submit]:active,
 form .buttons-area .button[type=submit]:focus,
@@ -2501,12 +2505,17 @@ div[id^=fileupload-main_] tbody.files > tr:first-child > td {
     display: inline-block;
 }
 .coreui-table-wrapper .filter-controls .filter-control .input-group {
-    display: table;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    align-content: center;
+    align-items: stretch;
 }
 .coreui-table-wrapper .filter-controls .filter-control .input-group > .input-group-addon {
     background-color: #f3f5f5;
     color: #282828;
     font-size: 12px;
+    width: auto;
 }
 .coreui-table-wrapper .filter-controls .filter-control .input-group > * {
     float: none;
@@ -2549,12 +2558,15 @@ div[id^=fileupload-main_] tbody.files > tr:first-child > td {
     border-bottom-right-radius: 4px;
     padding-right: 25px;
     display: inline-block;
+    height: 2.24rem;
 }
 .coreui-table-wrapper .filter-controls .filter-control.filter-control-type-date_period .icon-calendar {
     position: relative;
     left: -20px;
     z-index: 3;
     color: #555;
+    display: flex;
+    align-items: center;
 }
 .coreui-table-wrapper .filter-controls .filter-control.filter-control-type-date_period .period-date-container {
     position: absolute;
