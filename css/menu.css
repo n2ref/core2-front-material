@@ -481,6 +481,9 @@ a {color: #337AB7}
     .nav > li.nav-feedback > a {
         padding: 10px 8px;
     }
+    #main #mainContainer {
+        padding: 3px 5px 5px;
+    }
 }
 /* Desktop */
 @media(min-width:768px) {
