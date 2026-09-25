@@ -1694,26 +1694,6 @@ document.addEventListener("DOMContentLoaded", function (e) {
 		}
     });
 
-    $(".swipe-area").on('swipe', function(event, phase, direction, distance, duration, fingers) {
-		var width = $(window).width();
-		if (phase === "move" && ((width < 768 && direction === "right") || (width >= 768 && direction === "left"))) {
-			$("#main").addClass("s-toggle");
-			if (width >= 768) {
-				$('#menu-wrapper .module-submodules').hide();
-			}
-			localStorage.setItem('sidebar_collapse', 1);
-			return false;
-		}
-		if (phase === "move" && ((width < 768 && direction === "left") || (width >= 768 && direction === "right"))) {
-			$("#main").removeClass("s-toggle");
-			if (width >= 768) {
-				$('#menu-wrapper .module-submodules').show();
-			}
-			localStorage.setItem('sidebar_collapse', '');
-			return false;
-		}
-    });
-
 	xajax.callback.global.onRequest = function (a) {
 
 		if (a.hasOwnProperty('parameters') &&
