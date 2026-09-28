@@ -1,7 +1,7 @@
 /* Dark theme */
 html.dark { background-color: #1a1a1a; color: #e0e0e0; }
 html.dark body { background-color: #1a1a1a; color: #e0e0e0; }
-html.dark #rootContainer, html.dark #mainContainer, html.dark #main_body { background-color: #1a1a1a; }
+html.dark #rootContainer, html.dark #main-content, html.dark #mainContainer, html.dark #main_body { background-color: #1a1a1a; }
 html.dark table.sTable, html.dark table.sTable > thead > tr > th, html.dark table.sTable > thead > tr > td, html.dark table.sTable > tbody > tr > th, html.dark table.sTable > tbody > tr > td, html.dark table.sTable > tfoot > tr > th, html.dark table.sTable > tfoot > tr > td { background-color: #2d2d2d; color: #e0e0e0; border-color: #444; }
 html.dark table.sTable > tbody > tr:nth-child(2n) { background-color: #252525; }
 html.dark table.sTable > tbody > tr:hover { background-color: #3a3a3a !important; }
