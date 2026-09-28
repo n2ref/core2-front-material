@@ -1283,12 +1283,16 @@ form .buttons-area .button[type=button] {
     background-color: var(--bs-secondary);
     border-color: var(--bs-border-color);
 }
+form .buttons-area .button[type=button]:active {
+    background-color: #e6e6e6;
+    border-color: #adadad;
+}
 form .buttons-area .button[type=submit]:active,
 form .buttons-area .button[type=submit]:focus,
 form .buttons-area .button[type=submit]:hover {
-    color: #fff;
-    background-color: #286090;
-    border-color: #204d74;
+    color: var(--bs-primary-text, #fff);
+    background-color: var(--bs-primary-text-emphasis);
+    border-color: var(--bs-primary-border-subtle)
 }
 
 
