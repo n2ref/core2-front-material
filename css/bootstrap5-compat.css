@@ -316,10 +316,6 @@ a:not([href]):not([class]):hover, a:not([href]):not([class]):focus {
   -o-transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
   transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
-.button:focus:not(:active):not(.show),
-.btn:focus:not(:active):not(.show) {
-  box-shadow: 0 0 0 .25rem rgba(13,110,253,.25);
-}
 .button.active.focus, .button.active:focus, .button.focus,
 .btn.active.focus, .btn.active:focus, .btn.focus,
 .btn:active.focus, .btn:active:focus, .btn:focus {
