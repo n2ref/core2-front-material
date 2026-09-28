@@ -1373,37 +1373,36 @@ textarea:disabled {
 .tab-content > .tab-pane, .pill-content > .pill-pane { display: none; }
 .tab-content > .active, .pill-content > .active { display: block; }
 /* ===== Горизонтальные табы: underline-стили ===== */
-.core-tabs[class$="-top"] > .core-tabs-body > .core-tabs-tabs,
-.core-tabs[class$="-bottom"] > .core-tabs-body > .core-tabs-tabs,
-.core-panel[class$="-top"] > .core-panel-body > .core-panel-tabs,
-.core-panel[class$="-bottom"] > .core-panel-body > .core-panel-tabs {
+.core-tabs[class$="-tabs-top"] > .core-tabs-body > .core-tabs-tabs,
+.core-tabs[class$="-tabs-bottom"] > .core-tabs-body > .core-tabs-tabs,
+.core-panel[class$="-tabs-top"] > .core-panel-body > .core-panel-tabs,
+.core-panel[class$="-tabs-bottom"] > .core-panel-body > .core-panel-tabs {
   display: flex;
   flex-wrap: wrap;
   padding-left: 0;
-  margin-bottom: 0;
   list-style: none;
   background-color: transparent;
   border-bottom: 1px solid var(--bs-border-color-secondary);
   margin-bottom: 30px;
 }
-.core-tabs[class$="-bottom"] > .core-tabs-body > .core-tabs-tabs,
-.core-panel[class$="-bottom"] > .core-panel-body > .core-panel-tabs {
+.core-tabs[class$="-tabs-bottom"] > .core-tabs-body > .core-tabs-tabs,
+.core-panel[class$="-tabs-bottom"] > .core-panel-body > .core-panel-tabs {
   border-top: 1px solid var(--bs-border-color-secondary);
   border-bottom: 0;
 }
-.core-tabs[class$="-top"] > .core-tabs-body > .core-tabs-tabs > li,
-.core-tabs[class$="-bottom"] > .core-tabs-body > .core-tabs-tabs > li,
-.core-panel[class$="-top"] > .core-panel-body > .core-panel-tabs > li,
-.core-panel[class$="-bottom"] > .core-panel-body > .core-panel-tabs > li {
+.core-tabs[class$="-tabs-top"] > .core-tabs-body > .core-tabs-tabs > li,
+.core-tabs[class$="-tabs-bottom"] > .core-tabs-body > .core-tabs-tabs > li,
+.core-panel[class$="-tabs-top"] > .core-panel-body > .core-panel-tabs > li,
+.core-panel[class$="-tabs-bottom"] > .core-panel-body > .core-panel-tabs > li {
   position: relative;
   margin-top: 0;
   margin-bottom: 0;
   margin-right: 0;
 }
-.core-tabs[class$="-top"] > .core-tabs-body > .core-tabs-tabs > li > a,
-.core-tabs[class$="-bottom"] > .core-tabs-body > .core-tabs-tabs > li > a,
-.core-panel[class$="-top"] > .core-panel-body > .core-panel-tabs > li > a,
-.core-panel[class$="-bottom"] > .core-panel-body > .core-panel-tabs > li > a {
+.core-tabs[class$="-tabs-top"] > .core-tabs-body > .core-tabs-tabs > li > a,
+.core-tabs[class$="-tabs-bottom"] > .core-tabs-body > .core-tabs-tabs > li > a,
+.core-panel[class$="-tabs-top"] > .core-panel-body > .core-panel-tabs > li > a,
+.core-panel[class$="-tabs-bottom"] > .core-panel-body > .core-panel-tabs > li > a {
   line-height: 1.5;
   border: 0;
   border-bottom: 2px solid transparent;
@@ -1418,47 +1417,47 @@ textarea:disabled {
   -moz-border-radius: 0;
   border-radius: 0;
 }
-.core-tabs[class$="-top"] > .core-tabs-body > .core-tabs-tabs > li > a:hover,
-.core-tabs[class$="-bottom"] > .core-tabs-body > .core-tabs-tabs > li > a:hover,
-.core-panel[class$="-top"] > .core-panel-body > .core-panel-tabs > li > a:hover,
-.core-panel[class$="-bottom"] > .core-panel-body > .core-panel-tabs > li > a:hover {
+.core-tabs[class$="-tabs-top"] > .core-tabs-body > .core-tabs-tabs > li > a:hover,
+.core-tabs[class$="-tabs-bottom"] > .core-tabs-body > .core-tabs-tabs > li > a:hover,
+.core-panel[class$="-tabs-top"] > .core-panel-body > .core-panel-tabs > li > a:hover,
+.core-panel[class$="-tabs-bottom"] > .core-panel-body > .core-panel-tabs > li > a:hover {
   background-color: rgba(0, 0, 0, 0.04);
   border-bottom-color: var(--bs-secondary);
   color: var(--bs-primary-hover);
 }
-.core-tabs[class$="-top"] > .core-tabs-body > .core-tabs-tabs > .active > a,
-.core-tabs[class$="-top"] > .core-tabs-body > .core-tabs-tabs > li.active > a,
-.core-tabs[class$="-bottom"] > .core-tabs-body > .core-tabs-tabs > .active > a,
-.core-tabs[class$="-bottom"] > .core-tabs-body > .core-tabs-tabs > li.active > a,
-.core-panel[class$="-top"] > .core-panel-body > .core-panel-tabs > .active > a,
-.core-panel[class$="-top"] > .core-panel-body > .core-panel-tabs > li.active > a,
-.core-panel[class$="-bottom"] > .core-panel-body > .core-panel-tabs > .active > a,
-.core-panel[class$="-bottom"] > .core-panel-body > .core-panel-tabs > li.active > a {
+.core-tabs[class$="-tabs-top"] > .core-tabs-body > .core-tabs-tabs > .active > a,
+.core-tabs[class$="-tabs-top"] > .core-tabs-body > .core-tabs-tabs > li.active > a,
+.core-tabs[class$="-tabs-bottom"] > .core-tabs-body > .core-tabs-tabs > .active > a,
+.core-tabs[class$="-tabs-bottom"] > .core-tabs-body > .core-tabs-tabs > li.active > a,
+.core-panel[class$="-tabs-top"] > .core-panel-body > .core-panel-tabs > .active > a,
+.core-panel[class$="-tabs-top"] > .core-panel-body > .core-panel-tabs > li.active > a,
+.core-panel[class$="-tabs-bottom"] > .core-panel-body > .core-panel-tabs > .active > a,
+.core-panel[class$="-tabs-bottom"] > .core-panel-body > .core-panel-tabs > li.active > a {
   color: var(--bs-primary);
   background-color: transparent;
   border: 0;
   border-bottom: 2px solid var(--bs-primary);
   font-weight: 600;
 }
-.core-tabs[class$="-bottom"] > .core-tabs-body > .core-tabs-tabs > .active > a,
-.core-tabs[class$="-bottom"] > .core-tabs-body > .core-tabs-tabs > li.active > a,
-.core-panel[class$="-bottom"] > .core-panel-body > .core-panel-tabs > .active > a,
-.core-panel[class$="-bottom"] > .core-panel-body > .core-panel-tabs > li.active > a {
+.core-tabs[class$="-tabs-bottom"] > .core-tabs-body > .core-tabs-tabs > .active > a,
+.core-tabs[class$="-tabs-bottom"] > .core-tabs-body > .core-tabs-tabs > li.active > a,
+.core-panel[class$="-tabs-bottom"] > .core-panel-body > .core-panel-tabs > .active > a,
+.core-panel[class$="-tabs-bottom"] > .core-panel-body > .core-panel-tabs > li.active > a {
   border-top: 2px solid var(--bs-primary);
   border-bottom: 0;
 }
-.core-tabs[class$="-top"] > .core-tabs-body > .core-tabs-tabs li.disabled > a,
-.core-tabs[class$="-bottom"] > .core-tabs-body > .core-tabs-tabs li.disabled > a,
-.core-panel[class$="-top"] > .core-panel-body > .core-panel-tabs li.disabled > a,
-.core-panel[class$="-bottom"] > .core-panel-body > .core-panel-tabs li.disabled > a {
+.core-tabs[class$="-tabs-top"] > .core-tabs-body > .core-tabs-tabs li.disabled > a,
+.core-tabs[class$="-tabs-bottom"] > .core-tabs-body > .core-tabs-tabs li.disabled > a,
+.core-panel[class$="-tabs-top"] > .core-panel-body > .core-panel-tabs li.disabled > a,
+.core-panel[class$="-tabs-bottom"] > .core-panel-body > .core-panel-tabs li.disabled > a {
   color: #6c757d;
   cursor: not-allowed;
   background-color: transparent;
   border-bottom-color: transparent;
 }
-.core-tabs[class$="-top"] > .core-tabs-body > .core-tabs-tabs > li.tabs-divider,
-.core-tabs[class$="-bottom"] > .core-tabs-body > .core-tabs-tabs > li.tabs-divider,
-.core-panel[class$="-top"] > .core-panel-body > .core-panel-tabs > li.panel-divider {
+.core-tabs[class$="-tabs-top"] > .core-tabs-body > .core-tabs-tabs > li.tabs-divider,
+.core-tabs[class$="-tabs-bottom"] > .core-tabs-body > .core-tabs-tabs > li.tabs-divider,
+.core-panel[class$="-tabs-top"] > .core-panel-body > .core-panel-tabs > li.panel-divider {
   display: block;
   width: 1px;
   height: 24px;
