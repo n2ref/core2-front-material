@@ -1291,8 +1291,8 @@ form .buttons-area .button[type=submit]:active,
 form .buttons-area .button[type=submit]:focus,
 form .buttons-area .button[type=submit]:hover {
     color: var(--bs-primary-text, #fff);
-    background-color: var(--bs-primary-text-emphasis);
-    border-color: var(--bs-primary-border-subtle)
+    background-color: var(--bs-primary-hover);
+    border-color: var(--bs-primary-border-subtle);
 }
 
 
@@ -1505,8 +1505,10 @@ label.control-label {font-weight: 700}
     border-bottom-right-radius: 0;
     border-top-right-radius: 0;
 }
+.ctrl-dp-clear.middle,
 .ctrl-dtp-clear.middle,
 .input.middle {border-radius: 0}
+.ctrl-dp-trigger.last,
 .ctrl-dtp-trigger.last,
 .input.last {
     border-top-left-radius: 0;

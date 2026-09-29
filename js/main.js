@@ -264,6 +264,14 @@ var Core2 = {
 				e = document.documentElement || document.body;
 			}
 			return { width : e[ a+'Width' ] , height : e[ a+'Height' ] }
+		},
+
+
+		/**
+		 * Смена темной и светлой темы
+		 */
+		toggleTheme: function() {
+			$('html').toggleClass('dark');
 		}
 	},
 
