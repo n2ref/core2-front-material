@@ -1507,6 +1507,7 @@ label.control-label {font-weight: 700}
 }
 .ctrl-dp-clear.middle,
 .ctrl-dtp-clear.middle,
+.add-on.middle,
 .input.middle {border-radius: 0}
 .ctrl-dp-trigger.last,
 .ctrl-dtp-trigger.last,

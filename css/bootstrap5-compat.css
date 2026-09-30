@@ -1416,6 +1416,7 @@ textarea:disabled {
   -webkit-border-radius: 0;
   -moz-border-radius: 0;
   border-radius: 0;
+  font-weight: 500;
 }
 .core-tabs[class$="-tabs-top"] > .core-tabs-body > .core-tabs-tabs > li > a:hover,
 .core-tabs[class$="-tabs-bottom"] > .core-tabs-body > .core-tabs-tabs > li > a:hover,

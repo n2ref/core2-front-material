@@ -52,7 +52,7 @@
 						<div class="avatar-container">
 							<img src="[GRAVATAR_URL]" alt=""/>
 						</div>
-						<i class="fa fa-caret-down"></i>
+						<i class="fa fa-angle-down"></i>
 					</div>
 					<ul class="dropdown-menu dropdown-menu-right dropdown-user">
 						<li class="dropdown-user-login">

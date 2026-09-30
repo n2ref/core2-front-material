@@ -352,7 +352,7 @@ a {color: #337AB7}
 #user-section .nav-profile .nav-title {
     display: inline-block;
     line-height: 14px;
-    text-align: right;
+    text-align: left;
 }
 .nav-profile .feedback-container textarea {
     min-width: 240px;

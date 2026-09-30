@@ -57,7 +57,7 @@
                             <b><!--CURRENT_USER_FN--> <!--CURRENT_USER_LN--></b><br>
                             <!--CURRENT_USER_LOGIN-->
                         </span>
-                        <i class="fa fa-caret-down"></i>
+                        <i class="fa fa-angle-down"></i>
                     </div>
                     <ul class="dropdown-menu dropdown-menu-right dropdown-user">
                         <!-- BEGIN navigate_item_profile -->
