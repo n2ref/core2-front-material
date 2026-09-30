@@ -1275,7 +1275,7 @@ table td.homeTD {padding: 10px}
 form .buttons-area .button[type=submit] {
     color: var(--bs-primary-text, #fff);
     background-color: var(--bs-primary);
-    border-color: var(--bs-border-color);
+    border-color: var(--bs-primary);
     float: left;
 }
 form .buttons-area .button[type=button] {

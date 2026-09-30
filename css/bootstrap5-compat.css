@@ -32,7 +32,7 @@
   --bs-secondary: #ffffff;
   --bs-success: #198754;
   --bs-info: #0dcaf0;
-  --bs-warning: #ffc107;
+  --bs-warning: #ebb000;
   --bs-danger: #dc3545;
   --bs-light: #f8f9fa;
   --bs-dark: #212529;
@@ -130,7 +130,7 @@
   --bs-body-text-align: left;
   --bs-link-text-decoration: none;
   --bs-info-hover: #31d2f2;
-  --bs-warning-hover: #ffca2c;
+  --bs-warning-hover: #d09c00;
   --bs-danger-hover: #b02a37;
   --bs-border-color-secondary: #e9ecef;
   --bs-border-color-tertiary: #f1f3f5;
