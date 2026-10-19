@@ -660,15 +660,16 @@ var Core2 = {
 
 		/**
 		 * Скачивание файла
+		 * @param {string} method
 		 * @param {string} url
 		 * @param {string} contentType
 		 */
-		downloadFile(url, contentType) {
+		downloadFile(method, url, contentType) {
 
 			preloader.setText('Подготовка...');
 
 			let xhr = new XMLHttpRequest();
-			xhr.open('GET', url);
+			xhr.open(method, url);
 			xhr.responseType = 'blob';
 
 
@@ -765,6 +766,75 @@ var Core2 = {
 			}
 
 			xhr.send();
+		},
+
+
+		/**
+		 * Открыть модал
+		 * @param {Object} options
+		 */
+		openModal: function (options) {
+
+			options = this.isObject(options) ? options : {};
+
+			const id         = options.id ? options.id : (Math.floor(Math.random() * (10000 - 9000 + 1)) + 9000);
+			const title      = options.title ? options.title : '';
+			const size       = options.size ? options.size : 'lg';
+			const urlContent = options.url ? options.url : '';
+			const onLoad     = options.onLoad ? options.onLoad : null;
+			const onHidden   = options.onHidden ? options.onHidden : null;
+
+			if ( ! urlContent || ! title) {
+				console.error('Заполните обязательные параметры');
+				return;
+			}
+
+			$('#main_body').append(
+				'<div class="modal fade" tabindex="-1" id="' + id + '-modal">' +
+					'<div class="modal-dialog modal-' + size + '">' +
+						'<div class="modal-content">' +
+							'<div class="modal-header">' +
+								'<button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>' +
+								'<h4 class="modal-title">' + title + '</h4>' +
+							'</div>' +
+							'<div class="modal-body">' +
+								'<div class="text-center">' +
+									'<i class="fa fa-spinner fa-pulse fa-2x fa-fw"></i> Загрузка' +
+								'</div>' +
+							'</div>' +
+						'</div>' +
+					'</div>' +
+				'</div>'
+			);
+
+			let $modal = $('#' + id + '-modal');
+			$modal.find('.modal-body')
+				.load(urlContent, function () {
+					if (typeof onLoad === 'function') {
+						onLoad();
+					}
+				});
+
+			$modal.modal('show');
+
+			$modal.on('hidden.bs.modal', function (e) {
+				$modal.remove();
+
+				if (typeof onHidden === 'function') {
+					onHidden();
+				}
+			});
+		},
+
+
+		/**
+		 * Скрытие модала
+		 * @param {string} id
+		 */
+		closeModal: function (id) {
+
+			let $modal = $('#' + id + '-modal');
+			$modal.modal('hide');
 		},
 
 
