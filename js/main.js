@@ -663,8 +663,11 @@ var Core2 = {
 		 * @param {string} method
 		 * @param {string} url
 		 * @param {string} contentType
+		 * @param {Object} options
 		 */
-		downloadFile(method, url, contentType) {
+		downloadFile(method, url, contentType, options) {
+
+			options = Core2.tools.isObject(options) ? options : {};
 
 			preloader.setText('Подготовка...');
 
@@ -720,18 +723,14 @@ var Core2 = {
 						}
 
 						if (typeof window.navigator.msSaveBlob !== 'undefined') {
-							// IE workaround for "HTML7007: One or more blob URLs were revoked by closing the blob for
-							// which they were created. These URLs will no longer resolve as the data backing the URL
-							// has been freed."
 							window.navigator.msSaveBlob(blob, filename);
 						} else {
 							let URL = window.URL || window.webkitURL;
 							let downloadUrl = URL.createObjectURL(blob);
 
 							if (filename) {
-								// use HTML5 a[download] attribute to specify filename
 								let a = document.createElement("a");
-								// safari doesn't support this yet
+
 								if (typeof a.download === 'undefined') {
 									window.location.href = downloadUrl;
 								} else {
@@ -747,7 +746,7 @@ var Core2 = {
 
 							setTimeout(function () {
 								URL.revokeObjectURL(downloadUrl);
-							}, 100); // cleanup
+							}, 100);
 						}
 
 					} else {
@@ -765,7 +764,7 @@ var Core2 = {
 				}
 			}
 
-			xhr.send();
+			xhr.send(options.data !== undefined ? options.data : null);
 		},
 
 
