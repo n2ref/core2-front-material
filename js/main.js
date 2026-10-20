@@ -798,7 +798,7 @@ var Core2 = {
 							'</div>' +
 							'<div class="modal-body">' +
 								'<div class="text-center">' +
-									'<i class="fa fa-spinner fa-pulse fa-2x fa-fw"></i> Загрузка' +
+									'<i class="fa fa-spinner fa-pulse fa-fw"></i> Загрузка' +
 								'</div>' +
 							'</div>' +
 						'</div>' +
