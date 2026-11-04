@@ -53,15 +53,13 @@
                         <div class="avatar-container">
                             <img src="[GRAVATAR_URL]" alt=""/>
                         </div>
-                        <i class="fa fa-caret-down"></i>
-                    </div>
-                    <ul class="dropdown-menu dropdown-menu-right dropdown-user">
-                        <li class="dropdown-user-login">
+                        <span class="nav-title hidden-xs hidden-sm">
                             <b><!--CURRENT_USER_FN--> <!--CURRENT_USER_LN--></b><br>
                             <!--CURRENT_USER_LOGIN-->
-                        </li>
-                        <li class="divider"></li>
-
+                        </span>
+                        <i class="fa fa-angle-down"></i>
+                    </div>
+                    <ul class="dropdown-menu dropdown-menu-right dropdown-user">
                         <!-- BEGIN navigate_item_profile -->
                         <li class="dropdown-[MODULE_NAME]">[HTML]</li>
                         <!-- END navigate_item_profile -->
@@ -80,7 +78,9 @@
             <div id="preloader" style="display:none">
                 <div class="lock-screen"></div>
                 <div class="block">
-                    <div class="spinner-icon"></div>
+                    <div class="spinner-icon">
+                        <svg stroke="#3F56B1FF" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><g><circle cx="12" cy="12" r="9.5" fill="none" stroke-width="3" stroke-linecap="round"><animate attributeName="stroke-dasharray" dur="1.5s" calcMode="spline" values="0 150;42 150;42 150;42 150" keyTimes="0;0.475;0.95;1" keySplines="0.42,0,0.58,1;0.42,0,0.58,1;0.42,0,0.58,1" repeatCount="indefinite"/><animate attributeName="stroke-dashoffset" dur="1.5s" calcMode="spline" values="0;-16;-59;-59" keyTimes="0;0.475;0.95;1" keySplines="0.42,0,0.58,1;0.42,0,0.58,1;0.42,0,0.58,1" repeatCount="indefinite"/></circle><animateTransform attributeName="transform" type="rotate" dur="2s" values="0 12 12;360 12 12" repeatCount="indefinite"/></g></svg>
+                    </div>
                     <div class="spinner-text">_tr(Загрузка)...</div>
                 </div>
             </div>

@@ -264,6 +264,14 @@ var Core2 = {
 				e = document.documentElement || document.body;
 			}
 			return { width : e[ a+'Width' ] , height : e[ a+'Height' ] }
+		},
+
+
+		/**
+		 * Смена темной и светлой темы
+		 */
+		toggleTheme: function() {
+			$('html').toggleClass('dark');
 		}
 	},
 
@@ -1763,26 +1771,6 @@ document.addEventListener("DOMContentLoaded", function (e) {
 		}
     });
 
-    $(".swipe-area").on('swipe', function(event, phase, direction, distance, duration, fingers) {
-		var width = $(window).width();
-		if (phase === "move" && ((width < 768 && direction === "right") || (width >= 768 && direction === "left"))) {
-			$("#main").addClass("s-toggle");
-			if (width >= 768) {
-				$('#menu-wrapper .module-submodules').hide();
-			}
-			localStorage.setItem('sidebar_collapse', 1);
-			return false;
-		}
-		if (phase === "move" && ((width < 768 && direction === "left") || (width >= 768 && direction === "right"))) {
-			$("#main").removeClass("s-toggle");
-			if (width >= 768) {
-				$('#menu-wrapper .module-submodules').show();
-			}
-			localStorage.setItem('sidebar_collapse', '');
-			return false;
-		}
-    });
-
 	xajax.callback.global.onRequest = function (a) {
 
 		if (a.hasOwnProperty('parameters') &&
@@ -1942,12 +1930,38 @@ document.addEventListener("DOMContentLoaded", function (e) {
 				for (const nod of mutation.addedNodes) {
 					if (nod instanceof Element) {
 						const elems = nod.querySelectorAll("[data-hotkey]");
+						const iframes = nod.querySelectorAll("iframe");
+
 						for (const elem of elems) {
 							if (elem.getAttribute('listener') !== 'true') {
 								const hotkey = $(elem).data('hotkey')
 								keymaps[hotkey] = elem;
 								elem.setAttribute('listener', 'true');
 							}
+						}
+						for (const ifr of iframes) {
+							if (ifr.id == 'core-iframe') continue;
+							ifr.onload = function() {
+								//если это наш iframe, наблюдаем за его изменениями
+                                const iframeDocument = ifr.contentDocument || ifr.contentWindow.document;
+                                if (iframeDocument) {
+                                    const iframeObserver = new MutationObserver(function (mutations) {
+                                        //console.log('Контент изменился! Количество мутаций:', mutations.length);
+                                        // Пересчитываем высоту
+                                        const height = Math.max(
+                                            iframeDocument.body.scrollHeight,
+                                            iframeDocument.documentElement.scrollHeight
+                                        );
+                                        ifr.style.height = height + 'px';
+                                    });
+                                    iframeObserver.observe(iframeDocument.body, {
+                                        childList: true,
+                                        subtree: true,
+                                        attributes: true,
+                                        characterData: true,
+                                    });
+                                }
+                            }
 						}
 						const urls = nod.querySelectorAll("[data-url]");
 						for (const elem of urls) {
