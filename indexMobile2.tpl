@@ -21,13 +21,14 @@
 
 	<link rel="stylesheet" href="core2/html/material/css/animate.min.css" type="text/css"/>
 	<link rel="stylesheet" href="core2/html/material/css/snarl.min.css" type="text/css"/>
-	<link rel="stylesheet" href="core2/html/material/css/menu.css?_=11" type="text/css"/>
-	<link rel="stylesheet" href="core2/html/material/css/styles.css?_=49" type="text/css"/>
+	<link rel="stylesheet" href="core2/html/material/css/menu.css?_=12" type="text/css"/>
+	<link rel="stylesheet" href="core2/html/material/css/styles.css?_=50" type="text/css"/>
 
 	<link rel="stylesheet" href="core2/html/material/css/select2.bootstrap.css" type="text/css"/>
 	<link rel="stylesheet" href="core2/html/material/css/select2.min.css" type="text/css"/>
 	<!--system_css-->
-	<link rel="stylesheet" href="core2/html/material/css/bootstrap5-compat.css?_1" type="text/css"/>
+	<link rel="stylesheet" href="core2/html/material/css/dark.css?_=2" type="text/css"/>
+	<link rel="stylesheet" href="core2/html/material/css/bootstrap5-compat.css?_=2" type="text/css"/>
 
 	<script src="core2/js/md5.js"></script>
 	<script src="core2/js/ua-parser.min.js"></script>
@@ -65,7 +66,7 @@
 	<script src="core2/html/material/js/class.list.js?_=8"></script>
 	<script src="core2/html/material/js/class.edit.js?_=29"></script>
 	<script src="core2/js/eTip.js"></script>
-	<script src="core2/html/material/js/main.js?_=24"></script>
+	<script src="core2/html/material/js/main.js?_=25"></script>
     <link rel="icon" type="image/png" href="favicon.png"/>
 	<!--[if lte IE 7]>
 	<style type="text/css">.iefix {display: inline-block;width: 0;overflow: hidden;}</style>

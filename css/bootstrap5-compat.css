@@ -31,8 +31,8 @@
   --bs-primary: #3076de;
   --bs-secondary: #ffffff;
   --bs-success: #198754;
-  --bs-info: #3dd8f8;
-  --bs-warning: #ebb000;
+  --bs-info: #46b8da;
+  --bs-warning: #e5ab00;
   --bs-danger: #dc3545;
   --bs-light: #f8f9fa;
   --bs-dark: #212529;
@@ -129,7 +129,7 @@
   --bs-success-hover: #157347;
   --bs-body-text-align: left;
   --bs-link-text-decoration: none;
-  --bs-info-hover: #31d2f2;
+  --bs-info-hover: #23b0cc;
   --bs-warning-hover: #d09c00;
   --bs-danger-hover: #b02a37;
   --bs-border-color-secondary: #e9ecef;
@@ -385,12 +385,11 @@ a:not([href]):not([class]):hover, a:not([href]):not([class]):focus {
   border-color: var(--bs-success-hover);
 }
 .btn-info {
-  color: #212529;
+  color: #fff;
   background-color: var(--bs-info);
   border-color: var(--bs-info);
 }
 .btn-info:hover, .btn-info:focus {
-  color: #212529;
   background-color: var(--bs-info-hover);
   border-color: var(--bs-info-hover);
 }
@@ -402,12 +401,11 @@ a:not([href]):not([class]):hover, a:not([href]):not([class]):focus {
   border-color: var(--bs-info-hover);
 }
 .btn-warning {
-  color: #212529;
+  color: #fff;
   background-color: var(--bs-warning);
   border-color: var(--bs-warning);
 }
 .btn-warning:hover, .btn-warning:focus {
-  color: #212529;
   background-color: var(--bs-warning-hover);
   border-color: var(--bs-warning-hover);
 }
@@ -1374,9 +1372,7 @@ textarea:disabled {
 .tab-content > .active, .pill-content > .active { display: block; }
 /* ===== Горизонтальные табы: underline-стили ===== */
 .core-tabs[class$="-tabs-top"] > .core-tabs-body > .core-tabs-tabs,
-.core-tabs[class$="-tabs-bottom"] > .core-tabs-body > .core-tabs-tabs,
-.core-panel[class$="-tabs-top"] > .core-panel-body > .core-panel-tabs,
-.core-panel[class$="-tabs-bottom"] > .core-panel-body > .core-panel-tabs {
+.core-tabs[class$="-tabs-bottom"] > .core-tabs-body > .core-tabs-tabs {
   display: flex;
   flex-wrap: wrap;
   padding-left: 0;
@@ -1385,24 +1381,19 @@ textarea:disabled {
   border-bottom: 1px solid var(--bs-border-color-secondary);
   margin-bottom: 30px;
 }
-.core-tabs[class$="-tabs-bottom"] > .core-tabs-body > .core-tabs-tabs,
-.core-panel[class$="-tabs-bottom"] > .core-panel-body > .core-panel-tabs {
+.core-tabs[class$="-tabs-bottom"] > .core-tabs-body > .core-tabs-tabs {
   border-top: 1px solid var(--bs-border-color-secondary);
   border-bottom: 0;
 }
 .core-tabs[class$="-tabs-top"] > .core-tabs-body > .core-tabs-tabs > li,
-.core-tabs[class$="-tabs-bottom"] > .core-tabs-body > .core-tabs-tabs > li,
-.core-panel[class$="-tabs-top"] > .core-panel-body > .core-panel-tabs > li,
-.core-panel[class$="-tabs-bottom"] > .core-panel-body > .core-panel-tabs > li {
+.core-tabs[class$="-tabs-bottom"] > .core-tabs-body > .core-tabs-tabs > li {
   position: relative;
   margin-top: 0;
   margin-bottom: 0;
   margin-right: 0;
 }
 .core-tabs[class$="-tabs-top"] > .core-tabs-body > .core-tabs-tabs > li > a,
-.core-tabs[class$="-tabs-bottom"] > .core-tabs-body > .core-tabs-tabs > li > a,
-.core-panel[class$="-tabs-top"] > .core-panel-body > .core-panel-tabs > li > a,
-.core-panel[class$="-tabs-bottom"] > .core-panel-body > .core-panel-tabs > li > a {
+.core-tabs[class$="-tabs-bottom"] > .core-tabs-body > .core-tabs-tabs > li > a {
   line-height: 1.5;
   border: 0;
   border-bottom: 2px solid transparent;
@@ -1419,9 +1410,7 @@ textarea:disabled {
   font-weight: 500;
 }
 .core-tabs[class$="-tabs-top"] > .core-tabs-body > .core-tabs-tabs > li > a:hover,
-.core-tabs[class$="-tabs-bottom"] > .core-tabs-body > .core-tabs-tabs > li > a:hover,
-.core-panel[class$="-tabs-top"] > .core-panel-body > .core-panel-tabs > li > a:hover,
-.core-panel[class$="-tabs-bottom"] > .core-panel-body > .core-panel-tabs > li > a:hover {
+.core-tabs[class$="-tabs-bottom"] > .core-tabs-body > .core-tabs-tabs > li > a:hover {
   background-color: rgba(0, 0, 0, 0.04);
   border-bottom-color: var(--bs-secondary);
   color: var(--bs-primary-hover);
@@ -1429,11 +1418,7 @@ textarea:disabled {
 .core-tabs[class$="-tabs-top"] > .core-tabs-body > .core-tabs-tabs > .active > a,
 .core-tabs[class$="-tabs-top"] > .core-tabs-body > .core-tabs-tabs > li.active > a,
 .core-tabs[class$="-tabs-bottom"] > .core-tabs-body > .core-tabs-tabs > .active > a,
-.core-tabs[class$="-tabs-bottom"] > .core-tabs-body > .core-tabs-tabs > li.active > a,
-.core-panel[class$="-tabs-top"] > .core-panel-body > .core-panel-tabs > .active > a,
-.core-panel[class$="-tabs-top"] > .core-panel-body > .core-panel-tabs > li.active > a,
-.core-panel[class$="-tabs-bottom"] > .core-panel-body > .core-panel-tabs > .active > a,
-.core-panel[class$="-tabs-bottom"] > .core-panel-body > .core-panel-tabs > li.active > a {
+.core-tabs[class$="-tabs-bottom"] > .core-tabs-body > .core-tabs-tabs > li.active > a {
   color: var(--bs-primary);
   background-color: transparent;
   border: 0;
@@ -1441,24 +1426,19 @@ textarea:disabled {
   font-weight: 600;
 }
 .core-tabs[class$="-tabs-bottom"] > .core-tabs-body > .core-tabs-tabs > .active > a,
-.core-tabs[class$="-tabs-bottom"] > .core-tabs-body > .core-tabs-tabs > li.active > a,
-.core-panel[class$="-tabs-bottom"] > .core-panel-body > .core-panel-tabs > .active > a,
-.core-panel[class$="-tabs-bottom"] > .core-panel-body > .core-panel-tabs > li.active > a {
+.core-tabs[class$="-tabs-bottom"] > .core-tabs-body > .core-tabs-tabs > li.active > a {
   border-top: 2px solid var(--bs-primary);
   border-bottom: 0;
 }
 .core-tabs[class$="-tabs-top"] > .core-tabs-body > .core-tabs-tabs li.disabled > a,
-.core-tabs[class$="-tabs-bottom"] > .core-tabs-body > .core-tabs-tabs li.disabled > a,
-.core-panel[class$="-tabs-top"] > .core-panel-body > .core-panel-tabs li.disabled > a,
-.core-panel[class$="-tabs-bottom"] > .core-panel-body > .core-panel-tabs li.disabled > a {
+.core-tabs[class$="-tabs-bottom"] > .core-tabs-body > .core-tabs-tabs li.disabled > a {
   color: #6c757d;
   cursor: not-allowed;
   background-color: transparent;
   border-bottom-color: transparent;
 }
 .core-tabs[class$="-tabs-top"] > .core-tabs-body > .core-tabs-tabs > li.tabs-divider,
-.core-tabs[class$="-tabs-bottom"] > .core-tabs-body > .core-tabs-tabs > li.tabs-divider,
-.core-panel[class$="-tabs-top"] > .core-panel-body > .core-panel-tabs > li.panel-divider {
+.core-tabs[class$="-tabs-bottom"] > .core-tabs-body > .core-tabs-tabs > li.tabs-divider {
   display: block;
   width: 1px;
   height: 24px;

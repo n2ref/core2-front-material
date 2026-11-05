@@ -39,7 +39,10 @@ html.dark .core-panel > .core-panel-heading { border-bottom-color: #444; }
 html.dark .core-panel > .core-panel-heading > .core-panel-subtitle { color: #aaa; }
 html.dark .core-panel > .core-panel-body > .core-panel-tabs { border-bottom-color: #444; }
 html.dark .core-panel > .core-panel-body > .core-panel-tabs > li > a:hover, html.dark .core-panel > .core-panel-body > .core-panel-tabs > li > a:focus { background-color: #3a3a3a; }
-html.dark .core-panel > .core-panel-body > .core-panel-tabs > .active > a, html.dark .core-panel > .core-panel-body > .core-panel-tabs > .active > a:hover, html.dark .core-panel > .core-panel-body > .core-panel-tabs > .active > a:focus { background-color: #2d2d2d; border-color: #444; color: #e0e0e0; }
+html.dark .core-panel > .core-panel-body > .core-panel-tabs > .active > a, html.dark .core-panel > .core-panel-body > .core-panel-tabs > .active > a:hover, html.dark .core-panel > .core-panel-body > .core-panel-tabs > .active > a:focus, html.dark .core-panel > .core-panel-body > .core-panel-tabs > li.active > a, html.dark .core-panel > .core-panel-body > .core-panel-tabs > li.active > a:hover, html.dark .core-panel > .core-panel-body > .core-panel-tabs > li.active > a:focus { background-color: #2d2d2d; border-color: #444; border-bottom-color: transparent; color: #e0e0e0; }
+html.dark .core-panel.core-panel-tabs-bottom > .core-panel-body > .core-panel-tabs > li.active > a, html.dark .core-panel.core-panel-tabs-bottom > .core-panel-body > .core-panel-tabs > li.active > a:hover, html.dark .core-panel.core-panel-tabs-bottom > .core-panel-body > .core-panel-tabs > li.active > a:focus { border-color: #2d2d2d #444 #444 #444; border-top-color: transparent; }
+html.dark .core-panel.core-panel-tabs-left > .core-panel-body > .core-panel-tabs > li.active > a, html.dark .core-panel.core-panel-tabs-left > .core-panel-body > .core-panel-tabs > li.active > a:hover, html.dark .core-panel.core-panel-tabs-left > .core-panel-body > .core-panel-tabs > li.active > a:focus { border-color: #444 #2d2d2d #444 #444; border-right-color: transparent; }
+html.dark .core-panel.core-panel-tabs-right > .core-panel-body > .core-panel-tabs > li.active > a, html.dark .core-panel.core-panel-tabs-right > .core-panel-body > .core-panel-tabs > li.active > a:hover, html.dark .core-panel.core-panel-tabs-right > .core-panel-body > .core-panel-tabs > li.active > a:focus { border-color: #444 #444 #444 #2d2d2d; border-left-color: transparent; }
 html.dark .core-panel > .core-panel-body > .core-panel-tabs li.disabled > a { color: #666; }
 html.dark .containerTable { background-color: #2d2d2d; }
 html.dark .tabsTable .tabInactiveTD { border-bottom-color: #444; }
@@ -608,3 +611,36 @@ html.dark .coreui-table .form-check-input:checked { background-color: #2196F3; b
 /* Иконки сортировки */
 html.dark .coreui-table .bi.bi-sort-down,
 html.dark .coreui-table .bi.bi-sort-down-alt { filter: invert(1); }
+
+/* ===== Группы записей таблицы ===== */
+html.dark table.coreui-table .coreui-table-row-group,
+html.dark .coreui-table .coreui-table-row-group { background-color: #3a3a3a; color: #e0e0e0; }
+html.dark table.coreui-table .coreui-table-row-group > td,
+html.dark table.coreui-table > tbody > tr.coreui-table-row-group > td,
+html.dark .coreui-table .coreui-table-row-group > td { background-color: #3a3a3a; color: #e0e0e0; border-color: #444; }
+html.dark table.coreui-table .coreui-table-row-group > th,
+html.dark .coreui-table .coreui-table-row-group > th { background-color: #3a3a3a; color: #e0e0e0; }
+html.dark table.coreui-table .coreui-table-row-group .table-group-collapsed button,
+html.dark .coreui-table .coreui-table-row-group .table-group-collapsed button { color: #e0e0e0; }
+
+/* ===== Мобильный вид: боковые табы, превращенные в pills ===== */
+html.dark body.coreui-mobile .core-panel.core-panel-tabs-left > .core-panel-body > .core-panel-tabs > li > a,
+html.dark body.coreui-mobile .core-panel.core-panel-tabs-right > .core-panel-body > .core-panel-tabs > li > a,
+html.dark body.coreui-mobile .core-panel.core-panel-pills-left > .core-panel-body > .core-panel-tabs > li > a,
+html.dark body.coreui-mobile .core-panel.core-panel-pills-right > .core-panel-body > .core-panel-tabs > li > a { color: #c0c0c0; background-color: #2d2d2d; border-color: #555; }
+html.dark body.coreui-mobile .core-panel.core-panel-tabs-left > .core-panel-body > .core-panel-tabs > li > a:hover,
+html.dark body.coreui-mobile .core-panel.core-panel-tabs-right > .core-panel-body > .core-panel-tabs > li > a:hover,
+html.dark body.coreui-mobile .core-panel.core-panel-pills-left > .core-panel-body > .core-panel-tabs > li > a:hover,
+html.dark body.coreui-mobile .core-panel.core-panel-pills-right > .core-panel-body > .core-panel-tabs > li > a:hover { color: #fff; background-color: #3a3a3a; border-color: #555; }
+html.dark body.coreui-mobile .core-panel.core-panel-tabs-left > .core-panel-body > .core-panel-tabs > li.active > a,
+html.dark body.coreui-mobile .core-panel.core-panel-tabs-right > .core-panel-body > .core-panel-tabs > li.active > a,
+html.dark body.coreui-mobile .core-panel.core-panel-pills-left > .core-panel-body > .core-panel-tabs > li.active > a,
+html.dark body.coreui-mobile .core-panel.core-panel-pills-right > .core-panel-body > .core-panel-tabs > li.active > a { color: #fff; background-color: #296288; border-color: #296288; }
+html.dark body.coreui-mobile .core-panel.core-panel-tabs-left > .core-panel-body > .core-panel-tabs > li.active > a:hover,
+html.dark body.coreui-mobile .core-panel.core-panel-tabs-right > .core-panel-body > .core-panel-tabs > li.active > a:hover,
+html.dark body.coreui-mobile .core-panel.core-panel-pills-left > .core-panel-body > .core-panel-tabs > li.active > a:hover,
+html.dark body.coreui-mobile .core-panel.core-panel-pills-right > .core-panel-body > .core-panel-tabs > li.active > a:hover { color: #fff; background-color: #1a4566; border-color: #1a4566; }
+html.dark body.coreui-mobile .core-panel.core-panel-tabs-left > .core-panel-body > .core-panel-tabs li.disabled > a,
+html.dark body.coreui-mobile .core-panel.core-panel-tabs-right > .core-panel-body > .core-panel-tabs li.disabled > a,
+html.dark body.coreui-mobile .core-panel.core-panel-pills-left > .core-panel-body > .core-panel-tabs li.disabled > a,
+html.dark body.coreui-mobile .core-panel.core-panel-pills-right > .core-panel-body > .core-panel-tabs li.disabled > a { color: #666 !important; background-color: #252525; border-color: #444; }
