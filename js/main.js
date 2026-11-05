@@ -268,10 +268,34 @@ var Core2 = {
 
 
 		/**
+		 * Применение сохраненной темы при загрузке страницы
+		 */
+		initTheme: function() {
+			let theme = null;
+
+			try {
+				theme = localStorage.getItem('core2_theme');
+			} catch (e) {
+				theme = null;
+			}
+
+			$('html').toggleClass('dark', theme === 'dark');
+		},
+
+
+		/**
 		 * Смена темной и светлой темы
+		 * @returns {string} примененная тема
 		 */
 		toggleTheme: function() {
-			$('html').toggleClass('dark');
+			let isDark = $('html').toggleClass('dark').hasClass('dark');
+			let theme  = isDark ? 'dark' : 'light';
+
+			try {
+				localStorage.setItem('core2_theme', theme);
+			} catch (e) {}
+
+			return theme;
 		}
 	},
 
@@ -1672,6 +1696,7 @@ window.addEventListener('error', Core2.errors._onErrorEvent, true);
 document.addEventListener("DOMContentLoaded", function (e) {
     Core2.menu.setAngles();
 	Core2.menu.setIconLetter();
+	Core2.menu.initTheme();
 
 	$('#menu-search').on('input', function() {
 		Core2.menu.filter();

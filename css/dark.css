@@ -238,8 +238,7 @@ html.dark .core-panel.core-panel-tabs-left > .core-panel-body > .core-panel-tabs
 html.dark .ctrl-dpr-container, html.dark .ctrl-dtp-container, html.dark .ctrl-tpr-container, html.dark .ctrl-tp-container, html.dark .ctrl-dp-container { background-color: #2d2d2d; }
 html.dark .ctrl-dpr input[type=number], html.dark .ctrl-dtp input[type=number], html.dark .ctrl-tpr input[type=number], html.dark .ctrl-tp input[type=number], html.dark .ctrl-dp input[type=number] { background-color: #2d2d2d; border-color: #555; color: #e0e0e0; }
 html.dark #main_body > .core-panel:last-child, html.dark .modal-body > .core-panel:last-child, html.dark .core-panel-body > .core-panel:last-child { margin-bottom: 0; }
-html.dark .core-panel.core-panel-default > .core-panel-heading { background-color: #252525; color: #e0e0e0; }
-html.dark .core-panel.core-panel-default > .core-panel-body { background-color: #2d2d2d; }
+html.dark .core-panel.core-panel-default > .core-panel-heading { background-color: #313131; color: #e0e0e0; }
 html.dark .core-panel.core-panel-none .core-panel-heading { color: #e0e0e0; }
 html.dark .core-panel.core-panel-none { background-color: transparent; }
 html.dark .ctrl-dpr-clear, html.dark .ctrl-dpr-trigger, html.dark .ctrl-dtp-clear, html.dark .ctrl-dtp-trigger, html.dark .ctrl-tpr-clear, html.dark .ctrl-tpr-trigger, html.dark .ctrl-tp-clear, html.dark .ctrl-tp-trigger, html.dark .ctrl-dp-clear, html.dark .ctrl-dp-trigger { background-color: #3a3a3a; border-color: #555; color: #e0e0e0; }
@@ -298,7 +297,7 @@ html.dark .coreui-table-wrapper .filter-controls .filter-control .input-group > 
 html.dark .coreui-table-wrapper .coreui-table-responsive { border-color: #444; }
 html.dark table.coreui-table { color: #e0e0e0; }
 html.dark table.coreui-table > thead { background-color: #252525; }
-html.dark table.coreui-table > tfoot, html.dark table.coreui-table > thead > .table-control-panel, html.dark table.coreui-table > thead > .search-container, html.dark table.coreui-table > .table-header, html.dark table.coreui-table > .column-switcher-container, html.dark table.coreui-table > .templates-container, html.dark table.coreui-table > .table-service-panel { background-color: #2d2d2d; }
+html.dark table.coreui-table > tfoot, html.dark table.coreui-table > thead > .table-control-panel, html.dark table.coreui-table > thead > .search-container, html.dark table.coreui-table > thead > .table-header, html.dark table.coreui-table > thead > .column-switcher-container, html.dark table.coreui-table > thead > .templates-container, html.dark table.coreui-table > thead > .table-service-panel { background-color: #252525; }
 html.dark table.coreui-table > thead > .table-header { color: #e0e0e0; }
 html.dark table.coreui-table > tbody > tr.row-table:nth-child(2n) { background-color: #252525; }
 html.dark table.coreui-table > tbody > tr.row-table:not(.coreui-table-row-group):hover > td, html.dark table.coreui-table > tbody > tr.row-table:not(.coreui-table-row-group):hover > th { background-color: #3a3a3a; }
@@ -307,3 +306,305 @@ html.dark table.coreui-table > thead > tr > th { border-bottom-color: #555; }
 html.dark table.coreui-table > tbody > tr.row-expand > td { background-color: #2d2d2d; }
 html.dark table.coreui-table .table-controls .table-control .icon-template { filter: invert(1); }
 html.dark table.coreui-table .templates-container .coreui-table-template-items .coreui-table-template-item .coreui-table-template-item-select, html.dark table.coreui-table .templates-container .coreui-table-template-items .coreui-table-template-item .coreui-table-template-item-remove { background-color: #3a3a3a; }
+
+/* Кнопки .btn-default */
+html.dark .btn-default, html.dark .btn-secondary { background-color: #3a3a3a; border-color: #555; color: #e0e0e0; }
+html.dark .btn-default:active, html.dark .btn-default:hover, html.dark .btn-default:focus, html.dark .btn-secondary:active, html.dark .btn-secondary:hover, html.dark .btn-secondary:focus { background-color: #4a4a4a; border-color: #666; color: #fff; }
+html.dark .btn-default:focus, html.dark .btn-secondary:focus { box-shadow: 0 0 0 .25rem rgba(102,175,233,.25); }
+html.dark .btn-default:disabled, html.dark .btn-default.disabled, html.dark .btn-secondary:disabled, html.dark .btn-secondary.disabled { background-color: #2a2a2a; border-color: #444; color: #888; }
+
+/* Уведомления .alert */
+html.dark .alert { background-color: #2d2d2d; border-color: #555; color: #e0e0e0; }
+html.dark .alert-info { background-color: #1c3a4a; border-color: #2b5a72; color: #9fd0e8; }
+html.dark .alert-success { background-color: #1e3a1e; border-color: #2e5a2e; color: #a0e0a0; }
+html.dark .alert-warning { background-color: #3a2f14; border-color: #6b5320; color: #ffd97a; }
+html.dark .alert-danger { background-color: #3a1c1c; border-color: #7a2e2e; color: #ff9a9a; }
+html.dark .alert > h1, html.dark .alert > h2, html.dark .alert > h3, html.dark .alert > h4, html.dark .alert > h5, html.dark .alert > h6 { color: inherit; }
+html.dark .alert .close { color: inherit; text-shadow: none; opacity: .7; }
+html.dark .alert .close:hover { opacity: 1; }
+
+/* Верхняя панель #user-section */
+html.dark #main-content > .navbar-default, html.dark #navbar-top { background-color: #252525; border-color: #444; }
+html.dark #user-section { color: #e0e0e0; }
+html.dark #user-section .nav-item a, html.dark #user-section .dropdown-toggle { color: #e0e0e0; }
+html.dark #user-section .nav-item a:hover, html.dark #user-section .dropdown-toggle:hover, html.dark #user-section .nav-item a:focus, html.dark #user-section .dropdown-toggle:focus { background-color: #3a3a3a; color: #fff; }
+html.dark #user-section .dropdown-user-login { color: #e0e0e0; }
+html.dark #user-section .active > a, html.dark #user-section .active .dropdown-menu > li.active > a { background-color: #3a3a3a; color: #e0e0e0; }
+html.dark #user-section .dropdown-menu > li > a { color: #e0e0e0; }
+html.dark #user-section .dropdown-menu > li > a:hover, html.dark #user-section .dropdown-menu > li > a:focus { background-color: #3a3a3a; color: #fff; }
+html.dark .navbar-header .module-title, html.dark .navbar-header .module-action, html.dark #sidebar-toggle { background-color: #252525; color: #e0e0e0; }
+
+/* Панель для кнопок над таблицей .table-service-panel */
+html.dark .table-service-panel { background-color: #252525; color: #e0e0e0; border-color: #444; }
+html.dark .table-service-panel td, html.dark .table-service-panel .total, html.dark .table-service-panel .custom-buttons { color: #e0e0e0; }
+
+/* Названия колонок в таблице .table-header */
+html.dark .table-header { background-color: #252525; color: #e0e0e0; }
+html.dark .table-header > th, html.dark .table-header > td { color: #e0e0e0; border-color: #444; }
+html.dark table.coreui-table > thead > tr > th { border-bottom-color: #555; }
+
+/* Фильтры над таблицей .input-group .form-control.input-sm */
+html.dark .form-control { background-color: #2d2d2d; border-color: #555; color: #e0e0e0; }
+html.dark .input-group .form-control.input-sm, html.dark .input-group > .form-control, html.dark .input-group > .input-sm { background-color: #2d2d2d; border-color: #555; color: #e0e0e0; }
+html.dark .form-control:focus, html.dark .input-group .form-control.input-sm:focus { background-color: #2d2d2d; border-color: #66afe9; color: #fff; box-shadow: 0 0 0 .2rem rgba(102,175,233,.25); outline: 0; }
+html.dark .form-control::placeholder, html.dark .input-group .form-control.input-sm::placeholder { color: #888; opacity: 1; }
+html.dark .form-control:disabled, html.dark .form-control[readonly] { background-color: #3a3a3a; border-color: #444; color: #888; }
+html.dark .input-group > .input-group-addon, html.dark .input-group > .add-on { background-color: #3a3a3a; border-color: #555; color: #e0e0e0; }
+
+/* Кнопки .button */
+html.dark .button, html.dark .buttonSmall, html.dark .auditButton { background-color: #3a3a3a; border-color: #555; color: #e0e0e0; }
+html.dark .button:active, html.dark .button:hover, html.dark .button:focus, html.dark .buttonSmall:active, html.dark .buttonSmall:hover, html.dark .buttonSmall:focus, html.dark .auditButton:active, html.dark .auditButton:hover, html.dark .auditButton:focus { background-color: #4a4a4a; border-color: #666; color: #fff; }
+html.dark .button:focus { box-shadow: 0 0 0 .25rem rgba(102,175,233,.25); }
+html.dark .button:disabled, html.dark .button.disabled { background-color: #2a2a2a; border-color: #444; color: #888; }
+
+/* Активные строки таблицы .table>thead>tr.active>th */
+html.dark .table > thead > tr.active > th, html.dark .table > thead > tr.active > td, html.dark .table > thead > tr > th.active, html.dark .table > thead > tr > td.active, html.dark .table > tbody > tr.active > th, html.dark .table > tbody > tr.active > td, html.dark .table > tbody > tr > th.active, html.dark .table > tbody > tr > td.active, html.dark .table > tfoot > tr.active > th, html.dark .table > tfoot > tr.active > td, html.dark .table > tfoot > tr > th.active, html.dark .table > tfoot > tr > td.active { background-color: #3a3a3a; color: #e0e0e0; }
+html.dark .table-hover > tbody > tr.active:hover > th, html.dark .table-hover > tbody > tr.active:hover > td, html.dark .table-hover > tbody > tr:hover > .active { background-color: #444; }
+
+/* .btn-default.active, .btn-default:active, .open>.dropdown-toggle.btn-default */
+html.dark .btn-default.active, html.dark .btn-default:active, html.dark .open > .dropdown-toggle.btn-default { background-color: #4a4a4a; border-color: #666; color: #fff; }
+html.dark .btn-default.active.focus, html.dark .btn-default.active:focus, html.dark .btn-default.active:hover, html.dark .btn-default:active.focus, html.dark .btn-default:active:focus, html.dark .btn-default:active:hover, html.dark .open > .dropdown-toggle.btn-default.focus, html.dark .open > .dropdown-toggle.btn-default:focus, html.dark .open > .dropdown-toggle.btn-default:hover { background-color: #555; border-color: #777; color: #fff; }
+
+/* .nav>li>a:focus, .nav>li>a:hover */
+html.dark .nav > li > a:focus, html.dark .nav > li > a:hover { background-color: #3a3a3a; color: #fff; }
+html.dark .nav > li.disabled > a { color: #666; }
+
+/* Модальные окна .modal-content, .modal-header */
+html.dark .modal-content { background-color: #2d2d2d; border-color: #555; color: #e0e0e0; box-shadow: 0 5px 15px rgba(0,0,0,.6); }
+html.dark .modal-header { background-color: #252525; border-bottom-color: #444; color: #e0e0e0; }
+html.dark .modal-title { color: #e0e0e0; }
+html.dark .modal-header .close { color: #e0e0e0; text-shadow: none; opacity: .7; }
+html.dark .modal-header .close:hover, html.dark .modal-header .close:focus { color: #fff; opacity: 1; }
+html.dark .modal-body { background-color: #2d2d2d; color: #e0e0e0; }
+html.dark .modal-footer { background-color: #2d2d2d; border-top-color: #444; color: #e0e0e0; }
+html.dark .modal-backdrop.in { opacity: .7; }
+
+/* Чекбоксы в строках таблицы .checked-row input */
+html.dark .checked-row input[type="checkbox"], html.dark table.coreui-table > tbody > tr > td .checked-row input[type="checkbox"] { color-scheme: dark; accent-color: #2196F3; }
+
+/* Переход к странице table.coreui-table input.gotopage */
+html.dark table.coreui-table input.gotopage { background-color: #2d2d2d; border-color: #555; color: #e0e0e0; }
+html.dark table.coreui-table input.gotopage:focus { border-color: #66afe9; outline: 0; }
+
+/* Записей на странице table.coreui-table select.records-per-page */
+html.dark table.coreui-table select.records-per-page { background-color: #2d2d2d; border-color: #555; color: #e0e0e0; }
+html.dark table.coreui-table select.records-per-page:focus { border-color: #66afe9; outline: 0; }
+
+/* Разделитель hr */
+html.dark hr { border: 0; border-top: 1px solid #444; color: #444; background-color: transparent; }
+
+/* Чекбоксы input[type="checkbox"] */
+html.dark input[type="checkbox"] { color-scheme: dark; accent-color: #2196F3; }
+
+/* Табы .core-tabs-tabs */
+html.dark .core-tabs { background-color: transparent; border-color: #444; color: #e0e0e0; }
+html.dark .core-tabs.core-tabs-default { border-color: #444; }
+html.dark .core-tabs > .core-tabs-heading { color: #e0e0e0; border-bottom-color: #444; }
+html.dark .core-tabs > .core-tabs-heading > .core-tabs-subtitle { color: #aaa; }
+html.dark .core-tabs > .core-tabs-body > .core-tabs-tabs { border-color: #444; }
+html.dark .core-tabs > .core-tabs-body > .core-tabs-tabs > li > a { color: #b0b0b0; border-color: transparent; }
+html.dark .core-tabs > .core-tabs-body > .core-tabs-tabs > li > a:hover,
+html.dark .core-tabs > .core-tabs-body > .core-tabs-tabs > li > a:focus { background-color: #3a3a3a; color: #fff; border-bottom-color: #2196F3; }
+html.dark .core-tabs > .core-tabs-body > .core-tabs-tabs > .active > a,
+html.dark .core-tabs > .core-tabs-body > .core-tabs-tabs > .active > a:hover,
+html.dark .core-tabs > .core-tabs-body > .core-tabs-tabs > .active > a:focus,
+html.dark .core-tabs > .core-tabs-body > .core-tabs-tabs > li.active > a,
+html.dark .core-tabs > .core-tabs-body > .core-tabs-tabs > li.active > a:hover,
+html.dark .core-tabs > .core-tabs-body > .core-tabs-tabs > li.active > a:focus { color: #8bc0ff; background-color: transparent; border-color: transparent transparent #2196F3 transparent; }
+html.dark .core-tabs > .core-tabs-body > .core-tabs-tabs li.disabled > a { color: #666 !important; background-color: transparent; }
+html.dark .core-tabs > .core-tabs-body > .core-tabs-tabs > li.tabs-divider { background-color: #444; border-color: #444; }
+
+/* Табы: позиции bottom / left / right */
+html.dark .core-tabs.core-tabs-tabs-bottom > .core-tabs-body > .core-tabs-tabs { border-top-color: #444; border-bottom-color: transparent; }
+html.dark .core-tabs.core-tabs-tabs-bottom > .core-tabs-body > .core-tabs-tabs > li > a:hover,
+html.dark .core-tabs.core-tabs-tabs-bottom > .core-tabs-body > .core-tabs-tabs > li > a:focus { border-top-color: #2196F3; border-bottom-color: transparent; }
+html.dark .core-tabs.core-tabs-tabs-bottom > .core-tabs-body > .core-tabs-tabs > li.active > a,
+html.dark .core-tabs.core-tabs-tabs-bottom > .core-tabs-body > .core-tabs-tabs > li.active > a:hover,
+html.dark .core-tabs.core-tabs-tabs-bottom > .core-tabs-body > .core-tabs-tabs > li.active > a:focus { border-color: #2196F3 transparent transparent transparent; }
+html.dark .core-tabs.core-tabs-tabs-left > .core-tabs-body > .core-tabs-tabs { border-right-color: #444; }
+html.dark .core-tabs.core-tabs-tabs-left > .core-tabs-body > .core-tabs-content { border-left-color: #444; }
+html.dark .core-tabs.core-tabs-tabs-left > .core-tabs-body > .core-tabs-tabs li.active > a,
+html.dark .core-tabs.core-tabs-tabs-left > .core-tabs-body > .core-tabs-tabs li.active > a:hover,
+html.dark .core-tabs.core-tabs-tabs-left > .core-tabs-body > .core-tabs-tabs li.active > a:focus { border-color: #444 #2d2d2d #444 #444; border-right-color: #2d2d2d; }
+html.dark .core-tabs.core-tabs-tabs-right > .core-tabs-body > .core-tabs-tabs { border-left-color: #444; }
+html.dark .core-tabs.core-tabs-tabs-right > .core-tabs-body > .core-tabs-content { border-right-color: #444; }
+html.dark .core-tabs.core-tabs-tabs-right > .core-tabs-body > .core-tabs-tabs li.active > a,
+html.dark .core-tabs.core-tabs-tabs-right > .core-tabs-body > .core-tabs-tabs li.active > a:hover,
+html.dark .core-tabs.core-tabs-tabs-right > .core-tabs-body > .core-tabs-tabs li.active > a:focus { border-color: #444 #444 #444 #2d2d2d; }
+html.dark .core-tabs.core-tabs-tabs-left > .core-tabs-body > .core-tabs-tabs > li.tabs-divider,
+html.dark .core-tabs.core-tabs-tabs-right > .core-tabs-body > .core-tabs-tabs > li.tabs-divider { border-top-color: #444; background-color: #444; }
+
+/* Табы: pills */
+html.dark .core-tabs.core-tabs-pills-top > .core-tabs-body > .core-tabs-tabs,
+html.dark .core-tabs.core-tabs-pills-bottom > .core-tabs-body > .core-tabs-tabs,
+html.dark .core-tabs.core-tabs-pills-left > .core-tabs-body > .core-tabs-tabs,
+html.dark .core-tabs.core-tabs-pills-right > .core-tabs-body > .core-tabs-tabs { border-color: transparent; }
+html.dark .core-tabs.core-tabs-pills-top > .core-tabs-body > .core-tabs-tabs > li > a,
+html.dark .core-tabs.core-tabs-pills-bottom > .core-tabs-body > .core-tabs-tabs > li > a,
+html.dark .core-tabs.core-tabs-pills-left > .core-tabs-body > .core-tabs-tabs > li > a,
+html.dark .core-tabs.core-tabs-pills-right > .core-tabs-body > .core-tabs-tabs > li > a { color: #b0b0b0; background-color: #2d2d2d; }
+html.dark .core-tabs.core-tabs-pills-top > .core-tabs-body > .core-tabs-tabs > li > a:hover,
+html.dark .core-tabs.core-tabs-pills-bottom > .core-tabs-body > .core-tabs-tabs > li > a:hover,
+html.dark .core-tabs.core-tabs-pills-left > .core-tabs-body > .core-tabs-tabs > li > a:hover,
+html.dark .core-tabs.core-tabs-pills-right > .core-tabs-body > .core-tabs-tabs > li > a:hover { background-color: #3a3a3a; color: #fff; }
+html.dark .core-tabs.core-tabs-pills-top > .core-tabs-body > .core-tabs-tabs > li.active > a,
+html.dark .core-tabs.core-tabs-pills-top > .core-tabs-body > .core-tabs-tabs > li.active > a:hover,
+html.dark .core-tabs.core-tabs-pills-bottom > .core-tabs-body > .core-tabs-tabs > li.active > a,
+html.dark .core-tabs.core-tabs-pills-bottom > .core-tabs-body > .core-tabs-tabs > li.active > a:hover,
+html.dark .core-tabs.core-tabs-pills-left > .core-tabs-body > .core-tabs-tabs > li.active > a,
+html.dark .core-tabs.core-tabs-pills-left > .core-tabs-body > .core-tabs-tabs > li.active > a:hover,
+html.dark .core-tabs.core-tabs-pills-right > .core-tabs-body > .core-tabs-tabs > li.active > a,
+html.dark .core-tabs.core-tabs-pills-right > .core-tabs-body > .core-tabs-tabs > li.active > a:hover { color: #fff; background-color: #296288; border-color: #296288; }
+
+/* Табы: steps */
+html.dark .core-tabs.core-tabs-steps-top > .core-tabs-body > .core-tabs-tabs > li > a { color: #b0b0b0; background: #2d2d2d; border-color: #444; }
+html.dark .core-tabs.core-tabs-steps-top > .core-tabs-body > .core-tabs-tabs > li.active > a { color: #fff; background-color: #296288; border-color: #296288; }
+html.dark .core-tabs.core-tabs-steps-top > .core-tabs-body > .core-tabs-tabs > li:not(.disabled) > a:hover { color: #fff; background-color: #296288; border-color: #296288; }
+html.dark .core-tabs.core-tabs-steps-top > .core-tabs-body > .core-tabs-tabs > li.disabled > a { color: #666 !important; background-color: #252525; }
+
+/* Кнопки .btn, в т.ч. ссылки-кнопки (<a class="btn ...">) */
+html.dark .btn { color: #e0e0e0; }
+html.dark .btn-default, html.dark .btn-secondary { color: #e0e0e0; }
+html.dark .btn-primary, html.dark .btn-success, html.dark .btn-info, html.dark .btn-warning, html.dark .btn-danger { color: #fff; }
+html.dark a.btn:link, html.dark a.btn:visited, html.dark a.btn { color: #e0e0e0; text-decoration: none; }
+html.dark a.btn-default:link, html.dark a.btn-default:visited, html.dark a.btn-secondary:link, html.dark a.btn-secondary:visited { color: #e0e0e0; }
+html.dark a.btn-primary:link, html.dark a.btn-primary:visited, html.dark a.btn-success:link, html.dark a.btn-success:visited, html.dark a.btn-info:link, html.dark a.btn-info:visited, html.dark a.btn-warning:link, html.dark a.btn-warning:visited, html.dark a.btn-danger:link, html.dark a.btn-danger:visited { color: #fff; }
+html.dark a.btn-default:hover, html.dark a.btn-default:focus, html.dark a.btn-secondary:hover, html.dark a.btn-secondary:focus { color: #fff; text-decoration: none; }
+html.dark a.btn-primary:hover, html.dark a.btn-primary:focus, html.dark a.btn-success:hover, html.dark a.btn-success:focus, html.dark a.btn-info:hover, html.dark a.btn-info:focus, html.dark a.btn-warning:hover, html.dark a.btn-warning:focus, html.dark a.btn-danger:hover, html.dark a.btn-danger:focus { color: #fff; text-decoration: none; }
+html.dark .btn[disabled], html.dark .btn.disabled, html.dark a.btn.disabled { color: #888; }
+html.dark .btn-link, html.dark a.btn-link:link, html.dark a.btn-link:visited { color: #8bc0ff; background-color: transparent; border-color: transparent; }
+html.dark .btn-link:hover, html.dark .btn-link:focus, html.dark a.btn-link:hover, html.dark a.btn-link:focus { color: #66afe9; text-decoration: underline; background-color: transparent; }
+
+/* Кнопки в .buttons-area */
+html.dark .buttons-area .button,
+html.dark form .buttons-area .button[type=button] { background-color: #3a3a3a; border-color: #555; color: #e0e0e0; }
+html.dark .buttons-area .button[type=button]:active,
+html.dark .buttons-area .button[type=button]:focus,
+html.dark .buttons-area .button[type=button]:hover { background-color: #4a4a4a; border-color: #666; color: #fff; }
+html.dark .buttons-area .button[type=submit],
+html.dark form .buttons-area .button[type=submit] { background-color: #296288; border-color: #204d74; color: #fff; }
+html.dark .buttons-area .button[type=submit]:active,
+html.dark .buttons-area .button[type=submit]:focus,
+html.dark .buttons-area .button[type=submit]:hover,
+html.dark form .buttons-area .button[type=submit]:active,
+html.dark form .buttons-area .button[type=submit]:focus,
+html.dark form .buttons-area .button[type=submit]:hover { background-color: #1a4566; border-color: #153a52; color: #fff; }
+
+/* Неактивные табы .core-panel-tabs — чуть светлее */
+html.dark .core-panel > .core-panel-body > .core-panel-tabs > li > a { color: #c0c0c0; }
+html.dark .core-panel > .core-panel-body > .core-panel-tabs > li > a:hover,
+html.dark .core-panel > .core-panel-body > .core-panel-tabs > li > a:focus { color: #fff; background-color: #3a3a3a; }
+html.dark .core-panel > .core-panel-body > .core-panel-tabs > li.active > a,
+html.dark .core-panel > .core-panel-body > .core-panel-tabs > li.active > a:hover,
+html.dark .core-panel > .core-panel-body > .core-panel-tabs > li.active > a:focus { color: #fff; }
+html.dark .core-panel > .core-panel-body > .core-panel-tabs li.disabled > a { color: #777 !important; }
+
+/* Переключатели .coreui-table-switch */
+html.dark .coreui-table-switch .coreui-table-switch-slider { background-color: #555; }
+html.dark .coreui-table-switch .coreui-table-switch-slider:before { background-color: #bbb; }
+html.dark .coreui-table-switch input:focus ~ .coreui-table-switch-slider { box-shadow: 0 0 2px #66afe9; }
+html.dark .coreui-table-switch.color-default input.coreui-table-switch-active:checked ~ .coreui-table-switch-slider { background-color: #666; }
+html.dark .coreui-table-switch input.coreui-table-switch-active:checked ~ .coreui-table-switch-slider:before { background-color: #fff; }
+
+/* Табы-шаги .core-panel.core-panel-steps-top */
+html.dark .core-panel.core-panel-steps-top > .core-panel-body > .core-panel-tabs > li > a { color: #b0b0b0; background: #2d2d2d; border-color: #444; }
+html.dark .core-panel.core-panel-steps-top > .core-panel-body > .core-panel-tabs > li.active > a { color: #fff; background-color: #296288; border-color: #296288; }
+html.dark .core-panel.core-panel-steps-top > .core-panel-body > .core-panel-tabs > li:not(.disabled) > a:hover { color: #fff; background-color: #296288; border-color: #296288; }
+html.dark .core-panel.core-panel-steps-top > .core-panel-body > .core-panel-tabs > li.disabled > a { color: #666 !important; background-color: #252525; border-color: #444; }
+html.dark .core-panel.core-panel-steps-top > .core-panel-body > .core-panel-tabs > li:not(:last-child) > a:after { border-left: 10px solid #2d2d2d; }
+html.dark .core-panel.core-panel-steps-top > .core-panel-body > .core-panel-tabs > li:not(:last-child) > a:before { border-left: 10px solid #444; }
+html.dark .core-panel.core-panel-steps-top > .core-panel-body > .core-panel-tabs > li.disabled:not(:last-child) > a:after { border-left: 10px solid #252525; }
+html.dark .core-panel.core-panel-steps-top > .core-panel-body > .core-panel-tabs > li.disabled:not(:last-child) > a:before { border-left: 10px solid #444; }
+html.dark .core-panel.core-panel-steps-top > .core-panel-body > .core-panel-tabs > li.active:not(:last-child) > a:after,
+html.dark .core-panel.core-panel-steps-top > .core-panel-body > .core-panel-tabs > li:not(.disabled):not(:last-child) > a:hover:after { border-left-color: #296288; }
+
+/* ===== Таблица модуля .coreui-table ===== */
+html.dark .coreui-table {
+    color-scheme: dark;
+    color: #e0e0e0;
+
+    /* Переменные Bootstrap 5 (scoped-таблица) */
+    --bs-body-color: #e0e0e0;
+    --bs-body-color-rgb: 224, 224, 224;
+    --bs-body-bg: #2d2d2d;
+    --bs-body-bg-rgb: 45, 45, 45;
+    --bs-emphasis-color: #fff;
+    --bs-emphasis-color-rgb: 255, 255, 255;
+    --bs-secondary-color: #b0b0b0;
+    --bs-secondary-color-rgb: 176, 176, 176;
+    --bs-secondary-bg: #3a3a3a;
+    --bs-tertiary-color: #888;
+    --bs-tertiary-bg: #252525;
+    --bs-border-color: #555;
+    --bs-border-color-translucent: rgba(255, 255, 255, .15);
+    --bs-heading-color: #e0e0e0;
+    --bs-link-color: #8bc0ff;
+    --bs-link-hover-color: #66afe9;
+    --bs-form-check-bg: #2d2d2d;
+    --bs-form-switch-bg: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='rgba%28255,255,255,0.5%29'/%3e%3c/svg%3e");
+    --bs-table-color: #e0e0e0;
+    --bs-table-bg: #2d2d2d;
+    --bs-table-border-color: #444;
+    --bs-table-striped-color: #e0e0e0;
+    --bs-table-striped-bg: #252525;
+    --bs-table-active-color: #e0e0e0;
+    --bs-table-active-bg: #444;
+    --bs-table-hover-color: #e0e0e0;
+    --bs-table-hover-bg: #3a3a3a;
+
+    /* Переменные модуля coreui-table */
+    --coreui-table-thead-bg: #252525;
+    --coreui-table-tbody-bg: #2d2d2d;
+    --coreui-table-tfoot-bg: #252525;
+    --coreui-table-border-color: #444;
+    --coreui-compact-table-border-color: #444;
+}
+
+/* Контейнер, шапка, поиск */
+html.dark .coreui-table .coreui-table__container,
+html.dark .coreui-table > .coreui-table__container { background-color: #2d2d2d; border-color: #444 !important; }
+html.dark .coreui-table > .coreui-table__container > .coreui-table__header { background-color: #252525; border-color: #444; }
+html.dark .coreui-table .coreui-table__search,
+html.dark .coreui-table .coreui-table__columns { background-color: #252525; border-bottom-color: #444; }
+html.dark .coreui-table .coreui-table__container .coreui-table__wrapper table > thead > tr > td { color: #b0b0b0; }
+html.dark .coreui-table .coreui-table__container .coreui-table__wrapper table > thead > tr:first-child,
+html.dark .coreui-table .coreui-table__container .coreui-table__wrapper table > thead > tr:first-child > td { background-color: #252525; }
+html.dark .coreui-table > .coreui-table__container > .coreui-table__wrapper > table > tfoot > tr > td { background-color: #252525; }
+html.dark .coreui-table > .coreui-table__container > .coreui-table__wrapper > table > tfoot > tr > td::after { box-shadow: -1px 0 0 0 #444; }
+html.dark .coreui-table > .coreui-table__container > .coreui-table__wrapper.table-scroll-shadow > table { box-shadow: inset -15px 0 15px 0 #2d2d2d, inset 15px 0 15px 0 #2d2d2d; }
+
+/* Строки таблицы */
+html.dark .coreui-table tr.table-primary > td { background-color: #1c3a4a; color: #e0e0e0; }
+html.dark .coreui-table .table-striped > tbody > tr:nth-of-type(odd) { background-color: #252525; }
+html.dark .coreui-table .table-hover > tbody > tr:hover { background-color: #3a3a3a; }
+
+/* Утилитарные классы (заданы через !important в модуле) */
+html.dark .coreui-table .border { border-color: #444 !important; }
+html.dark .coreui-table .border-secondary-subtle { border-color: #444 !important; }
+html.dark .coreui-table .border-top { border-top-color: #444 !important; }
+html.dark .coreui-table .border-bottom { border-bottom-color: #444 !important; }
+html.dark .coreui-table .bg-secondary-subtle { background-color: #2d2d2d !important; }
+html.dark .coreui-table .bg-body-secondary { background-color: #252525 !important; }
+html.dark .coreui-table .text-secondary { color: #b0b0b0 !important; }
+html.dark .coreui-table .text-black-50 { color: rgba(255, 255, 255, .5) !important; }
+
+/* Обрезка длинного текста в ячейке */
+html.dark .coreui-table > .coreui-table__container > .coreui-table__wrapper > table > tbody > tr > td.coreui_table__no-wrap > div + i.toggle { color: #888; }
+html.dark .coreui-table > .coreui-table__container > .coreui-table__wrapper > table > tbody > tr > td.coreui_table__no-wrap > div + i.toggle:hover { color: #ddd; }
+
+/* Пагинация */
+html.dark .coreui-table .pagination .page-link { color: #8bc0ff; background-color: #2d2d2d; border-color: #444; }
+html.dark .coreui-table .pagination .page-link:hover { color: #fff; background-color: #3a3a3a; border-color: #555; }
+html.dark .coreui-table .page-item.active span { color: #fff; background-color: #296288; border-color: #296288; }
+html.dark .coreui-table .page-item.disabled .page-link { color: #666; background-color: #252525; border-color: #444; }
+
+/* Переключатели и чекбоксы внутри таблицы */
+html.dark .coreui-table .slider { background-color: #555; }
+html.dark .coreui-table .slider:before { background-color: #fff; }
+html.dark .coreui-table .checked + .slider { background-color: #2196F3; }
+html.dark .coreui-table .form-check-input { background-color: #3a3a3a; border-color: #555; }
+html.dark .coreui-table .form-check-input:checked { background-color: #2196F3; border-color: #2196F3; }
+
+/* Иконки сортировки */
+html.dark .coreui-table .bi.bi-sort-down,
+html.dark .coreui-table .bi.bi-sort-down-alt { filter: invert(1); }
