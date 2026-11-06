@@ -8,7 +8,7 @@
 
     <link rel="icon" type="image/png" href="favicon.png"/>
     <link rel="shortcut icon" type="image/x-icon" href="favicon.ico"/>
-    <link rel="stylesheet" href="core2/html/material/theme.min.css?_=5ab6gmq88hc6" type="text/css"/>
+    <link rel="stylesheet" href="core2/html/material/theme.min.css?_=4z77sbqlbml3" type="text/css"/>
 	<!--system_css-->
 
 	<script src="core2/html/material/theme.min.js?_=66rzyv0gth85"></script>

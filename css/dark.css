@@ -15,7 +15,7 @@ html.dark .searchContainer { background-color: #252525; }
 html.dark .sTable-wrapper { background-color: #2d2d2d; border-color: #444; }
 html.dark td.headerCell { color: #e0e0e0; }
 html.dark .input, html.dark select, html.dark textarea { background-color: #2d2d2d; color: #e0e0e0; border-color: #555; }
-html.dark .input:focus, html.dark select:focus, html.dark textarea:focus { border-color: #66afe9; box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102,175,233,.6); }
+html.dark .input:focus, html.dark select:focus, html.dark textarea:focus { border-color: #0064b9; box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 0 2px #0064b9; }
 html.dark .reqField { border-color: #e74c3c; }
 html.dark .reqField:focus { border-color: #c0392b; box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 6px #e74c3c; }
 html.dark input[disabled], html.dark textarea[disabled], html.dark select[disabled] { background-color: #3a3a3a; color: #888; }
@@ -28,7 +28,7 @@ html.dark .btn-primary, html.dark .auditButton { background-color: #296288; bord
 html.dark .btn-primary:active, html.dark .btn-primary:hover, html.dark .auditButton:active, html.dark .auditButton:hover { background-color: #1a4566; border-color: #153a52; }
 html.dark .btn-success, html.dark .servicePanel .core-list-add { background-color: #3d7a3d; border-color: #2e5a2e; }
 html.dark .btn-success:active, html.dark .btn-success:hover, html.dark .servicePanel .core-list-add:active, html.dark .servicePanel .core-list-add:hover { background-color: #2d5a2d; border-color: #204020; }
-html.dark .btn-warning, html.dark .servicePanel .core-list-delete { background-color: #8a6d2e; border-color: #6b5320; }
+html.dark .btn-warning, html.dark .servicePanel .core-list-delete { background-color: #aa7f23; border-color: #6b5320; }
 html.dark .btn-warning:active, html.dark .btn-warning:hover, html.dark .servicePanel .core-list-delete:active, html.dark .servicePanel .core-list-delete:hover { background-color: #6b5320; border-color: #504015; }
 html.dark .btn-danger { background-color: #a94442; border-color: #843534; }
 html.dark .btn-danger:active, html.dark .btn-danger:hover { background-color: #843534; border-color: #642524; }
@@ -118,7 +118,7 @@ html.dark .swal2-close { color: #888 !important; }
 html.dark .swal2-close:hover { color: #ff6b6b !important; }
 html.dark .swal2-input, html.dark .swal2-file, html.dark .swal2-textarea, html.dark .swal2-select { background-color: #252525 !important; border-color: #555 !important; color: #e0e0e0 !important; }
 html.dark .swal2-input::placeholder, html.dark .swal2-file::placeholder, html.dark .swal2-textarea::placeholder { color: #888 !important; }
-html.dark .swal2-input:focus, html.dark .swal2-file:focus, html.dark .swal2-textarea:focus { border-color: #66afe9 !important; box-shadow: 0 0 3px #66afe9 !important; }
+html.dark .swal2-input:focus, html.dark .swal2-file:focus, html.dark .swal2-textarea:focus { border-color: #0064b9 !important; box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 0 2px #0064b9 !important; }
 html.dark .swal2-range output { color: #e0e0e0 !important; }
 html.dark .swal2-validationerror { background-color: #3a1c1c !important; color: #e0a0a0 !important; }
 html.dark .swal2-confirm, html.dark .swal2-styled.swal2-confirm { background-color: #296288 !important; border-color: #204d74 !important; color: #fff !important; }
@@ -139,9 +139,9 @@ html.dark .template-download .btn.delete { color: #8bc0ff; }
 html.dark .template-download .name a, html.dark .template-download .size span { color: #e0e0e0; }
 html.dark .progress-bar { background-color: #296288; }
 html.dark .progress { background-color: #2d2d2d; border-color: #444; }
-html.dark ::-webkit-scrollbar { width: 10px; }
+html.dark ::-webkit-scrollbar { width: 7px; height: 7px; }
 html.dark ::-webkit-scrollbar-track { background-color: #1a1a1a; }
-html.dark ::-webkit-scrollbar-thumb { background-color: #3a3a3a; border-radius: 5px; }
+html.dark ::-webkit-scrollbar-thumb { background-color: #3a3a3a; border-radius: 4px; }
 html.dark ::-webkit-scrollbar-thumb:hover { background-color: #4a4a4a; }
 html.dark a { color: #8bc0ff; }
 html.dark a:hover { color: #66afe9; }
@@ -159,7 +159,7 @@ html.dark input::placeholder, html.dark textarea::placeholder { color: #888; }
 html.dark input[type=range] { background-color: #2d2d2d; }
 html.dark input[type=range]::-webkit-slider-thumb { background-color: #296288; }
 html.dark input[type=range]::-moz-range-thumb { background-color: #296288; }
-html.dark *:focus { outline-color: #66afe9; }
+html.dark *:focus { outline-color: #0064b9; }
 html.dark .ui-timepicker-div { background-color: #2d2d2d; border-color: #555; color: #e0e0e0; }
 html.dark .ui-timepicker-div .ui-widget-header { background-color: #252525; color: #e0e0e0; }
 html.dark .ui-timepicker-div dl dt, html.dark .ui-timepicker-div dl dd { color: #e0e0e0; }
@@ -363,7 +363,7 @@ html.dark table.coreui-table > thead > tr > th { border-bottom-color: #555; }
 /* Фильтры над таблицей .input-group .form-control.input-sm */
 html.dark .form-control { background-color: #2d2d2d; border-color: #555; color: #e0e0e0; }
 html.dark .input-group .form-control.input-sm, html.dark .input-group > .form-control, html.dark .input-group > .input-sm { background-color: #2d2d2d; border-color: #555; color: #e0e0e0; }
-html.dark .form-control:focus, html.dark .input-group .form-control.input-sm:focus { background-color: #2d2d2d; border-color: #66afe9; color: #fff; box-shadow: 0 0 0 .2rem rgba(102,175,233,.25); outline: 0; }
+html.dark .form-control:focus, html.dark .input-group .form-control.input-sm:focus { background-color: #2d2d2d; border-color: #0064b9; color: #fff; box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 0 2px #0064b9; outline: 0; }
 html.dark .form-control::placeholder, html.dark .input-group .form-control.input-sm::placeholder { color: #888; opacity: 1; }
 html.dark .form-control:disabled, html.dark .form-control[readonly] { background-color: #3a3a3a; border-color: #444; color: #888; }
 html.dark .input-group > .input-group-addon, html.dark .input-group > .add-on { background-color: #3a3a3a; border-color: #555; color: #e0e0e0; }
@@ -401,11 +401,11 @@ html.dark .checked-row input[type="checkbox"], html.dark table.coreui-table > tb
 
 /* Переход к странице table.coreui-table input.gotopage */
 html.dark table.coreui-table input.gotopage { background-color: #2d2d2d; border-color: #555; color: #e0e0e0; }
-html.dark table.coreui-table input.gotopage:focus { border-color: #66afe9; outline: 0; }
+html.dark table.coreui-table input.gotopage:focus { border-color: #0064b9; box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 0 2px #0064b9; outline: 0; }
 
 /* Записей на странице table.coreui-table select.records-per-page */
 html.dark table.coreui-table select.records-per-page { background-color: #2d2d2d; border-color: #555; color: #e0e0e0; }
-html.dark table.coreui-table select.records-per-page:focus { border-color: #66afe9; outline: 0; }
+html.dark table.coreui-table select.records-per-page:focus { border-color: #0064b9; box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 0 2px #0064b9; outline: 0; }
 
 /* Разделитель hr */
 html.dark hr { border: 0; border-top: 1px solid #444; color: #444; background-color: transparent; }
@@ -522,7 +522,7 @@ html.dark .core-panel > .core-panel-body > .core-panel-tabs li.disabled > a { co
 /* Переключатели .coreui-table-switch */
 html.dark .coreui-table-switch .coreui-table-switch-slider { background-color: #555; }
 html.dark .coreui-table-switch .coreui-table-switch-slider:before { background-color: #bbb; }
-html.dark .coreui-table-switch input:focus ~ .coreui-table-switch-slider { box-shadow: 0 0 2px #66afe9; }
+html.dark .coreui-table-switch input:focus ~ .coreui-table-switch-slider { box-shadow: 0 0 0 2px #0064b9; }
 html.dark .coreui-table-switch.color-default input.coreui-table-switch-active:checked ~ .coreui-table-switch-slider { background-color: #666; }
 html.dark .coreui-table-switch input.coreui-table-switch-active:checked ~ .coreui-table-switch-slider:before { background-color: #fff; }
 
@@ -707,3 +707,67 @@ html.dark .select2-selection__choice__remove:hover,
 html.dark .select2-container--bootstrap .select2-selection--multiple .select2-selection__choice__remove:hover,
 html.dark .select2-container--default .select2-selection--multiple .select2-selection__choice__remove:hover { color: #fff; }
 html.dark .select2-container--bootstrap.select2-container--disabled .select2-selection--multiple .select2-selection__choice { background-color: #252525; border-color: #444; color: #888; }
+
+/* ===== Метки .label ===== */
+html.dark .label,
+html.dark .label-default,
+html.dark .label-secondary { color: #e0e0e0; background-color: #3a3a3a; }
+html.dark .label[href]:hover,
+html.dark .label-default[href]:hover,
+html.dark .label-secondary[href]:hover,
+html.dark a.label:hover { color: #fff; background-color: #4a4a4a; text-decoration: none; }
+html.dark .label-light { color: #212529; background-color: #e9ecef; }
+html.dark .label-dark { color: #fff; background-color: #1a1a1a; }
+html.dark .label-primary { color: #fff; background-color: #296288; }
+html.dark .label-success { color: #fff; background-color: #3d7a3d; }
+html.dark .label-info { color: #fff; background-color: #398bb3; }
+html.dark .label-warning { color: #fff; background-color: #8a6d2e; }
+html.dark .label-danger { color: #fff; background-color: #a94442; }
+html.dark .label-primary[href]:hover { background-color: #1a4566; }
+html.dark .label-success[href]:hover { background-color: #2d5a2d; }
+html.dark .label-info[href]:hover { background-color: #265a7a; }
+html.dark .label-warning[href]:hover { background-color: #6b5320; }
+html.dark .label-danger[href]:hover { background-color: #843534; }
+
+/* ===== Встроенный календарь .ui-datepicker-inline ===== */
+html.dark .ui-datepicker-inline,
+html.dark .ui-datepicker.ui-datepicker-inline { background-color: #2d2d2d; border-color: #555; color: #e0e0e0; }
+html.dark .ui-datepicker-inline .ui-datepicker-header { background-color: #252525; border-color: #444; }
+html.dark .ui-datepicker th,
+html.dark .ui-datepicker-inline th { color: #b0b0b0; }
+html.dark .ui-datepicker .ui-datepicker-week-col { color: #888; }
+html.dark .ui-datepicker .ui-datepicker-today a,
+html.dark .ui-datepicker td.ui-datepicker-today .ui-state-default { color: #e0e0e0; border-color: #555; }
+html.dark .ui-datepicker .ui-datepicker-today a:hover { background-color: #3a3a3a; color: #fff; }
+html.dark .ui-datepicker-inline .ui-state-default { background-color: #2d2d2d; color: #e0e0e0; border-color: #444; }
+html.dark .ui-datepicker-inline .ui-state-default:hover { background-color: #3a3a3a; color: #fff; }
+html.dark .ui-datepicker-inline .ui-state-active,
+html.dark .ui-datepicker-inline .ui-state-highlight { background-color: #296288; color: #fff; }
+html.dark .ui-datepicker-inline .ui-state-disabled { background-color: #1a1a1a; color: #555; }
+html.dark a.ui-state-default.ui-state-highlight:before { border-bottom-color: #296288; border-top-color: rgba(0, 0, 0, .4); }
+/* Светлая box-shadow от .ui-widget-content — убираем у календаря */
+html.dark .ui-datepicker-inline.ui-widget-content,
+html.dark .ui-datepicker.ui-datepicker-inline.ui-widget-content { box-shadow: none; border-color: #555; }
+html.dark .ui-datepicker.ui-widget-content:not(.ui-datepicker-inline) { box-shadow: 0 2px 12px rgba(0, 0, 0, .6); border-color: #555; }
+/* Иконки календаря (спрайт тёмного цвета) — инверсия под тёмный фон */
+html.dark .ui-datepicker .ui-icon,
+html.dark .ui-datepicker .ui-datepicker-prev span,
+html.dark .ui-datepicker .ui-datepicker-next span,
+html.dark .ui-datepicker-inline .ui-icon { filter: invert(1); }
+html.dark .ui-datepicker .ui-state-active .ui-icon { filter: invert(1) brightness(2); }
+
+/* ===== Таблица с ограничением высоты (.coreui-table-limit-height) ===== */
+html.dark .coreui-table-wrapper.coreui-table-limit-height .coreui-table-responsive > table > thead > tr { box-shadow: 0 -1px 0 #444 inset; }
+html.dark .coreui-table-wrapper.coreui-table-limit-height .coreui-table-responsive > table > thead > tr.table-service-panel { box-shadow: 0 -1px 0 #444 inset; }
+html.dark .coreui-table-wrapper.coreui-table-limit-height .coreui-table-responsive > table > thead > tr.table-header { box-shadow: 0 -2px 0 #444 inset; }
+html.dark .coreui-table-wrapper.coreui-table-limit-height .coreui-table-responsive > table > tfoot > tr { box-shadow: 0 1px 0 #444 inset; }
+
+/* Окантовка фокуса для ссылок и кнопок */
+html.dark a:focus, html.dark a:focus-visible,
+html.dark button:focus, html.dark button:focus-visible,
+html.dark .btn:focus, html.dark .btn:focus-visible,
+html.dark .button:focus, html.dark .buttonSmall:focus, html.dark .auditButton:focus,
+html.dark input[type=button]:focus, html.dark input[type=submit]:focus {
+    outline: 2px solid #0064b9;
+    outline-offset: 1px;
+}

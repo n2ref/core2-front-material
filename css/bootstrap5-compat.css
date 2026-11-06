@@ -980,11 +980,11 @@ textarea:disabled {
   background-color: var(--bs-success);
 }
 .label-info {
-  color: #212529;
+  color: #fff;
   background-color: var(--bs-info);
 }
 .label-warning {
-  color: #212529;
+  color: #fff;
   background-color: var(--bs-warning);
 }
 .label-danger {
