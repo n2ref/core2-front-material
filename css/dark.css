@@ -771,3 +771,73 @@ html.dark input[type=button]:focus, html.dark input[type=submit]:focus {
     outline: 2px solid #0064b9;
     outline-offset: 1px;
 }
+
+/* ===== Панель .coreui-panel (scoped Bootstrap 5) ===== */
+html.dark .coreui-panel {
+    color-scheme: dark;
+    color: #e0e0e0;
+    --bs-body-color: #e0e0e0;
+    --bs-body-bg: #2d2d2d;
+    --bs-emphasis-color: #fff;
+    --bs-secondary-color: #b0b0b0;
+    --bs-secondary-bg: #3a3a3a;
+    --bs-tertiary-color: #888;
+    --bs-tertiary-bg: #252525;
+    --bs-border-color: #555;
+    --bs-border-color-secondary: #444;
+    --bs-link-color: #b0b0b0;
+    --bs-link-hover-color: #fff;
+}
+html.dark .coreui-panel .nav-tabs {
+    --bs-nav-tabs-border-color: #444;
+    --bs-nav-tabs-link-hover-border-color: #3a3a3a #3a3a3a #444;
+    --bs-nav-tabs-link-active-color: #e0e0e0;
+    --bs-nav-tabs-link-active-bg: #2d2d2d;
+    --bs-nav-tabs-link-active-border-color: #444 #444 #2d2d2d;
+    border-bottom-color: #444;
+}
+html.dark .coreui-panel .nav-tabs .nav-link { color: #b0b0b0; }
+html.dark .coreui-panel .nav-tabs .nav-link:hover,
+html.dark .coreui-panel .nav-tabs .nav-link:focus { color: #fff; }
+html.dark .coreui-panel .nav-tabs .nav-link.active,
+html.dark .coreui-panel .nav-tabs .nav-item.show .nav-link { color: #e0e0e0; background-color: #2d2d2d; border-color: #444 #444 #2d2d2d; }
+html.dark .coreui-panel .nav-tabs .nav-link.disabled,
+html.dark .coreui-panel .nav-tabs .nav-link:disabled { color: #666; }
+html.dark .coreui-panel .nav-pills {
+    --bs-nav-pills-link-active-color: #fff;
+    --bs-nav-pills-link-active-bg: #296288;
+}
+html.dark .coreui-panel .nav-pills .nav-link { color: #b0b0b0; }
+html.dark .coreui-panel .nav-pills .nav-link:hover,
+html.dark .coreui-panel .nav-pills .nav-link:focus { color: #fff; background-color: #3a3a3a; }
+html.dark .coreui-panel .nav-pills .nav-link.active,
+html.dark .coreui-panel .nav-pills .show > .nav-link { color: #fff; background-color: #296288; }
+html.dark .coreui-panel .nav-underline { --bs-nav-underline-link-active-color: #8bc0ff; border-bottom-color: #444; }
+html.dark .coreui-panel .nav-underline .nav-link { color: #b0b0b0; }
+html.dark .coreui-panel .nav-underline .nav-link:hover,
+html.dark .coreui-panel .nav-underline .nav-link:focus { color: #fff; border-bottom-color: #0064b9; }
+html.dark .coreui-panel .nav-underline .nav-link.active,
+html.dark .coreui-panel .nav-underline .show > .nav-link { color: #8bc0ff; border-bottom-color: #0064b9; }
+html.dark .coreui-panel .nav-link:focus-visible { box-shadow: 0 0 0 .25rem #0064b9; }
+
+/* ===== Pills-табы .core-panel-pills-* ===== */
+html.dark .core-panel.core-panel-pills-top > .core-panel-body > .core-panel-tabs > li > a:hover,
+html.dark .core-panel.core-panel-pills-bottom > .core-panel-body > .core-panel-tabs > li > a:hover,
+html.dark .core-panel.core-panel-pills-left > .core-panel-body > .core-panel-tabs > li > a:hover,
+html.dark .core-panel.core-panel-pills-right > .core-panel-body > .core-panel-tabs > li > a:hover { background-color: #3a3a3a; color: #fff; }
+html.dark .core-panel.core-panel-pills-top > .core-panel-body > .core-panel-tabs > li.active > a,
+html.dark .core-panel.core-panel-pills-top > .core-panel-body > .core-panel-tabs > li.active > a:hover,
+html.dark .core-panel.core-panel-pills-top > .core-panel-body > .core-panel-tabs > li.active > a:focus,
+html.dark .core-panel.core-panel-pills-bottom > .core-panel-body > .core-panel-tabs > li.active > a,
+html.dark .core-panel.core-panel-pills-bottom > .core-panel-body > .core-panel-tabs > li.active > a:hover,
+html.dark .core-panel.core-panel-pills-bottom > .core-panel-body > .core-panel-tabs > li.active > a:focus,
+html.dark .core-panel.core-panel-pills-left > .core-panel-body > .core-panel-tabs > li.active > a,
+html.dark .core-panel.core-panel-pills-left > .core-panel-body > .core-panel-tabs > li.active > a:hover,
+html.dark .core-panel.core-panel-pills-left > .core-panel-body > .core-panel-tabs > li.active > a:focus,
+html.dark .core-panel.core-panel-pills-right > .core-panel-body > .core-panel-tabs > li.active > a,
+html.dark .core-panel.core-panel-pills-right > .core-panel-body > .core-panel-tabs > li.active > a:hover,
+html.dark .core-panel.core-panel-pills-right > .core-panel-body > .core-panel-tabs > li.active > a:focus { color: #fff; background-color: #296288; border-color: #296288; }
+html.dark .core-panel.core-panel-pills-top > .core-panel-body > .core-panel-tabs li.disabled > a,
+html.dark .core-panel.core-panel-pills-bottom > .core-panel-body > .core-panel-tabs li.disabled > a,
+html.dark .core-panel.core-panel-pills-left > .core-panel-body > .core-panel-tabs li.disabled > a,
+html.dark .core-panel.core-panel-pills-right > .core-panel-body > .core-panel-tabs li.disabled > a { color: #666 !important; background-color: #252525; }
